@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/27 11:47:11 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/27 14:54:26 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,45 +31,73 @@ int	ft_space(char c)
 
 // A Ideia é só chamar o exec pra forkar e executar o comando.
 // E retornar o signal 0 se der bom ou o de erro Caso de merda.
-int	ft_exec(char *cmd, char *flag, char *content)
+int	ft_exec(char *cmd, char **args, char **envp)
 {
-	cmd = flag;
-	content = flag;
-	flag = cmd;
-	return (1);
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		execve(cmd, args, envp);
+		return (0);
+	}
+	else if ((pid > 0) && (pid != -1))
+	{
+		wait(NULL);
+		return (0);
+	}
+	perror("fork crash");
+	return (127);
 }
 
 // A Ideia é separar tudo para dar mastigado pro exec e seguir a vida.
-void	ft_lexer(char *str)
+int	ft_lexer(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (ft_space(str[i]))
-		i++;
-	while (!ft_space(str[i]))
-		i++;
-	printf("Pos digits %s\n", (str + i));
+	if (str && *str)
+	{
+		while (ft_space(str[i]))
+			i++;
+		while (ft_space(str[i]))
+			i++;
+		return (1);
+	}
+	return (0);
 }
 
 // É o nucleo do codigo Aqui que começa o merderê todo.
 int	ft_prompt(t_shell *blk)
 {
+	char	**oi;
+
+	oi = malloc(8 * 2);
+	oi[0] = "ls";
+	oi[1] = "-la";
 	while (42)
 	{
 		blk->buf = readline("Conchinha/> ");
 		ft_history(blk->buf);
-		//ft_lexer(blk->buf);
+		if (ft_lexer(blk->buf) && blk->buf != NULL)
+		{
+			blk->rs = ft_exec("/usr/bin/ls", oi, blk->envp);
+		}
+		printf("rs %d\n", blk->rs);
 		free(blk->buf);
 	}
+	free(oi);
 	rl_clear_history();
 }
 
 // Samerda ta aqui só pq tem que ta mesmo.
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_shell	blk;
 
+	argc = argv[0][1];
+	argv[0][0] = argc;
+	blk.envp = envp;
 	ft_prompt(&blk);
 	return (0);
 }
