@@ -15,6 +15,8 @@
 
 # include "libft/libft.h"
 # include <stdio.h>
+# include "/usr/include/readline/readline.h"
+# include "/usr/include/readline/history.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
