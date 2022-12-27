@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/27 11:47:11 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/27 15:08:50 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ int	ft_space(char c)
 
 // A Ideia é só chamar o exec pra forkar e executar o comando.
 // E retornar o signal 0 se der bom ou o de erro Caso de merda.
-int	ft_exec(char *cmd, char *flag, char *content)
+int	ft_exec(char *cmd, char *flag)
 {
 	cmd = flag;
-	content = flag;
 	flag = cmd;
 	return (1);
 }
