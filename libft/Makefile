@@ -44,42 +44,34 @@ SRCS	=	ft_atoi.c \
 			ft_substr.c \
 			ft_tolower.c \
 			ft_toupper.c \
-			ft_striteri.c
-
-BONUSES	=	ft_lstnew_bonus.c \
-			ft_lstadd_front_bonus.c \
-			ft_lstlast_bonus.c \
-			ft_lstadd_back_bonus.c \
-			ft_lstclear_bonus.c \
-			ft_lstdelone_bonus.c \
-			ft_lstiter_bonus.c \
-			ft_lstsize_bonus.c \
-			ft_lstmap_bonus.c
+			ft_striteri.c \
+			get_next_line_bonus.c \
+			get_next_line_utils_bonus.c \
+			ft_printf.c \
+			ft_printf_pointer.c \
+			ft_printf_hexa.c \
+			ft_printf_print.c \
+			ft_printf_converter.c 
 
 CC	=	cc
 CFLAGS	= -Wall -Wextra -Werror -c
 OBJS = $(SRCS:.c=.o)
-BONUS_O = $(BONUSES:.c=.o)
 RM = rm -f
 LIBC = ar -rcs
 
 ${NAME}:
-	$(CC) $(CFLAGS) -I. $(SRCS)
-	$(LIBC) $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -I. $(SRCS)
+	@$(LIBC) $(NAME) $(OBJS)
 
 all:		$(NAME)
 
 clean:
-	$(RM) $(OBJS)
-	$(RM) $(BONUS_O)
+	@$(RM) $(OBJS)
+	@$(RM) 
 
 fclean:		clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re:			fclean all
-
-bonus:		$(NAME)
-	$(CC) $(CFLAGS) -I. $(BONUSES)
-	ar -qs $(NAME) $(BONUS_O)
 
 .PHONY:		all fclean clean re bonus

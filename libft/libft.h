@@ -15,6 +15,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
+# define BUFFER_SIZE 42
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -50,5 +52,31 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+//GNL
+char	*get_next_line(int fd);
+char	*ft_gnlsubstr(char *s, unsigned int start, size_t len);
+char	*ft_substr2(char *s, unsigned int start, size_t len);
+char	*ft_gnlstrjoin(char *s1, char *s2);
+int		lf_count(char *str);
+char	*create(char *sbuffer, int fd);
+char	*beautiful(char **sbuffer);
+
+//PRINTF
+int		ft_printf(const char *str, ...);
+int		ft_treatchar(char str, va_list list);
+int		ft_putstr(char *str);
+int		ft_putchar(int c);
+int		ft_putnbr(int nb);
+int		ft_putnbru(unsigned int nb);
+int		ft_puthex(unsigned int i, char *base);
+int		ft_putp(void *i);
+int		nbsize(long nb);
+int		nbsize16(unsigned int nb);
+int		nbsizeptr(unsigned long nb);
+char	*ft_hex16base(unsigned int i, char *base);
+char	*ft_hexptr(unsigned long nb, char *base);
+char	*ft_utoa(unsigned int i);
+char	*ft_itoa(int n);
 
 #endif

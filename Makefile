@@ -12,7 +12,7 @@
 
 SRCS = main.c  
 
-FLAGS = cc -Wall -Wextra -Werror -lreadline -g
+FLAGS = cc -Wall -Wextra -Werror -g
 
 RM = rm -f
 
@@ -20,19 +20,27 @@ NAME = minishell
 
 LIBD = "libft/"
 LIBA = "libft/libft.a"
-
-all: minishell
+LREADLINE = -lreadline
+all: $(NAME)
 
 $(NAME):
-	cd $(LIBD) && make
-	$(FLAGS) $(SRCS) $(LIBA) -o $(NAME)
+	@echo "\e[1;94m======================="
+	@echo "Waves in the ocean"
+	@echo "======================="
+	@ cd $(LIBD) && make
+	@$(FLAGS) $(SRCS) $(LIBA) -o $(NAME) $(LREADLINE)
+	@echo "======================="
+	@echo "\e[1;93mThe shell is ready\e[0m"
+	@echo "\e[1;94m======================="
 
 clean:
-	cd $(LIBD) && make clean
-	$(RM) $(NAME)
+	@echo 'clean rule'
+	@cd $(LIBD) && make clean
+	@$(RM) $(NAME)
 
 fclean:
-	cd $(LIBD) && make fclean
-	$(RM) $(NAME)
+	@echo 'fclean rule'
+	@ cd $(LIBD) && make fclean
+	@$(RM) $(NAME)
 
 re: fclean all
