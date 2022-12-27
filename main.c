@@ -31,6 +31,7 @@ int	ft_space(char c)
 
 // A Ideia é só chamar o exec pra forkar e executar o comando.
 // E retornar o signal 0 se der bom ou o de erro Caso de merda.
+
 int	ft_exec(char *cmd, char **args, char **envp)
 {
 	int	pid;
