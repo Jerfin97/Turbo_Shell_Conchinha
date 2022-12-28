@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/wait.h>
+# include <termios.h>
 
 typedef struct s_list
 {
@@ -31,5 +32,14 @@ typedef struct s_list
 	char	*buf;
 	char	**envp;
 }				t_shell;
+
+// Signal Handler
+
+void signal_handler(int signo);
+void    ft_suppress_output(void);
+
+
+
+
 
 #endif

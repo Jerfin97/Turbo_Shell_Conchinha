@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+#include <readline/readline.h>
+#include <signal.h>
 
 int	g_rs;
 
@@ -79,12 +81,17 @@ int	ft_prompt(t_shell *blk)
 	while (42)
 	{
 		blk->buf = readline("Conchinha/> ");
-		ft_history(blk->buf);
-		if (ft_lexer(blk->buf) && blk->buf != NULL)
+		if (!ft_strncmp(blk->buf, "exit", 4) || blk->buf == NULL)
 		{
-			blk->rs = ft_exec("/usr/bin/ls", oi, blk->envp);
+			write(1, "exit\n", 5);
+			exit(0);
 		}
-		printf("rs %d\n", blk->rs);
+		ft_history(blk->buf);
+	//	if (ft_lexer(blk->buf) && blk->buf != NULL)
+	//	{
+		//	blk->rs = ft_exec("/usr/bin/ls", oi, blk->envp);
+	//	}
+	//	printf("rs %d\n", blk->rs);
 		free(blk->buf);
 	}
 	free(oi);
@@ -96,9 +103,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	blk;
 
-	argc = argv[0][1];
-	argv[0][0] = argc;
+	(void)argc;
+	(void)argv;
 	blk.envp = envp;
+	ft_suppress_output();
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 	ft_prompt(&blk);
 	return (0);
 }

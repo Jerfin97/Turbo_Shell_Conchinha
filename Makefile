@@ -10,7 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c  
+SRCS = main.c \
+	   signal.c
 
 FLAGS = cc -Wall -Wextra -Werror -g
 
@@ -21,6 +22,7 @@ NAME = minishell
 LIBD = "libft/"
 LIBA = "libft/libft.a"
 LREADLINE = -lreadline
+OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME):
@@ -28,7 +30,8 @@ $(NAME):
 	@echo "Waves in the ocean"
 	@echo "======================="
 	@ cd $(LIBD) && make
-	@$(FLAGS) $(SRCS) $(LIBA) -o $(NAME) $(LREADLINE)
+	@$(FLAGS) -c $(SRCS) 
+	@$(FLAGS) $(OBJS) $(LIBA) -o $(NAME) $(LREADLINE)
 	@echo "======================="
 	@echo "\e[1;93mThe shell is ready\e[0m"
 	@echo "\e[1;94m======================="
@@ -36,11 +39,11 @@ $(NAME):
 clean:
 	@echo 'clean rule'
 	@cd $(LIBD) && make clean
-	@$(RM) $(NAME)
+	@$(RM) $(OBJS)
 
 fclean:
 	@echo 'fclean rule'
 	@ cd $(LIBD) && make fclean
-	@$(RM) $(NAME)
+	@$(RM) $(OBJS) $(NAME)
 
 re: fclean all
