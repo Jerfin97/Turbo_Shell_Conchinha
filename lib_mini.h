@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/28 17:23:03 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/28 17:37:11 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <termios.h>
 # include <signal.h>
 
-
 typedef struct s_list
 {
 	char	**cmd;
@@ -37,11 +36,6 @@ typedef struct s_list
 
 // Signal Handler
 
-void signal_handler(int signo);
-void    ft_suppress_output(void);
-
-
-
-
-
+void	signal_handler(int signo);
+void	ft_suppress_output(void);
 #endif
