@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/27 14:46:47 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/28 17:23:03 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <termios.h>
+# include <signal.h>
+
 
 typedef struct s_list
 {

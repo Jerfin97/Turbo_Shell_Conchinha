@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/28 17:32:11 by jeluiz4           #+#    #+#             */
+/*   Updated: 2022/12/28 17:32:15 by jeluiz4          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib_mini.h"
 
 // Forma de lidar com o sinal recebido pela main.
@@ -16,13 +28,12 @@ void	signal_handler(int signo)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	/*
 	else if (signo == SIGQUIT)
 	{
 		//sig.sa_handler = SIG_IGN;
 		//sigaction(SIGQUIT, &sig, NULL);
+		rl_redisplay();
 	}
-	*/
 }
 
 //Modifica as configurações do terminal para nao imprimir os comandos do teclado

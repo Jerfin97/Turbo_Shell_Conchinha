@@ -6,15 +6,11 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/27 14:54:26 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/28 17:23:30 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
-#include <readline/readline.h>
-#include <signal.h>
-
-int	g_rs;
 
 // Separado porque ele sempre vai manter o historico se for comando ou não.
 void	ft_history(char *str)
