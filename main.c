@@ -84,7 +84,7 @@ int	ft_prompt(t_shell *blk)
 		if (!ft_strncmp(blk->buf, "exit", 4) || blk->buf == NULL)
 		{
 			write(1, "exit\n", 5);
-			exit(99);
+			exit(0);
 		}
 		ft_history(blk->buf);
 	//	if (ft_lexer(blk->buf) && blk->buf != NULL)
