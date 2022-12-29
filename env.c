@@ -6,67 +6,89 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 15:47:05 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/29 16:21:23 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/29 17:54:00 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 
-t_lst_env	*ft_lstnew(char *line, int id)
+char	**ft_build_env(char	**envp)
 {
-	t_lst_env	*node;
-
-	node = malloc(sizeof(t_lst_env));
-	if (!node)
-		return (NULL);
-	node->line = line;
-	node->builtin_id = id;
-	node->nxt = NULL;
-	return (node);
-}
-
-t_lst_env	*ft_lstlast(t_lst_env *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst -> nxt != NULL)
-		lst = lst -> nxt;
-	return (lst);
-}
-
-void	ft_lstadd_back(t_lst_env **lst, t_lst_env *new)
-{
-	t_lst_env	*last_node;
-
-	if (!(*lst) && new)
-	{
-		*lst = new;
-		new -> nxt = NULL;
-	}
-	else if (lst && new)
-	{
-		last_node = ft_lstlast(*lst);
-		last_node -> nxt = new;
-		new -> nxt = NULL;
-	}	
-}
-
-void	build_lst_env(char **envp, t_lst_env **env)
-{
+	char	**ret;
 	int		i;
-	int		id;
 
 	i = 0;
 	while (envp[i])
+		i++;
+	ret = malloc(sizeof(char *) * (i + 2));
+	i = 0;
+	while (envp[i])
 	{
-		id = 0;
-		if (!ft_strncmp(envp[i], "PWD=", 4))
-			id = 1;
-		if (!ft_strncmp(envp[i], "OLDPWD=", 7))
-			id = 2;
-		if (!ft_strncmp(envp[i], "PATH=", 5))
-			id = 3;
-		ft_lstadd_back(env, ft_lstnew(envp[i], id));
+		ret[i] = ft_strdup(envp[i]);
 		i++;
 	}
+	ret[i] = NULL;
+	ret[i + 1] = NULL;
+	return (ret);
+}
+
+char	*ft_search(char **env, char *str)
+{
+	int		i;
+	char	*path;
+
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], str, ft_strlen(str)))
+		{
+			path = ft_strdup(env[i]);
+			break ;
+		}
+		i++;
+	}
+	if (!path)
+	{
+		perror("404 PATH NOT FOUND");
+		return (NULL);
+	}
+	return (path);
+}
+
+void	ft_new_pwd(char **env, char	*str, char *str2)
+{
+	char	*old;
+	int		i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], str, ft_strlen(str)))
+		{
+			old = ft_strjoin(str, str2);
+			free(env[i]);
+			env[i] = old;
+			return ;
+		}
+		i++;
+	}
+	//CHAMAR EXPORT AQUI
+	//env[i] = ft_strdup(str2);
+	//new_env = ft_build_env(env);
+	//free(env);
+	perror("404 PATH NOT FOUND");
+}
+
+int	ft_freeing(char **matriz)
+{
+	int	i;
+
+	i = 0;
+	while (matriz[i])
+	{
+		free(matriz[i]);
+		i++;
+	}
+	free(matriz);
+	return (0);
 }
