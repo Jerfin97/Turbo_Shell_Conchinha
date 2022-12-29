@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 08:50:56 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/29 10:47:14 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <signal.h>
 # include <fcntl.h>
 
+//STRUCT CORE DO MINISHELL
 typedef struct s_shell
 {
 	char	**cmd;
@@ -36,20 +37,43 @@ typedef struct s_shell
 	char	*tmpdoc;
 }				t_shell;
 
+//STRUCT DE INPUT
+typedef struct s_lst_input
+{
+	char	*cmd;
+	char	**args;
+	char	*echo_print;
+	char	*new_path;
+	char	*ex_name;
+	char	*ex_val;
+	char	*un_name;
+	int		exit_error;
+}				t_lst_input;
+
+//STRUCT DO ENVP
+typedef struct s_lst_env
+{
+	char				*line;
+	struct s_lst_env	*nxt;
+}				t_lst_env;
+
 //Init
-t_shell *ft_blkinit(void);
+void		ft_shellinit(t_shell *blk, t_lst_input *inp, t_lst_env *env);
+t_lst_env	*ft_envinit(void);
+t_shell		*ft_blkinit(void);
+t_lst_input	*ft_inputinit(void);
 
 //Heredoc
-void ft_heredoc(t_shell *blk, char *hereword);
+void		ft_heredoc(t_shell *blk, char *hereword);
 
 // Signal Handler
-void	signal_handler(int signo);
-void	ft_suppress_output(void);
-void	ft_exti(char *str);
+void		signal_handler(int signo);
+void		ft_suppress_output(void);
 
 //EXECUTE
-int		ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
+int			ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
 
 //BUILTINS
-void	ft_echo(int flag, char *content, t_shell *blk);
+void		ft_echo(int flag, char *content, t_shell *blk);
+void		ft_exit(char *str);
 #endif
