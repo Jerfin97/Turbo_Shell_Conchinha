@@ -12,19 +12,22 @@
 
 #include "lib_mini.h"
 
-//Pega o Path absoluto com a funcao getcwd
-//precisa de mais testes
+//Pega o Path absoluto utilizando como base a Variavel de ambiente PWD
 
 void	ft_pwd(t_shell *blk)
 {
 	char	*buffer;
+	int		i;
 
-	buffer = getcwd(NULL, 0);
+	i = 3;
+	buffer = ft_search(blk->envp, "PWD=");
 	if (!buffer)
 		blk->rs = 1;
 	else
 	{
-		printf("%s\n", buffer);
+		while(buffer[i++])
+			write(1, &buffer[i], 1);
+		write(1, "\n", 1);
 		blk->rs = 0;
 		free(buffer);
 	}
