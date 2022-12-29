@@ -41,7 +41,7 @@ int	ft_prompt(t_shell *blk)
 		ft_exit(blk->buf);
 		ft_history(blk->buf);
 		//ft_lexer(blk);
-		ft_exec("./a.out", oi, blk->envp, blk);
+		//ft_exec("./a.out", oi, blk->envp, blk);
 		if (ft_strcmp(blk->buf, "pwd") == 0)
 			ft_pwd(blk);
 		free(blk->buf);
@@ -60,9 +60,9 @@ int	main(int argc, char **argv, char **envp)
 	//ft_shellinit(&blk, &inp, &env);
 	blk = ft_blkinit();
 	blk->envp = ft_build_env(envp);
-	printf("OLD %s\n", ft_search(blk->envp, "OLDPWD="));
-	ft_new_pwd(blk->envp, "OLDPWD=", "EU TO AQUI\0");
-	printf("NEW %s\n", ft_search(blk->envp, "OLDPWD="));
+	//printf("OLD %s\n", ft_search(blk->envp, "OLDPWD="));
+	//ft_new_pwd(blk->envp, "OLDPWD=", "EU TO AQUI\0");
+	//printf("NEW %s\n", ft_search(blk->envp, "OLDPWD="));
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);

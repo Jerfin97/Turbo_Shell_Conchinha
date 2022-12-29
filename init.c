@@ -34,16 +34,6 @@ t_shell	*ft_blkinit(void)
 	return (blk);
 }
 
-t_lst_env	*ft_envinit(void)
-{
-	t_lst_env	*env;
-
-	env = malloc(sizeof(t_lst_env));
-	env->line = NULL;
-	env->nxt = NULL;
-	return (env);
-}
-
 t_lst_input	*ft_inputinit(void)
 {
 	t_lst_input	*inp;

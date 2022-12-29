@@ -50,14 +50,6 @@ typedef struct s_lst_input
 	int		exit_error;
 }				t_lst_input;
 
-//STRUCT DO ENVP
-typedef struct s_lst_env
-{
-	char				*line;
-	int					builtin_id;
-	struct s_lst_env	*nxt;
-}				t_lst_env;
-
 //Init
 void		shellinit(t_shell *blk, t_lst_input *inp, t_lst_env *env);
 t_lst_env	*ft_envinit(void);
@@ -80,13 +72,8 @@ void		ft_exit(char *str);
 void		ft_cd(t_shell *blk, t_lst_env *env, t_lst_input *inp);
 void		ft_pwd(t_shell *blk);
 
-//ENV CREATION
-t_lst_env	*ft_lstnew(char *line, int id);
-t_lst_env	*ft_lstlast(t_lst_env *lst);
-void		ft_lstadd_back(t_lst_env **lst, t_lst_env *new);
+//ENV CREATION / ENV MANIPULATION
 char		**ft_build_env(char **envp);
-
-//SEARCH
 char		*ft_search(char **env, char *str);
 void		ft_new_pwd(char **env, char *str, char *str2);
 int			ft_freeing(char	**matriz);
