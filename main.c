@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 15:21:37 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/29 16:23:37 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,20 @@ int	ft_prompt(t_shell *blk)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*blk;
+	t_lst_env	*env;
 	//t_lst_env	env;
 	//t_lst_input	inp;
 
 	(void)argc;
 	(void)argv;
+	env = NULL;
 	//ft_shellinit(&blk, &inp, &env);
 	blk = ft_blkinit();
 	blk->envp = envp;
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
+	build_lst_env(envp, &env);
 	ft_prompt(blk);
 	return (0);
 }
