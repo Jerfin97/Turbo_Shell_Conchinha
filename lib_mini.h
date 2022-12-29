@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 07:18:36 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/29 08:39:50 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@ typedef struct s_shell
 t_shell *ft_blkinit(void);
 
 // Signal Handler
-
 void	signal_handler(int signo);
 void	ft_suppress_output(void);
+void	ft_exti(char *str);
+
+//EXECUTE
+int		ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
+
+//BUILTINS
+void	ft_echo(int flag, char *content, t_shell *blk);
 #endif
