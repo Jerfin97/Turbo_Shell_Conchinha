@@ -6,12 +6,13 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2022/12/27 15:34:32 by jeluiz4          ###   ########.fr        #
+#    Updated: 2022/12/29 07:20:01 by dvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = main.c \
-	   signal.c
+	   signal.c \
+	   init.c
 
 FLAGS = cc -Wall -Wextra -Werror -g
 
