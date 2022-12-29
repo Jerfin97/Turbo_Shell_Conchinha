@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 07:17:44 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/29 08:13:40 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/29 09:14:16 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ t_shell *ft_blkinit(void)
 	blk->cmd = NULL;
 	blk->buf = NULL;
 	blk->envp = NULL;
-	blk->tmpdoc = "conchinha";
+	blk->tmpdoc = "TEMPFILEHEREDOC";
 	return(blk);
 }
