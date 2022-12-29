@@ -1,40 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 13:24:53 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 08:37:03 by jeluiz4          ###   ########.fr       */
+/*   Created: 2022/12/29 08:31:12 by jeluiz4           #+#    #+#             */
+/*   Updated: 2022/12/29 08:31:50 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lib_mini.h"
 
-int	ft_atoi(const char *str)
+// A Ideia é só chamar o exec pra forkar e executar o comando.
+// E retornar o signal 0 se der bom ou o de erro Caso de merda.
+
+int	ft_exec(char *cmd, char **args, char **envp, t_shell *blk)
 {
-	int	out;
-	int	sign;
-	int	i;
+	int	pid;
 
-	sign = 1;
-	out = 0;
-	i = 0;
-	while (ft_isspace(str[i]))
+	pid = fork();
+	if (pid == 0)
 	{
-		i++;
+		execve(cmd, args, envp);
 	}
-	if (str[i] == '-' || str[i] == '+')
+	else if ((pid > 0) && (pid != -1))
 	{
-		if (str[i] == '-')
-			sign = sign * -1;
-		i++;
+		wait(&blk->rs);
+		return (blk->rs);
 	}
-	while (ft_isdigit(str[i]))
-	{
-		out = out * 10 + str[i] - '0';
-		i++;
-	}
-	return (out * sign);
+	perror("fork crash");
+	return (127);
 }
