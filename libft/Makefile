@@ -52,7 +52,7 @@ SRCS	=	ft_atoi.c \
 			ft_printf_hexa.c \
 			ft_printf_print.c \
 			ft_printf_converter.c \
-			ft_strcmp.c
+			ft_strcmp.c 
 
 CC	=	cc
 CFLAGS	= -Wall -Wextra -Werror -c

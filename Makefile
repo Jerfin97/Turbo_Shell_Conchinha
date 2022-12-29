@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2022/12/29 09:46:30 by dvargas          ###   ########.fr        #
+#    Updated: 2022/12/29 16:07:22 by dvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS = main.c \
 	   exit.c \
 	   pwd.c \
 	   echo.c \
-	   exec.c 
+	   exec.c \
+	   env.c
 
 FLAGS = cc -Wall -Wextra -Werror -g
 
