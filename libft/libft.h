@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:38:28 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 08:10:44 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/29 08:36:34 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,6 @@ char	*ft_hexptr(unsigned long nb, char *base);
 char	*ft_utoa(unsigned int i);
 char	*ft_itoa(int n);
 
+//ADDONS
+int		ft_isspace(char c);
 #endif

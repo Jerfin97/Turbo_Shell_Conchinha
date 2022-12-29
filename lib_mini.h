@@ -43,7 +43,13 @@ t_shell *ft_blkinit(void);
 void ft_heredoc(t_shell *blk, char *hereword);
 
 // Signal Handler
-
 void	signal_handler(int signo);
 void	ft_suppress_output(void);
+void	ft_exti(char *str);
+
+//EXECUTE
+int		ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
+
+//BUILTINS
+void	ft_echo(int flag, char *content, t_shell *blk);
 #endif
