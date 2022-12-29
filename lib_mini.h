@@ -51,8 +51,7 @@ typedef struct s_lst_input
 }				t_lst_input;
 
 //Init
-void		shellinit(t_shell *blk, t_lst_input *inp, t_lst_env *env);
-t_lst_env	*ft_envinit(void);
+void		shellinit(t_shell *blk, t_lst_input *inp);
 t_shell		*ft_blkinit(void);
 t_lst_input	*ft_inputinit(void);
 
@@ -69,12 +68,16 @@ int			ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
 //BUILTINS
 void		ft_echo(int flag, char *content, t_shell *blk);
 void		ft_exit(char *str);
-void		ft_cd(t_shell *blk, t_lst_env *env, t_lst_input *inp);
+void		ft_cd(t_shell *blk);
 void		ft_pwd(t_shell *blk);
 
 //ENV CREATION / ENV MANIPULATION
 char		**ft_build_env(char **envp);
 char		*ft_search(char **env, char *str);
-void		ft_new_pwd(char **env, char *str, char *str2);
+int			ft_new_pwd(t_shell *blk, char *str, char *str2);
 int			ft_freeing(char	**matriz);
+void		ft_export(t_shell *blk, char *str, char *str2);
+void		ft_printenv(t_shell *blk);
+void ft_unset(t_shell *blk, char *str);
+char	**ft_letsunset(t_shell *blk, char *str);
 #endif

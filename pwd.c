@@ -22,7 +22,11 @@ void	ft_pwd(t_shell *blk)
 	i = 3;
 	buffer = ft_search(blk->envp, "PWD=");
 	if (!buffer)
-		blk->rs = 1;
+	{
+		buffer = getcwd(NULL, 0);
+		printf("%s\n", buffer);
+		free(buffer);
+	}
 	else
 	{
 		while(buffer[i++])
