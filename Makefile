@@ -12,7 +12,8 @@
 
 SRCS = main.c \
 	   signal.c \
-	   init.c
+	   init.c \
+	   heredoc.c
 
 FLAGS = cc -Wall -Wextra -Werror -g
 
