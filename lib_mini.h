@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 08:50:56 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/29 09:42:29 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ void ft_heredoc(t_shell *blk, char *hereword);
 // Signal Handler
 void	signal_handler(int signo);
 void	ft_suppress_output(void);
-void	ft_exti(char *str);
 
+void ft_pwd(t_shell *blk);
 //EXECUTE
 int		ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
 
 //BUILTINS
 void	ft_echo(int flag, char *content, t_shell *blk);
+void	ft_exit(char *str);
 #endif
