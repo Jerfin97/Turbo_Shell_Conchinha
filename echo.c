@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 13:24:53 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 08:37:03 by jeluiz4          ###   ########.fr       */
+/*   Created: 2022/12/28 22:24:52 by jeluiz4           #+#    #+#             */
+/*   Updated: 2022/12/29 08:05:01 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lib_mini.h"
 
-int	ft_atoi(const char *str)
+void	ft_echo(int flag, char *content, t_shell *blk)
 {
-	int	out;
-	int	sign;
-	int	i;
-
-	sign = 1;
-	out = 0;
-	i = 0;
-	while (ft_isspace(str[i]))
-	{
-		i++;
-	}
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = sign * -1;
-		i++;
-	}
-	while (ft_isdigit(str[i]))
-	{
-		out = out * 10 + str[i] - '0';
-		i++;
-	}
-	return (out * sign);
+	if (flag)
+		ft_putstr_fd(content, 1);
+	else
+		ft_putendl_fd(content, 1);
+	blk->rs = 0 ;
 }
