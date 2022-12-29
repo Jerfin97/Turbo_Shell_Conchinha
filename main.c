@@ -53,19 +53,22 @@ int	ft_prompt(t_shell *blk)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*blk;
-	//t_lst_input	inp;
 
 	(void)argc;
 	(void)argv;
 	//ft_shellinit(&blk, &inp, &env);
 	blk = ft_blkinit();
 	blk->envp = ft_build_env(envp);
-	//printf("OLD %s\n", ft_search(blk->envp, "OLDPWD="));
-	//ft_new_pwd(blk->envp, "OLDPWD=", "EU TO AQUI\0");
-	//printf("NEW %s\n", ft_search(blk->envp, "OLDPWD="));
+	ft_export(blk, "MAIL2=", "TESTA ESSA PARADA");
+	ft_printenv(blk);
+	sleep(3);
+	printf("CABO O SLEEP\n\n\n\n\n");
+	ft_unset(blk, "MAIL=");
+	ft_printenv(blk);
+	printf("CABO\n");
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	ft_prompt(blk);
+	//ft_prompt(blk);
 	return (0);
 }
