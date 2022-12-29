@@ -41,6 +41,8 @@ int	ft_prompt(t_shell *blk)
 		ft_exit(blk->buf);
 		ft_history(blk->buf);
 		//ft_lexer(blk);
+		if(ft_strcmp(blk->buf, "pwd") == 0)
+			ft_pwd(blk);
 		free(blk->buf);
 	}
 	rl_clear_history();

@@ -70,6 +70,7 @@ void		ft_heredoc(t_shell *blk, char *hereword);
 void		signal_handler(int signo);
 void		ft_suppress_output(void);
 
+void ft_pwd(t_shell *blk);
 //EXECUTE
 int			ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
 
