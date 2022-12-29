@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 22:24:52 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/28 22:33:04 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/29 08:05:01 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ void	ft_echo(int flag, char *content, t_shell *blk)
 		ft_putstr_fd(content, 1);
 	else
 		ft_putendl_fd(content, 1);
-	blk->rs = 0;
+	blk->rs = 0 ;
 }
