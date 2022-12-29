@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 11:55:16 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/29 11:59:41 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void		ft_heredoc(t_shell *blk, char *hereword);
 void		signal_handler(int signo);
 void		ft_suppress_output(void);
 
-void ft_pwd(t_shell *blk);
 //EXECUTE
 int			ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
 
@@ -78,4 +77,5 @@ int			ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
 void		ft_echo(int flag, char *content, t_shell *blk);
 void		ft_exit(char *str);
 void		ft_cd(t_shell *blk, t_lst_env *env, t_lst_input *inp);
+void		ft_pwd(t_shell *blk);
 #endif

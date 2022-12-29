@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 07:17:44 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/29 10:57:33 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/29 12:01:39 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ void	ft_shellinit(t_shell *blk, t_lst_input *inp, t_lst_env *env)
 	inp = ft_inputinit();
 }*/
 
-t_shell *ft_blkinit(void)
+t_shell	*ft_blkinit(void)
 {
-	t_shell *blk;
+	t_shell	*blk;
 
 	blk = malloc(sizeof(t_shell));
 	blk->cmd = NULL;
 	blk->buf = NULL;
 	blk->envp = NULL;
 	blk->tmpdoc = "TEMPFILEHEREDOC";
-	return(blk);
+	return (blk);
 }
 
 t_lst_env	*ft_envinit(void)

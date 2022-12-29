@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 10:56:38 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/29 12:00:57 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_lexer(t_shell *blk)
 	//char	**cmd;
 
 	//i = 0;
-	printf("%s\n",blk->buf);
+	printf("%s\n", blk->buf);
 	//blk->rs = ft_exec("/usr/bin/ls", oi, blk->envp);
 	//cmd = ft_split(blk->buf, ' ');
 	return (0);
@@ -41,7 +41,7 @@ int	ft_prompt(t_shell *blk)
 		ft_exit(blk->buf);
 		ft_history(blk->buf);
 		//ft_lexer(blk);
-		if(ft_strcmp(blk->buf, "pwd") == 0)
+		if (ft_strcmp(blk->buf, "pwd") == 0)
 			ft_pwd(blk);
 		free(blk->buf);
 	}
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	blk = ft_blkinit();
 	blk->envp = envp;
 	ft_suppress_output();
-	signal(SIGINT,  signal_handler);
+	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	ft_prompt(blk);
 	return (0);
