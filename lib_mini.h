@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 16:20:12 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/29 17:55:06 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_lst_env
 }				t_lst_env;
 
 //Init
-void		ft_shellinit(t_shell *blk, t_lst_input *inp, t_lst_env *env);
+void		shellinit(t_shell *blk, t_lst_input *inp, t_lst_env *env);
 t_lst_env	*ft_envinit(void);
 t_shell		*ft_blkinit(void);
 t_lst_input	*ft_inputinit(void);
@@ -81,9 +81,13 @@ void		ft_cd(t_shell *blk, t_lst_env *env, t_lst_input *inp);
 void		ft_pwd(t_shell *blk);
 
 //ENV CREATION
-//
 t_lst_env	*ft_lstnew(char *line, int id);
 t_lst_env	*ft_lstlast(t_lst_env *lst);
 void		ft_lstadd_back(t_lst_env **lst, t_lst_env *new);
-void		build_lst_env(char **envp, t_lst_env **env);
+char		**ft_build_env(char **envp);
+
+//SEARCH
+char		*ft_search(char **env, char *str);
+void		ft_new_pwd(char **env, char *str, char *str2);
+int			ft_freeing(char	**matriz);
 #endif

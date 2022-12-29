@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 16:23:37 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/29 17:54:33 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ int	ft_prompt(t_shell *blk)
 {
 	while (42)
 	{
-		char **oi;
-		
-		oi = malloc(99);
-		oi[0] = "oi";
-		oi[1] = "ola";
 		blk->buf = readline("Conchinha/> ");
 		ft_exit(blk->buf);
 		ft_history(blk->buf);
@@ -58,20 +53,19 @@ int	ft_prompt(t_shell *blk)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*blk;
-	t_lst_env	*env;
-	//t_lst_env	env;
 	//t_lst_input	inp;
 
 	(void)argc;
 	(void)argv;
-	env = NULL;
 	//ft_shellinit(&blk, &inp, &env);
 	blk = ft_blkinit();
-	blk->envp = envp;
+	blk->envp = ft_build_env(envp);
+	printf("OLD %s\n", ft_search(blk->envp, "OLDPWD="));
+	ft_new_pwd(blk->envp, "OLDPWD=", "EU TO AQUI\0");
+	printf("NEW %s\n", ft_search(blk->envp, "OLDPWD="));
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	build_lst_env(envp, &env);
 	ft_prompt(blk);
 	return (0);
 }
