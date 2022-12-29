@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/28 18:48:55 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/29 07:19:41 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,19 @@ int	ft_prompt(t_shell *blk)
 	rl_clear_history();
 }
 
+
 // Samerda ta aqui só pq tem que ta mesmo.
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell	blk;
+	t_shell	*blk;
 
 	(void)argc;
 	(void)argv;
-	blk.envp = envp;
+	blk = ft_blkinit();
+	blk->envp = envp;
 	ft_suppress_output();
 	signal(SIGINT,  signal_handler);
 	signal(SIGQUIT, signal_handler);
-	ft_prompt(&blk);
+	ft_prompt(blk);
 	return (0);
 }
