@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 08:33:22 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/29 09:58:04 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_prompt(t_shell *blk)
 		ft_exit(blk->buf);
 		ft_history(blk->buf);
 		//ft_lexer(blk);
+		if(ft_strcmp(blk->buf, "pwd") == 0)
+			ft_pwd(blk);
 		free(blk->buf);
 	}
 	rl_clear_history();
