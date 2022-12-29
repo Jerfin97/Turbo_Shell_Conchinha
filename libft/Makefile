@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 13:30:55 by jeluiz4           #+#    #+#              #
-#    Updated: 2022/05/20 11:02:48 by jeluiz4          ###   ########.fr        #
+#    Updated: 2022/12/29 08:10:23 by dvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRCS	=	ft_atoi.c \
 			ft_printf_pointer.c \
 			ft_printf_hexa.c \
 			ft_printf_print.c \
-			ft_printf_converter.c 
+			ft_printf_converter.c \
+			ft_strcmp.c
 
 CC	=	cc
 CFLAGS	= -Wall -Wextra -Werror -c
