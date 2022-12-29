@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 07:18:36 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/29 08:50:56 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <signal.h>
+# include <fcntl.h>
 
 typedef struct s_shell
 {
@@ -32,10 +33,14 @@ typedef struct s_shell
 	int		rs;
 	char	*buf;
 	char	**envp;
+	char	*tmpdoc;
 }				t_shell;
 
 //Init
 t_shell *ft_blkinit(void);
+
+//Heredoc
+void ft_heredoc(t_shell *blk, char *hereword);
 
 // Signal Handler
 

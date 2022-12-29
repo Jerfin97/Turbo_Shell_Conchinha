@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 07:17:44 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/29 08:13:40 by dvargas          ###   ########.fr       */
+/*   Created: 2022/12/29 08:10:05 by dvargas           #+#    #+#             */
+/*   Updated: 2022/12/29 08:10:10 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib_mini.h"
+#include "libft.h"
 
-//Inicializacao de BLK 
-//
-t_shell *ft_blkinit(void)
+int	ft_strcmp(char *s1, char *s2)
 {
-	t_shell *blk;
+	int	i;
 
-	blk = malloc(sizeof(t_shell));
-	blk->cmd = NULL;
-	blk->buf = NULL;
-	blk->envp = NULL;
-	blk->tmpdoc = "conchinha";
-	return(blk);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		++i;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
