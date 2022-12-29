@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:32:11 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 12:02:07 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/29 15:20:02 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	signal_handler(int signo)
 	{
 		//sig.sa_handler = SIG_IGN;
 		//sigaction(SIGQUIT, &sig, NULL);
+		rl_redisplay();
+	}
+	else if (i != -42)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("\n", 0);
 		rl_redisplay();
 	}
 }

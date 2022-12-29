@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 12:00:57 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/29 15:21:37 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,16 @@ int	ft_prompt(t_shell *blk)
 {
 	while (42)
 	{
+		char **oi;
+		
+		oi = malloc(99);
+		oi[0] = "oi";
+		oi[1] = "ola";
 		blk->buf = readline("Conchinha/> ");
 		ft_exit(blk->buf);
 		ft_history(blk->buf);
 		//ft_lexer(blk);
+		ft_exec("./a.out", oi, blk->envp, blk);
 		if (ft_strcmp(blk->buf, "pwd") == 0)
 			ft_pwd(blk);
 		free(blk->buf);
