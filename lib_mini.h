@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/30 16:26:40 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/30 17:47:10 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_input
 	char	*ex_val;
 	char	*un_name;
 	int		exit_error;
-	int		flag;
+	int		size;
 }				t_input;
 
 //Init

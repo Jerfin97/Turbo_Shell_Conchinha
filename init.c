@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 07:17:44 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 15:32:30 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/30 17:49:57 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ t_input	*ft_input_init(void)
 	inp->ex_val = NULL;
 	inp->un_name = NULL;
 	inp->exit_error = 0;
-	inp->flag = 0;
+	inp->size = 0;
 	return (inp);
 }
