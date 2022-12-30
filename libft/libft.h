@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:38:28 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 08:36:34 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/30 07:31:10 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # define BUFFER_SIZE 42
-
 
 typedef struct s_list
 {
