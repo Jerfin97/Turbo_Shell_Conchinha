@@ -20,6 +20,7 @@ SRCS = main.c \
 	   exec.c \
 	   env.c \
 	   env2.c \
+	   cd.c \
 	   free.c
 
 FLAGS = cc -Wall -Wextra -Werror -g
