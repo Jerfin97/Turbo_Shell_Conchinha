@@ -6,31 +6,11 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 15:47:05 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 07:28:56 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/30 17:49:21 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
-
-int	ft_new_pwd(t_shell *blk, char	*str, char *str2)
-{
-	char	*old;
-	int		i;
-
-	i = 0;
-	while (blk->envp[i])
-	{
-		if (!ft_strncmp(blk->envp[i], str, ft_strlen(str)))
-		{
-			old = ft_strjoin(str, str2);
-			free(blk->envp[i]);
-			blk->envp[i] = old;
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
 
 void	ft_export(t_shell *blk, char *str, char *str2)
 {
