@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 07:17:44 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/29 16:43:47 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/30 07:30:48 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ t_shell	*ft_blkinit(void)
 	return (blk);
 }
 
-t_lst_input	*ft_inputinit(void)
+t_input	*ft_inputinit(void)
 {
-	t_lst_input	*inp;
+	t_input	*inp;
 
-	inp = malloc(sizeof(t_lst_input));
+	inp = malloc(sizeof(t_input));
 	inp->cmd = NULL;
 	inp->args = NULL;
 	inp->echo_print = NULL;

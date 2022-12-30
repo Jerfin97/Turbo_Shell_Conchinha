@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 09:27:33 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 07:31:58 by dvargas          ###   ########.fr       */
+/*   Created: 2022/12/30 07:16:34 by dvargas           #+#    #+#             */
+/*   Updated: 2022/12/30 07:16:43 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 
-//Pega o Path absoluto utilizando como base a Variavel de ambiente PWD
-
-void	ft_pwd(t_shell *blk)
+int	ft_freeing(char **matrix)
 {
-	char	*buffer;
-	int		i;
+	int	i;
 
-	i = 3;
-	buffer = ft_search(blk->envp, "PWD=");
-	if (!buffer)
+	i = 0;
+	while (matrix[i])
 	{
-		buffer = getcwd(NULL, 0);
-		printf("%s\n", buffer);
-		free(buffer);
+		free(matrix[i]);
+		i++;
 	}
-	else
-	{
-		while (buffer[i++])
-			write(1, &buffer[i], 1);
-		write(1, "\n", 1);
-		blk->rs = 0;
-		free(buffer);
-	}
+	free(matrix);
+	return (0);
 }
