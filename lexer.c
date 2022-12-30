@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/30 16:27:17 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/30 17:52:32 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 {
 	if	(blk->buf && *blk->buf)
 	{
-		printf("lexer %s -- %d\n", blk->buf, inp->exit_error);
 		inp->args = ft_split(blk->buf, ' ');
+		while (inp->args[inp->size])
+			inp->size++;
+		printf("lexer %s -- %d\n", blk->buf, inp->size);
 		built_run(inp, blk);
 		ft_freeing(inp->args);
 	}

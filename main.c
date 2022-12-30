@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/30 15:27:48 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/30 17:42:46 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,9 @@ int	ft_prompt(t_shell *blk, t_input *inp)
 	while (42)
 	{
 		blk->buf = readline("Conchinha/> ");
-		//ft_exit(blk->buf);
 		ft_history(blk->buf);
 		ft_lexer(blk, inp);
 		//ft_exec("./a.out", oi, blk->envp, blk);
-		//if (ft_strcmp(blk->buf, "cd") == 0)
-		//	ft_cd(blk, "/usr/bin");
 		free(blk->buf);
 	}
 	rl_clear_history();
