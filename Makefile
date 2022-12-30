@@ -6,22 +6,23 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2022/12/30 07:27:48 by dvargas          ###   ########.fr        #
+#    Updated: 2022/12/30 17:49:30 by jeluiz4          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c \
-	   signal.c \
-	   init.c \
-	   heredoc.c \
-	   exit.c \
-	   pwd.c \
-	   echo.c \
-	   exec.c \
-	   env.c \
-	   env2.c \
-	   cd.c \
-	   free.c
+SRCS =	main.c \
+		signal.c \
+		init.c \
+		heredoc.c \
+		exit.c \
+		pwd.c \
+		echo.c \
+		exec.c \
+		env.c \
+		env_utils.c \
+		cd.c \
+		free.c \
+		lexer.c
 
 FLAGS = cc -Wall -Wextra -Werror -g
 

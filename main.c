@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 17:54:33 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/30 17:42:46 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,15 @@ void	ft_history(char *str)
 		add_history(str);
 }
 
-// A Ideia é separar tudo para dar mastigado pro exec e seguir a vida.
-int	ft_lexer(t_shell *blk)
-{
-	//int		i;
-	//char	**cmd;
-
-	//i = 0;
-	printf("%s\n", blk->buf);
-	//blk->rs = ft_exec("/usr/bin/ls", oi, blk->envp);
-	//cmd = ft_split(blk->buf, ' ');
-	return (0);
-}
-
 // É o nucleo do codigo Aqui que começa o merderê todo.
-int	ft_prompt(t_shell *blk)
+int	ft_prompt(t_shell *blk, t_input *inp)
 {
 	while (42)
 	{
 		blk->buf = readline("Conchinha/> ");
-		ft_exit(blk->buf);
 		ft_history(blk->buf);
-		//ft_lexer(blk);
+		ft_lexer(blk, inp);
 		//ft_exec("./a.out", oi, blk->envp, blk);
-		if (ft_strcmp(blk->buf, "cd") == 0)
-			ft_cd(blk, "/usr/bin");
 		free(blk->buf);
 	}
 	rl_clear_history();
@@ -53,16 +37,16 @@ int	ft_prompt(t_shell *blk)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*blk;
+	t_input		*inp;
 
 	(void)argc;
 	(void)argv;
-	//ft_shellinit(&blk, &inp, &env);
-	blk = ft_blkinit();
+	blk = ft_blk_init();
+	inp = ft_input_init();
 	blk->envp = ft_build_env(envp);
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	ft_unset(blk, "OLDPWD=");
-	ft_prompt(blk);
+	ft_prompt(blk, inp);
 	return (0);
 }

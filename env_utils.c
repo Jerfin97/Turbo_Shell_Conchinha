@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env2.c                                             :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 07:14:49 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 07:29:50 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/30 17:49:13 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+
+int	ft_new_pwd(t_shell *blk, char	*str, char *str2)
+{
+	char	*old;
+	int		i;
+
+	i = 0;
+	while (blk->envp[i])
+	{
+		if (!ft_strncmp(blk->envp[i], str, ft_strlen(str)))
+		{
+			old = ft_strjoin(str, str2);
+			free(blk->envp[i]);
+			blk->envp[i] = old;
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 
 char	**ft_build_env(char	**envp)
 {
