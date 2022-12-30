@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 07:17:44 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 07:30:48 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/30 15:32:30 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,7 @@
 
 //Inicializacao do MINISHELL
 
-/*
-void	ft_shellinit(t_shell *blk, t_lst_input *inp, t_lst_env *env)
-{
-	blk = ft_blkinit();
-	env = ft_envinit();
-	inp = ft_inputinit();
-}*/
-
-t_shell	*ft_blkinit(void)
+t_shell	*ft_blk_init(void)
 {
 	t_shell	*blk;
 
@@ -31,10 +23,11 @@ t_shell	*ft_blkinit(void)
 	blk->buf = NULL;
 	blk->envp = NULL;
 	blk->tmpdoc = "TEMPFILEHEREDOC";
+	blk->rs = 0;
 	return (blk);
 }
 
-t_input	*ft_inputinit(void)
+t_input	*ft_input_init(void)
 {
 	t_input	*inp;
 
@@ -47,5 +40,6 @@ t_input	*ft_inputinit(void)
 	inp->ex_val = NULL;
 	inp->un_name = NULL;
 	inp->exit_error = 0;
+	inp->flag = 0;
 	return (inp);
 }

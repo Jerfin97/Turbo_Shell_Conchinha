@@ -6,17 +6,18 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 22:24:52 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 08:05:01 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/30 15:38:52 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 
-void	ft_echo(int flag, char *content, t_shell *blk)
+void	ft_echo(t_shell *blk, t_input *inp)
 {
-	if (flag)
-		ft_putstr_fd(content, 1);
+	inp->echo_print = inp->args[1];
+	if (inp->flag)
+		ft_putstr_fd(inp->echo_print, 1);
 	else
-		ft_putendl_fd(content, 1);
-	blk->rs = 0 ;
+		ft_putendl_fd(inp->echo_print, 1);
+	blk->rs = 0;
 }
