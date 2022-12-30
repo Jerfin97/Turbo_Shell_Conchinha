@@ -19,8 +19,8 @@ void	update_path(t_shell *blk, char *str)
 	char	*buffer;
 
 	buffer = getcwd(NULL, 0);
-	ft_export(blk, "OLDPWD=", str);
-	ft_export(blk, "PWD=", buffer);
+	ft_new_pwd(blk, "OLDPWD=", str);
+	ft_new_pwd(blk, "PWD=", buffer);
 	free(buffer);
 }
 
@@ -58,8 +58,6 @@ void	ft_cd(t_shell *blk, char *str)
 	if (change_dir(blk, str) == 0)
 	{
 		update_path(blk, old_path);
-		printf("%s\n", ft_search(blk->envp, "PWD="));
-		printf("%s\n", ft_search(blk->envp, "OLDPWD="));
 		free(old_path);
 		blk->rs = 0;
 	}
