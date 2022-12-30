@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/30 07:37:09 by dvargas          ###   ########.fr       */
+/*   Updated: 2022/12/30 16:26:40 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,15 @@ typedef struct s_input
 	char	*ex_val;
 	char	*un_name;
 	int		exit_error;
+	int		flag;
 }				t_input;
 
 //Init
-void		shellinit(t_shell *blk, t_input *inp);
-t_shell		*ft_blkinit(void);
-t_input		*ft_inputinit(void);
+t_shell		*ft_blk_init(void);
+t_input		*ft_input_init(void);
+
+// LEXER
+void	ft_lexer(t_shell *blk, t_input *inp);
 
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
@@ -61,23 +64,24 @@ void		ft_heredoc(t_shell *blk, char *hereword);
 // Signal Handler
 void		signal_handler(int signo);
 void		ft_suppress_output(void);
+void		ft_exit_d(t_shell *blk);
 
 //EXECUTE
 int			ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
 
 //BUILTINS
-void		ft_echo(int flag, char *content, t_shell *blk);
-void		ft_exit(char *str);
+void		ft_echo(t_shell *blk, t_input *inp);
+void		ft_exit(t_input *inp, t_shell *blk);
 void		ft_cd(t_shell *blk, char *str);
 void		ft_pwd(t_shell *blk);
+void		ft_printenv(t_shell *blk);
+void		ft_export(t_shell *blk, char *str, char *str2);
+void		ft_unset(t_shell *blk, char *str);
 
-//ENV CREATION / ENV MANIPULATION
+//ENV CREATION; ENV MANIPULATION
 char		**ft_build_env(char **envp);
 char		*ft_search(char **env, char *str);
 int			ft_new_pwd(t_shell *blk, char *str, char *str2);
 int			ft_freeing(char	**matriz);
-void		ft_export(t_shell *blk, char *str, char *str2);
-void		ft_printenv(t_shell *blk);
-void		ft_unset(t_shell *blk, char *str);
 char		**ft_build_unset(t_shell *blk, char *str);
 #endif
