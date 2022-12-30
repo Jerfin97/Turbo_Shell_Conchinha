@@ -42,8 +42,8 @@ int	ft_prompt(t_shell *blk)
 		ft_history(blk->buf);
 		//ft_lexer(blk);
 		//ft_exec("./a.out", oi, blk->envp, blk);
-		if (ft_strcmp(blk->buf, "pwd") == 0)
-			ft_pwd(blk);
+		if (ft_strcmp(blk->buf, "cd") == 0)
+			ft_cd(blk, "/usr/bin");
 		free(blk->buf);
 	}
 	rl_clear_history();
@@ -59,16 +59,10 @@ int	main(int argc, char **argv, char **envp)
 	//ft_shellinit(&blk, &inp, &env);
 	blk = ft_blkinit();
 	blk->envp = ft_build_env(envp);
-	ft_export(blk, "MAIL2=", "TESTA ESSA PARADA");
-	ft_printenv(blk);
-	sleep(3);
-	printf("CABO O SLEEP\n\n\n\n\n");
-	ft_unset(blk, "MAIL=");
-	ft_printenv(blk);
-	printf("CABO\n");
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	//ft_prompt(blk);
+	ft_unset(blk, "OLDPWD=");
+	ft_prompt(blk);
 	return (0);
 }

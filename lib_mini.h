@@ -68,7 +68,7 @@ int			ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
 //BUILTINS
 void		ft_echo(int flag, char *content, t_shell *blk);
 void		ft_exit(char *str);
-void		ft_cd(t_shell *blk);
+void		ft_cd(t_shell *blk, char *str);
 void		ft_pwd(t_shell *blk);
 
 //ENV CREATION / ENV MANIPULATION

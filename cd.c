@@ -12,35 +12,57 @@
 
 #include "lib_mini.h"
 
-void	ft_new_path(t_lst_env *env)
-{
-	char	*path;
+//Update no path SEM PRECISAR QUE TENHA PWD
 
-	path = getcwd(NULL, 0);
-	// VAI NO NODO ID = PWD E MUDA O PWD = PATH;
-	free(path);
+void	update_path(t_shell *blk, char *str)
+{
+	char	*buffer;
+
+	buffer = getcwd(NULL, 0);
+	ft_export(blk, "OLDPWD=", str);
+	ft_export(blk, "PWD=", buffer);
+	free(buffer);
 }
 
-void	ft_old_path(char *old, t_lst_env *env)
+//Se str for nula, joga para Home
+//se o caminho de str for invalido, retorn deu ruim.
+int	change_dir(t_shell *blk, char *str)
 {
-	// VAI NO NODO ID = PWD E MUDA OLD_PWD = OLD_PATH
+	char	*buffer;
+
+	buffer = ft_search(blk->envp, "HOME=");
+	buffer = buffer + 5;
+	if (!str)
+	{
+		if (chdir(buffer) == -1)
+		{
+			printf("deu ruim no chdir buffer\n");
+			blk->rs = 1;
+		}
+	}
+	else if (chdir(str) == -1)
+	{
+		printf("No Such File or Directory\n");
+		blk->rs = 1;
+	}
+	return (0);
 }
 
-void	ft_cd(t_shell *blk, t_lst_env *env, t_lst_input *inp)
+// Aqui a magica acontece, pego o old_path se change dir funcionar com str
+// atualizamos os paths nas variaveis de ambiente.
+void	ft_cd(t_shell *blk, char *str)
 {
 	char	*old_path;
 
 	old_path = getcwd(NULL, 0);
-	if (chdir(inp->new_path))
+	if (change_dir(blk, str) == 0)
 	{
-		free(old_path);
-		blk->rs = 1;
-	}
-	else
-	{
-		//ft_new_path(env);
-		//ft_old_path(old_path, env);
+		update_path(blk, old_path);
+		printf("%s\n", ft_search(blk->envp, "PWD="));
+		printf("%s\n", ft_search(blk->envp, "OLDPWD="));
 		free(old_path);
 		blk->rs = 0;
 	}
+	else
+		blk->rs = 1;
 }
