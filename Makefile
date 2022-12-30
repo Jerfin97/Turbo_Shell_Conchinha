@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2022/12/30 11:24:54 by jeluiz4          ###   ########.fr        #
+#    Updated: 2022/12/30 17:49:30 by jeluiz4          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS =	main.c \
 		echo.c \
 		exec.c \
 		env.c \
-		env2.c \
+		env_utils.c \
 		cd.c \
 		free.c \
 		lexer.c
