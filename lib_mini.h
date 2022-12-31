@@ -84,4 +84,11 @@ char		*ft_search(char **env, char *str);
 int			ft_new_pwd(t_shell *blk, char *str, char *str2);
 int			ft_freeing(char	**matriz);
 char		**ft_build_unset(t_shell *blk, char *str);
+
+//VAR EXPAND
+int		ft_var_exist(char **env, char *str);
+char	*ft_var_ret(t_shell *blk, char *str);
+void	ft_expand(t_shell *blk, char *str);
+char	*ft_create_var(char *str);
+
 #endif

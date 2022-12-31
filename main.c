@@ -37,16 +37,20 @@ int	ft_prompt(t_shell *blk, t_input *inp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*blk;
-	t_input		*inp;
+	//t_input		*inp;
 
 	(void)argc;
 	(void)argv;
 	blk = ft_blk_init();
-	inp = ft_input_init();
+	//inp = ft_input_init();
 	blk->envp = ft_build_env(envp);
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	ft_prompt(blk, inp);
+	char *TESTE = "VAMOS VER SE FUNCIONA, \"'$PAPERSIZE'  \"$MAIL\"\"";
+	//printf("%s", ft_create_var(TESTE));
+	ft_expand(blk, TESTE);
+	//printf("RESULTADO DO TESTE: %s\n", ft_var_ret(blk, "ASDAS="));
+	//ft_prompt(blk, inp);
 	return (0);
 }
