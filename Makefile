@@ -22,7 +22,8 @@ SRCS =	main.c \
 		env_utils.c \
 		cd.c \
 		free.c \
-		lexer.c
+		lexer.c \
+		expand.c
 
 FLAGS = cc -Wall -Wextra -Werror -g
 

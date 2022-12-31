@@ -100,3 +100,16 @@ char	*ft_search(char **env, char *str)
 		return (NULL);
 	return (path);
 }
+int		ft_var_exist(char **env, char *str)
+{
+	int		i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], str, ft_strlen(str)))
+			return (0) ;
+		i++;
+	}
+	return (1);
+}
