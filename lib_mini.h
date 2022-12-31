@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/30 17:47:10 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2022/12/31 12:37:21 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef struct s_shell
 typedef struct s_input
 {
 	char	*cmd;
+	char	*tmp;
 	char	**args;
+	char	**paths;
 	char	*echo_print;
 	char	*new_path;
 	char	*ex_name;
@@ -67,7 +69,8 @@ void		ft_suppress_output(void);
 void		ft_exit_d(t_shell *blk);
 
 //EXECUTE
-int			ft_exec(char *cmd, char **args, char **envp, t_shell *blk);
+int			ft_exec(t_input *inp, t_shell *blk);
+void		ft_access(t_shell *blk, t_input *inp);
 
 //BUILTINS
 void		ft_echo(t_shell *blk, t_input *inp);
