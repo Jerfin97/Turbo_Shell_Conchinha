@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/31 12:37:21 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/02 09:56:37 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_shell		*ft_blk_init(void);
 t_input		*ft_input_init(void);
 
 // LEXER
-void	ft_lexer(t_shell *blk, t_input *inp);
+void		ft_lexer(t_shell *blk, t_input *inp);
 
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
@@ -89,9 +89,12 @@ int			ft_freeing(char	**matriz);
 char		**ft_build_unset(t_shell *blk, char *str);
 
 //VAR EXPAND
-int		ft_var_exist(char **env, char *str);
-char	*ft_var_ret(t_shell *blk, char *str);
-void	ft_expand(t_shell *blk, char *str);
-char	*ft_create_var(char *str);
+int			ft_var_exist(char **env, char *str);
+char		*ft_var_ret(t_shell *blk, char *str);
+void		ft_expand(t_shell *blk, char *str);
+char		*ft_create_var(char *str);
+int			ft_validate_quotes(char *str);
+int			ft_update_quote(int *flag, char c);
+int			ft_var_size(char *str);
 
 #endif

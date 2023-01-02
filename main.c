@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGQUIT, signal_handler);
 	//ft_access(blk, inp);
 	//printf("%s", ft_create_var(TESTE));
-	char *TESTE = "'\"'\"$PAPERSIZE\"'\"'";
+	char *TESTE = "\"'\"'$PAPERSIZE";
 	char *TESTE2 = "'''\"$PAPERSIZE\"'";
 	char *TESTE3 = "\"'\"'$PAPERSIZE'\"'\"";
 	printf("\n====TESTE1===== Correto = \"a4\" \n");
