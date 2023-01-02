@@ -6,57 +6,12 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 21:33:13 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/02 09:52:25 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 #include "libft/libft.h"
-
-// checa se tem uma quantidade par de aspas nao funciona de forma correta :()
-int	ft_double_quote_check(char *str)
-{
-	int		i;
-	int		quotes;
-
-	i = 0;
-	quotes = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-				quotes++;
-		if (str[i] == '"')
-				quotes++;
-		i++;
-	}
-	if ((quotes % 2 == 0) && (quotes != 0))
-		return (0);
-	return (1);
-}
-
-// vejo o tamanho da variavel
-int	ft_var_size(char *str)
-{
-	int		size;
-	int		i;
-
-	size = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			break ;
-		i++;
-	}
-	while (str[i])
-	{
-		if (ft_isspace(str[i]) == 1 || str[i] == '"' || str[i] == '\'')
-			break ;
-		size++;
-		i++;
-	}
-	return (size - 1);
-}
 
 //verifico se a variavel e valida? talvez seja util no export
 int	ft_var_isvalid(char *str)
@@ -110,50 +65,14 @@ char	*ft_var_ret(t_shell *blk, char *str)
 		return (NULL);
 	while (ret[i] != '=')
 		i++;
-	return (&ret[i+1]);
+	return (&ret[i + 1]);
 }
 
-//Isso aqui passou em aboslutamente todos so testes que fiz, a unica questao e
-//lidar com as aspas simples e duplas, quando devem ou nao ser impressas.
-//Fico pensando tambem que essa funcao deveria retornar um char * para ser impresso no echo 
-//
-int	ft_update_quote(int *flag, char c)
-{
-	int		mirror_flag;
-	int		update_flag;
-
-	update_flag = 0;
-	mirror_flag = *flag;
-	if (c == '\'')
-	{
-		if (mirror_flag == 0)
-		{	
-			mirror_flag = 1;
-			update_flag = 1;
-		}
-		else if (mirror_flag == 1)
-		{
-			mirror_flag = 0;
-			update_flag = 1;
-		}
-	}
-	if (c == '"')
-	{
-		if (mirror_flag == 0)
-		{
-			mirror_flag = 2;
-			update_flag = 1;
-		}
-		else if (mirror_flag == 2)
-		{
-			mirror_flag = 0;
-			update_flag = 1;
-		}
-	}
-	*flag = mirror_flag;
-	return (update_flag);
-}
-
+// essa funcao primeiro checa se temos uma quantidade valida de aspas fechadas
+// depois percorre toda a string expandindo as aspas quando necessario
+// aspas ' nao expande nada '
+// aspas " expande todo o conteudo "
+// sem aspas tambem expande todo o conteudo
 void	ft_expand(t_shell *blk, char *str)
 {
 	int		i;
@@ -162,6 +81,11 @@ void	ft_expand(t_shell *blk, char *str)
 
 	i = 0;
 	flag = 0;
+	if (ft_validate_quotes(str) != 0)
+	{
+		printf("CANT FIND CLOSE QUOTES");
+		return ;
+	}
 	while (str[i])
 	{
 		if (ft_update_quote(&flag, str[i]) == 1)
@@ -177,15 +101,7 @@ void	ft_expand(t_shell *blk, char *str)
 			free(tmp);
 		}
 		else
-		{
 			printf("%c", str[i]);
-		}
 		i++;
 	}
 }
-
-//Buscar $ na string, checar se ela e valida 
-//lemnbrar que nao tem variavel que comece com numero e ?
-//identificar o tamanho da variavel
-//localizar a variavel em ENV, se for valido utilize ela se nao ignore o comando
-//fazer uma substring com a string correta 
