@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/04 13:41:04 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/04 16:37:41 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	ft_update_squote(int *i, int *flag, char c)
 	1- Receber i e/ou flag como parametro diminui de 2 a 4 linhas
 	2- usar inp->tmp no lugar de tmp ganha 1 linha
 	3 extrair o que esta dentro do if em uma outra função ganha 3 linhas*/
-}
 
 // essa funcao primeiro checa se temos uma quantidade valida de aspas fechadas
 // depois percorre toda a string expandindo as aspas quando necessario
@@ -137,11 +136,8 @@ void	ft_expand(t_shell *blk, char *str)
 	while (str[i])
 	{
 		if (ft_update_quote(&flag, str[i]) == 1)
-		{
 			i++;
-			continue ;
-		}
-		if (str[i] == '$' && flag != 1)
+		else if (str[i] == '$' && flag != 1)
 		{
 			tmp = ft_create_var(&str[i]);
 			i += ft_strlen(tmp) - 1;
@@ -149,7 +145,9 @@ void	ft_expand(t_shell *blk, char *str)
 			free(tmp);
 		}
 		else
+		{
 			printf("%c", str[i]);
-		i++;
+			i++;
+		}
 	}
 }
