@@ -13,51 +13,6 @@
 #include "lib_mini.h"
 #include "libft/libft.h"
 
-// checa se tem uma quantidade par de aspas
-int	ft_double_quote_check(char *str)
-{
-	int		i;
-	int		quotes;
-
-	i = 0;
-	quotes = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-				quotes++;
-		if (str[i] == '"')
-				quotes++;
-		i++;
-	}
-	if ((quotes % 2 == 0) && (quotes != 0))
-		return (0);
-	return (1);
-}
-
-// vejo o tamanho da variavel
-int	ft_var_size(char *str)
-{
-	int		size;
-	int		i;
-
-	size = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			break ;
-		i++;
-	}
-	while (str[i])
-	{
-		if (ft_isspace(str[i]) == 1 || str[i] == '"' || str[i] == '\'')
-			break ;
-		size++;
-		i++;
-	}
-	return (size - 1);
-}
-
 //verifico se a variavel e valida? talvez seja util no export
 int	ft_var_isvalid(char *str)
 {
@@ -159,6 +114,13 @@ void	ft_update_squote(int *i, int *flag, char c)
 	1- Receber i e/ou flag como parametro diminui de 2 a 4 linhas
 	2- usar inp->tmp no lugar de tmp ganha 1 linha
 	3 extrair o que esta dentro do if em uma outra função ganha 3 linhas*/
+}
+
+// essa funcao primeiro checa se temos uma quantidade valida de aspas fechadas
+// depois percorre toda a string expandindo as aspas quando necessario
+// aspas ' nao expande nada '
+// aspas " expande todo o conteudo "
+// sem aspas tambem expande todo o conteudo
 void	ft_expand(t_shell *blk, char *str)
 {
 	int		i;
@@ -167,17 +129,19 @@ void	ft_expand(t_shell *blk, char *str)
 
 	i = 0;
 	flag = 0;
-	blk->i = 2;
+	if (ft_validate_quotes(str) != 0)
+	{
+		printf("CANT FIND CLOSE QUOTES");
+		return ;
+	}
 	while (str[i])
 	{
-		if (!ft_double_quote_check(str))
+		if (ft_update_quote(&flag, str[i]) == 1)
 		{
-			ft_update_dquote(&i, &flag, str[i]);
-			ft_update_squote(&i, &flag, str[i]);
+			i++;
+			continue ;
 		}
-		else
-			flag = 1;
-		if (str[i] == '$' && flag == 1)
+		if (str[i] == '$' && flag != 1)
 		{
 			tmp = ft_create_var(&str[i]);
 			i += ft_strlen(tmp) - 1;
@@ -189,9 +153,3 @@ void	ft_expand(t_shell *blk, char *str)
 		i++;
 	}
 }
-
-//Buscar $ na string, checar se ela e valida 
-//lemnbrar que nao tem variavel que comece com numero e ?
-//identificar o tamanho da variavel
-//localizar a variavel em ENV, se for valido utilize ela se nao ignore o comando
-//fazer uma substring com a string correta 

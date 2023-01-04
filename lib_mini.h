@@ -93,5 +93,8 @@ int			ft_var_exist(char **env, char *str);
 char		*ft_var_ret(t_shell *blk, char *str);
 void		ft_expand(t_shell *blk, char *str);
 char		*ft_create_var(char *str);
+int			ft_validate_quotes(char *str);
+int			ft_update_quote(int *flag, char c);
+int			ft_var_size(char *str);
 
 #endif
