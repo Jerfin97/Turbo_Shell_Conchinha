@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 21:33:13 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/04 13:41:04 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*ft_var_ret(t_shell *blk, char *str)
 		return (NULL);
 	while (ret[i] != '=')
 		i++;
-	return (&ret[i+1]);
+	return (&ret[i + 1]);
 }
 
 void	ft_update_dquote(int *i, int *flag, char c)
@@ -155,6 +155,10 @@ void	ft_update_squote(int *i, int *flag, char c)
 	*flag = mirror_flag;
 }
 
+/*Ideias pra diminuir linhas:
+	1- Receber i e/ou flag como parametro diminui de 2 a 4 linhas
+	2- usar inp->tmp no lugar de tmp ganha 1 linha
+	3 extrair o que esta dentro do if em uma outra função ganha 3 linhas*/
 void	ft_expand(t_shell *blk, char *str)
 {
 	int		i;

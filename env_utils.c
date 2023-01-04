@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 07:14:49 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 17:49:13 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/04 13:36:01 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ char	*ft_search(char **env, char *str)
 		return (NULL);
 	return (path);
 }
-int		ft_var_exist(char **env, char *str)
+
+int	ft_var_exist(char **env, char *str)
 {
 	int		i;
 
@@ -108,7 +109,7 @@ int		ft_var_exist(char **env, char *str)
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], str, ft_strlen(str)))
-			return (0) ;
+			return (0);
 		i++;
 	}
 	return (1);
