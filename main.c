@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/04 16:30:13 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/04 19:04:26 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,18 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGQUIT, signal_handler);
 	//ft_access(blk, inp);
 	//printf("%s", ft_create_var(TESTE));
-	char *TESTE = "\"'\"' $PAPERSIZE ";
-	char *TESTE2 = "'''\"$PAPERSIZE\"'";
-	char *TESTE3 = "\"'\"'$PAPERSIZE'\"'\"";
-	printf("\n====TESTE1===== Correto = \"a4\" \n");
-	ft_expand(blk, TESTE);
-	printf("\n====TESTE2===== Correto = \"$PAPERSIZE\" \n");
-	ft_expand(blk, TESTE2);
-	printf("\n====TESTE3===== Correto = '$PAPERSIZE'\n");
-	ft_expand(blk, TESTE3);
+	//char *TESTE = "\"'\"' $PAPERSIZE ";
+	//char *TESTE2 = "'''\"$PAPERSIZE\"'";
+	//char *TESTE3 = "\"'\"'$PAPERSIZE'\"'\"";
+	//printf("\n====TESTE1===== Correto = \"a4\" \n");
+	//ft_expand(blk, TESTE);
+	//printf("\n====TESTE2===== Correto = \"$PAPERSIZE\" \n");
+	//ft_expand(blk, TESTE2);
+	//printf("\n====TESTE3===== Correto = '$PAPERSIZE'\n");
+	//ft_expand(blk, TESTE3);
 	//printf("RESULTADO DO TESTE: %s\n", ft_var_ret(blk, "ASDAS="));
-	//ft_prompt(blk, inp);
-	//ft_freeing(blk->envp);
+	ft_prompt(blk, inp);
+	ft_freeing(blk->envp);
 	free(blk);
 	free(inp);
 	return (0);

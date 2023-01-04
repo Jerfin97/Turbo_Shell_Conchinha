@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2022/12/30 17:49:30 by jeluiz4          ###   ########.fr        #
+#    Updated: 2023/01/04 19:15:28 by jeluiz4          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRCS =	main.c \
 		free.c \
 		lexer.c \
 		expand.c \
-		expand_utils.c
+		expand_utils.c \
+		pipes.c
 
 FLAGS = cc -Wall -Wextra -Werror -g
 
