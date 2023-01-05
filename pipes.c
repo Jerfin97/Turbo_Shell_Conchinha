@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+#include "libft/libft.h"
 
 int	ft_beg_exec(t_input *inp, t_shell *blk)
 {
@@ -125,34 +126,74 @@ int	ft_access_pipe(t_shell *blk, t_input *inp, int i)
 	return (-1);
 }
 
+void ft_process(t_shell *blk, t_input *inp)
+{
+	int pid;
+	int pipes[2];
+
+	pipe(pipes);
+	pid = fork();
+
+	if (pid == 0)
+	{
+		close(pipes[0]);
+		dup2(pipes[1], 1);
+		execve(inp->cmd, inp->temp, blk->envp);
+	}
+	if (pid > 0)
+	{
+		close(pipes[1]);
+		dup2(pipes[0], 0);
+	}
+}
+
+void ft_process_end(t_shell *blk, t_input *inp)
+{
+	int pid;
+	int pipes[2];
+
+	pipe(pipes);
+	pid = fork();
+	blk->i = 0;
+	inp->size = 0;
+
+	if (pid == 0)
+	{
+		close(pipes[0]);
+		dup2(pipes[1], 1);
+		write(0, "ls -la | grep main", 18);
+		//execve(inp->cmd, inp->temp, blk->envp);
+	}
+	if (pid > 0)
+	{
+		close(pipes[1]);
+		dup2(1, pipes[0]);
+		//write(1, "", 18);
+	}
+}
+
 void	ft_pipe_handle(t_shell *blk, t_input *inp)
 {
 	int	i;
 
 	i = 0;
-	if (pipe(blk->fd) == -1)
-	{
-		perror("Como tu quebrou o cano ?\n");
-		exit(127);
-	}
 	inp->temp = ft_split(inp->args[0], ' ');
 	if(ft_access_pipe(blk, inp, i))
-		ft_beg_exec(inp, blk);
+		ft_process(blk, inp);
+		//ft_beg_exec(inp, blk);
 	while (++i < (inp->size - 1))
 	{
 		inp->temp = ft_split(inp->args[i], ' ');
 		if (ft_access_pipe(blk, inp, i))
-			ft_mid_exec(inp, blk);
+			ft_process(blk, inp);
 		wait(&blk->rs);
 		ft_freeing(inp->temp);
 	}
 	inp->temp = ft_split(inp->args[i], ' ');
 	if (ft_access_pipe(blk, inp, i))
 	{
-		ft_end_exec(inp, blk);
+		ft_process_end(blk, inp);
 		wait(&blk->rs);
 	}
-	close(blk->fd[0]);
-	close(blk->fd[1]);
 	//ft_freeing(inp->temp);
 }
