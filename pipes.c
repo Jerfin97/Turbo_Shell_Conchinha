@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/04 20:28:24 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/04 20:59:51 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ int	ft_beg_exec(t_input *inp, t_shell *blk)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(blk->fd[1], STDOUT_FILENO);
 		close(blk->fd[0]);
+		dup2(blk->fd[1], STDOUT_FILENO);
 		execve(inp->cmd, inp->temp, blk->envp);
 	}
 	else if ((pid > 0) && (pid != -1))
 	{
+		close(blk->fd[1]);
+		dup2(blk->fd[0], STDIN_FILENO);
 		wait(&blk->rs);
 		ft_freeing(inp->temp);
 		return (blk->rs);
@@ -40,11 +42,14 @@ int	ft_end_exec(t_input *inp, t_shell *blk)
 	pid = fork();
 	if (pid == 0)
 	{
+		close(blk->fd[1]);
 		dup2(blk->fd[0], STDIN_FILENO);
 		execve(inp->cmd, inp->temp, blk->envp);
 	}
 	else if ((pid > 0) && (pid != -1))
 	{
+		close(blk->fd[0]);
+		dup2(blk->fd[1], STDOUT_FILENO);
 		wait(&blk->rs);
 		ft_freeing(inp->temp);
 		return (blk->rs);
@@ -84,8 +89,6 @@ int	ft_build_path(t_shell *blk, t_input *inp)
 	while (inp->paths[i])
 	{
 		inp->cmd = ft_strjoin(inp->paths[i], inp->tmp);
-		//free(inp->paths[i]);
-		//inp->paths[i] = ft_strdup(inp->cmd);
 		if (!access(inp->cmd, X_OK))
 			return (1);
 		free(inp->cmd);
@@ -147,7 +150,7 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	if (ft_access_pipe(blk, inp, i))
 	{
 		ft_end_exec(inp, blk);
-		wait(NULL);
+		wait(&blk->rs);
 	}
 	close(blk->fd[0]);
 	close(blk->fd[1]);

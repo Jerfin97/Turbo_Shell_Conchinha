@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/04 19:46:59 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/04 21:06:44 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,18 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 {
 	if (blk->buf && *blk->buf)
 	{
-		inp->args = ft_split(blk->buf, '|');
+		inp->args = ft_split(blk->buf, ' ');
 		while (inp->args[inp->size])
 			inp->size++;
 		if (ft_is_builtin(blk, inp))
 			built_run(inp, blk);
 		else
 		{
-			//ft_access(blk, inp);
-			ft_pipe_handle(blk, inp);
+			ft_access(blk, inp);
+			//ft_pipe_handle(blk, inp);
 		}
 		ft_freeing(inp->args);
 	}
 	ft_exit_d(blk);
-	inp->size = 0;
 	return ;
 }

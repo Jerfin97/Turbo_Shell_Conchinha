@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:31:12 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/04 19:02:49 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/04 21:09:38 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	ft_build_exec(t_shell *blk, t_input *inp)
 	while (inp->paths[i])
 	{
 		inp->cmd = ft_strjoin(inp->paths[i], inp->tmp);
-		//free(inp->paths[i]);
-		//inp->paths[i] = ft_strdup(inp->cmd);
 		if (!access(inp->cmd, X_OK))
 		{
 			ft_exec(inp, blk);
@@ -38,7 +36,6 @@ void	ft_build_exec(t_shell *blk, t_input *inp)
 	}
 	blk->rs = 1;
 	free(inp->tmp);
-	free(inp->cmd);
 	ft_freeing(inp->paths);
 }
 
