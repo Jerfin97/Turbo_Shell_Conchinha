@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/04 19:51:29 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/05 09:43:40 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_shell
 	char	**cmd;
 	int		i;
 	int		fd_pipe;
+	char	*exp;
 	int		rs;
 	char	*buf;
 	char	**envp;
@@ -101,10 +102,10 @@ char		**ft_build_unset(t_shell *blk, char *str);
 //VAR EXPAND
 int			ft_var_exist(char **env, char *str);
 char		*ft_var_ret(t_shell *blk, char *str);
-void		ft_expand(t_shell *blk, char *str);
+char		*ft_expand(t_shell *blk, char *str);
 char		*ft_create_var(char *str);
 int			ft_validate_quotes(char *str);
 int			ft_update_quote(int *flag, char c);
 int			ft_var_size(char *str);
-
+void		ft_swapjoin(char **s1, char *s2);
 #endif
