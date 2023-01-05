@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+#include <stdio.h>
 
 void	built_run(t_input *inp, t_shell *blk)
 {
@@ -56,11 +57,45 @@ int	ft_is_builtin(t_shell *blk, t_input *inp)
 	return (0);
 }
 
+int	ft_has_pipes(char *str)
+{
+	int		i;
+	int		pipe;
+
+	i = 0;
+	pipe = 0;
+	while (str[i])
+	{
+		if (str[i] == '|')
+		{
+			pipe++;
+			if (str[i + 1] == '|')
+				return (-1);
+		}
+		i++;
+	}
+	return (pipe);
+}
+
+char	**ft_create_args(t_shell *blk)
+{
+	char	**ret;
+
+	if (ft_has_pipes(blk->buf) == -1)
+		return (perror("VERIFICAR ERNANI"), NULL);
+	if (ft_has_pipes(blk->buf) > 0)
+		return (ret = ft_split(blk->buf, '|'));
+	else
+		return (ret = ft_split(blk->buf, ' '));
+}
+
 void	ft_lexer(t_shell *blk, t_input *inp)
 {
 	if (blk->buf && *blk->buf)
 	{
-		inp->args = ft_split(blk->buf, ' ');
+		inp->args = ft_create_args(blk);
+		if (!inp->args)
+			return ;
 		while (inp->args[inp->size])
 			inp->size++;
 		if (ft_is_builtin(blk, inp))
