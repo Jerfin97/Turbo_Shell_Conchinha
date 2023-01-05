@@ -31,7 +31,7 @@ typedef struct s_shell
 {
 	char	**cmd;
 	int		i;
-	int		fd[2];
+	int		fd_pipe;
 	int		rs;
 	char	*buf;
 	char	**envp;
