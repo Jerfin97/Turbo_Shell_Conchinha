@@ -6,25 +6,12 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/05 11:41:22 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/05 18:23:22 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 #include "libft/libft.h"
-
-//verifico se a variavel e valida? talvez seja util no export
-int	ft_var_isvalid(char *str)
-{
-	int	i;
-
-	i = 1;
-	if (ft_isspace(str[i + 1]) == 0)
-		return (1);
-	if ((str[i + 1] >= '0' && str[i + 1] <= '9') || str[i + 1] == '?')
-		return (1);
-	return (0);
-}
 
 // crio a variavel dando join no =
 char	*ft_create_var(char *str)
@@ -68,98 +55,45 @@ char	*ft_var_ret(t_shell *blk, char *str)
 	return (&ret[i + 1]);
 }
 
-void	ft_update_dquote(int *i, int *flag, char c)
-{
-	int		mirror_i;
-	int		mirror_flag;
-
-	mirror_i = *i;
-	mirror_flag = *flag;
-	if (c == '"' && mirror_flag == 0)
-	{
-		mirror_i++;
-		mirror_flag++;
-	}
-	else if (c == '"' && mirror_flag == 1)
-	{
-		mirror_i++;
-		mirror_flag = 0;
-	}
-	*i = mirror_i;
-	*flag = mirror_flag;
-}
-
-void	ft_update_squote(int *i, int *flag, char c)
-{
-	int		mirror_i;
-	int		mirror_flag;
-
-	mirror_i = *i;
-	mirror_flag = *flag;
-	if (c == '\'' && mirror_flag == 0)
-	{
-		mirror_i++;
-		mirror_flag++;
-	}
-	else if (c == '\'' && mirror_flag == 1)
-	{
-		mirror_i++;
-		mirror_flag = 0;
-	}
-	*i = mirror_i;
-	*flag = mirror_flag;
-}
-
-/*Ideias pra diminuir linhas:
-	1- Receber i e/ou flag como parametro diminui de 2 a 4 linhas
-	2- usar inp->tmp no lugar de tmp ganha 1 linha
-	3 extrair o que esta dentro do if em uma outra função ganha 3 linhas*/
-
-void	ft_swapjoin(char **s1, char *s2)
+// O -1 e importante pq ele faz a len com o = mas imprime sem ele, logo o
+// caractere depois de variavel esta sendo ignorado, com o -1 retornamos correto
+char	*ft_chase(t_shell *blk, char *str)
 {
 	char	*tmp;
+	char	*ret;
+	int		i;
+	int		flag;
 
-	tmp = ft_strjoin(*s1, s2);
-	free(*s1);
-	*s1 = tmp;
-}
-
-void	ft_chase(t_shell *blk, char *str, int flag)
-{
-	char	*tmp;
-
-	if (ft_update_quote(&flag, str[blk->i]) == 1)
-		blk->i++;
-	else if (str[blk->i] == '$' && flag != 1)
+	i = -1;
+	flag = 0;
+	ret = ft_calloc(1, 1);
+	while (str[++i])
 	{
-		tmp = ft_create_var(&str[blk->i]);
-		blk->i += ft_strlen(tmp);
-		ft_swapjoin(&blk->exp, ft_var_ret(blk, tmp));
-		free(tmp);
+		if (ft_update_quote(&flag, str[i]) == 1)
+			continue ;
+		else if (str[i] == '$' && flag != 1)
+		{
+			tmp = ft_create_var(&str[i]);
+			i += ft_strlen(tmp) - 1;
+			ft_swapjoin(&ret, ft_var_ret(blk, tmp));
+			free(tmp);
+		}
+		else
+			ret = ft_strjoinchar(ret, str[i]);
 	}
-	else
-	{
-		ft_swapjoin(&blk->exp, &str[blk->i]);
-		blk->i++;
-	}
+	return (ret);
 }
 
 char	*ft_expand(t_shell *blk, char *str)
 {
-	int		flag;
+	char	*tmp;
 
-	flag = 0;
-	blk->exp = ft_calloc(1, 1);
 	if (ft_validate_quotes(str) != 0)
 	{
 		perror("CANT FIND CLOSE QUOTES\n");
 		free(blk->exp);
 		return (NULL);
 	}
-	while (str[blk->i])
-	{
-		ft_chase(blk, str, flag);
-	}
-	blk->i = 0;
-	return (blk->exp);
+	tmp = ft_chase(blk, str);
+	return (tmp);
 }

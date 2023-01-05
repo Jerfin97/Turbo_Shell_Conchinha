@@ -12,6 +12,19 @@
 
 #include "lib_mini.h"
 
+//verifico se a variavel e valida? talvez seja util no export
+int	ft_var_isvalid(char *str)
+{
+	int	i;
+
+	i = 1;
+	if (ft_isspace(str[i + 1]) == 0)
+		return (1);
+	if ((str[i + 1] >= '0' && str[i + 1] <= '9') || str[i + 1] == '?')
+		return (1);
+	return (0);
+}
+
 void	ft_export(t_shell *blk, char *str, char *str2)
 {
 	char	**new_env;

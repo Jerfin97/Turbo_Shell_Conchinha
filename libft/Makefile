@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 13:30:55 by jeluiz4           #+#    #+#              #
-#    Updated: 2022/12/29 08:10:23 by dvargas          ###   ########.fr        #
+#    Updated: 2023/01/05 17:57:47 by dvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS	=	ft_atoi.c \
 			ft_strchr.c \
 			ft_strdup.c \
 			ft_strjoin.c \
+			ft_strjoinchar.c \
 			ft_strlcat.c \
 			ft_strlcpy.c \
 			ft_strlen.c \

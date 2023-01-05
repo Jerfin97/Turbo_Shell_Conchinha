@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:50:58 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/02 09:53:32 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/05 17:58:40 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ int	ft_var_size(char *str)
 	return (size - 1);
 }
 
+void	ft_set_flag(int *flag, int set, int *update_flag)
+{
+	*flag = set;
+	*update_flag = 1;
+}
+
 // essa funcao da update nas aspas fechando e abrindo duplas e singulares
 int	ft_update_quote(int *flag, char c)
 {
@@ -45,28 +51,16 @@ int	ft_update_quote(int *flag, char c)
 	if (c == '\'')
 	{
 		if (*flag == 0)
-		{	
-			*flag = 1;
-			update_flag = 1;
-		}
+			ft_set_flag(flag, 1, &update_flag);
 		else if (*flag == 1)
-		{
-			*flag = 0;
-			update_flag = 1;
-		}
+			ft_set_flag(flag, 0, &update_flag);
 	}
 	if (c == '"')
 	{
 		if (*flag == 0)
-		{
-			*flag = 2;
-			update_flag = 1;
-		}
+			ft_set_flag(flag, 2, &update_flag);
 		else if (*flag == 2)
-		{
-			*flag = 0;
-			update_flag = 1;
-		}
+			ft_set_flag(flag, 0, &update_flag);
 	}
 	return (update_flag);
 }
@@ -99,4 +93,14 @@ int	ft_validate_quotes(char *str)
 		i++;
 	}
 	return (mirror_flag);
+}
+
+void	ft_swapjoin(char **s1, char *s2)
+
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(*s1, s2);
+	free(*s1);
+	*s1 = tmp;
 }
