@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/04 16:37:41 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/05 11:41:22 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,39 +115,51 @@ void	ft_update_squote(int *i, int *flag, char c)
 	2- usar inp->tmp no lugar de tmp ganha 1 linha
 	3 extrair o que esta dentro do if em uma outra função ganha 3 linhas*/
 
-// essa funcao primeiro checa se temos uma quantidade valida de aspas fechadas
-// depois percorre toda a string expandindo as aspas quando necessario
-// aspas ' nao expande nada '
-// aspas " expande todo o conteudo "
-// sem aspas tambem expande todo o conteudo
-void	ft_expand(t_shell *blk, char *str)
+void	ft_swapjoin(char **s1, char *s2)
 {
-	int		i;
-	int		flag;
 	char	*tmp;
 
-	i = 0;
+	tmp = ft_strjoin(*s1, s2);
+	free(*s1);
+	*s1 = tmp;
+}
+
+void	ft_chase(t_shell *blk, char *str, int flag)
+{
+	char	*tmp;
+
+	if (ft_update_quote(&flag, str[blk->i]) == 1)
+		blk->i++;
+	else if (str[blk->i] == '$' && flag != 1)
+	{
+		tmp = ft_create_var(&str[blk->i]);
+		blk->i += ft_strlen(tmp);
+		ft_swapjoin(&blk->exp, ft_var_ret(blk, tmp));
+		free(tmp);
+	}
+	else
+	{
+		ft_swapjoin(&blk->exp, &str[blk->i]);
+		blk->i++;
+	}
+}
+
+char	*ft_expand(t_shell *blk, char *str)
+{
+	int		flag;
+
 	flag = 0;
+	blk->exp = ft_calloc(1, 1);
 	if (ft_validate_quotes(str) != 0)
 	{
-		printf("CANT FIND CLOSE QUOTES");
-		return ;
+		perror("CANT FIND CLOSE QUOTES\n");
+		free(blk->exp);
+		return (NULL);
 	}
-	while (str[i])
+	while (str[blk->i])
 	{
-		if (ft_update_quote(&flag, str[i]) == 1)
-			i++;
-		else if (str[i] == '$' && flag != 1)
-		{
-			tmp = ft_create_var(&str[i]);
-			i += ft_strlen(tmp) - 1;
-			printf("%s", ft_var_ret(blk, tmp));
-			free(tmp);
-		}
-		else
-		{
-			printf("%c", str[i]);
-			i++;
-		}
+		ft_chase(blk, str, flag);
 	}
+	blk->i = 0;
+	return (blk->exp);
 }

@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/05 08:22:03 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/05 09:57:08 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*blk;
 	t_input		*inp;
+	char		TESTE[99] = "$LS_COLORS \0";
 
 	(void)argc;
 	(void)argv;
@@ -47,9 +48,9 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler) ;
 	//ft_access(blk, inp);
-	//printf("%s", ft_create_var(TESTE));
-	//printf("RESULTADO DO TESTE: %s\n", ft_var_ret(blk, "ASDAS="));
-	ft_prompt(blk, inp);
+	printf("%s --\n", ft_expand(blk, TESTE));
+	printf("RESULTADO DO TESTE: %s --\n", ft_var_ret(blk, "ASDAS="));
+	//ft_prompt(blk, inp);
 	ft_freeing(blk->envp);
 	free(blk);
 	free(inp);
