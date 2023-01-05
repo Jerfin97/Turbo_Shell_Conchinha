@@ -102,8 +102,8 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			built_run(inp, blk);
 		else
 		{
-			ft_access(blk, inp);
-			//ft_pipe_handle(blk, inp);
+			//ft_access(blk, inp);
+			ft_pipe_handle(blk, inp);
 		}
 		ft_freeing(inp->args);
 	}
