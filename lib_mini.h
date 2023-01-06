@@ -6,13 +6,14 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/05 17:57:19 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/06 10:19:28 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIB_MINI_H
 # define LIB_MINI_H
 
+# include <errno.h>
 # include "libft/libft.h"
 # include <stdio.h>
 # include "/usr/include/readline/readline.h"
