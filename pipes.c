@@ -6,18 +6,17 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/04 20:59:51 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/06 19:21:27 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
-#include "libft/libft.h"
 
 int	ft_build_path(t_shell *blk, t_input *inp)
 {
 	int	i;
 
-	i = 0;
+		i = 0;
 	inp->paths = ft_split(inp->cmd + 5, ':');
 	inp->tmp = ft_strjoin("/", inp->temp[0]);
 	free(inp->cmd);
@@ -73,7 +72,13 @@ void	ft_process(t_shell *blk, t_input *inp)
 		close(pipes[0]);
 		dup2(pipes[1], 1);
 		dup2(blk->fd_pipe, 0);
-		execve(inp->cmd, inp->temp, blk->envp);
+		if (ft_is_builtin(blk, inp->temp))
+		{
+			built_run(inp, blk, inp->temp);
+			exit(0);
+		}
+		else
+			execve(inp->cmd, inp->temp, blk->envp);
 	}
 	if (pid > 0)
 	{
@@ -90,7 +95,13 @@ void	ft_process_end(t_shell *blk, t_input *inp)
 	if (pid == 0)
 	{
 		dup2(blk->fd_pipe, 0);
-		execve(inp->cmd, inp->temp, blk->envp);
+		if (ft_is_builtin(blk, inp->temp))
+		{
+			built_run(inp, blk, inp->temp);
+			exit(0);
+		}
+		else
+			execve(inp->cmd, inp->temp, blk->envp);
 	}
 	if (pid > 0)
 		wait(NULL);
@@ -106,18 +117,21 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	blk->fd_pipe = dup(0);
 	i = 0;
 	inp->temp = ft_split(inp->args[0], ' ');
-	if (ft_access_pipe(blk, inp, i))
+	//if (ft_access_pipe(blk, inp, i))
+	if (ft_switch(blk, inp, i))
 		ft_process(blk, inp);
 	while (++i < (inp->size - 1))
 	{
 		inp->temp = ft_split(inp->args[i], ' ');
-		if (ft_access_pipe(blk, inp, i))
+		//if (ft_access_pipe(blk, inp, i))
+		if (ft_switch(blk, inp, i))
 			ft_process(blk, inp);
 		wait(&blk->rs);
 		ft_freeing(inp->temp);
 	}
 	inp->temp = ft_split(inp->args[i], ' ');
-	if (ft_access_pipe(blk, inp, i))
+	//if (ft_access_pipe(blk, inp, i))
+	if (ft_switch(blk, inp, i))
 	{
 		ft_process_end(blk, inp);
 		wait(&blk->rs);

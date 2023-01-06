@@ -6,53 +6,53 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/06 10:06:07 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/06 19:14:17 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 #include <stdio.h>
 
-void	built_run(t_input *inp, t_shell *blk)
+void	built_run(t_input *inp, t_shell *blk, char **args)
 {
 	// ECHO
-	if (!strncmp(inp->args[0], "echo", 5))
+	if (!strncmp(args[0], "echo", 5))
 		ft_echo(blk, inp);
 	// CD
-	else if (!strncmp(inp->args[0], "cd", 3))
-		ft_cd(blk, inp->args[1]);
+	else if (!strncmp(args[0], "cd", 3))
+		ft_cd(blk, args[1]);
 	// ENV
-	else if (!strncmp(inp->args[0], "env", 4))
+	else if (!strncmp(args[0], "env", 4))
 		ft_printenv(blk);
 	//PWD
-	else if (!strncmp(inp->args[0], "pwd", 4))
+	else if (!strncmp(args[0], "pwd", 4))
 		ft_pwd(blk);
 	// EXPORT
-	else if (!strncmp(inp->args[0], "export", 7))
+	else if (!strncmp(args[0], "export", 7))
 		ft_export(blk, "VAL=", "5");
 	// UNSET
-	else if (!strncmp(inp->args[0], "unset", 6))
-		ft_unset(blk, inp->args[1]);
+	else if (!strncmp(args[0], "unset", 6))
+		ft_unset(blk, args[1]);
 	// EXIT
-	else if (!strncmp(inp->args[0], "exit", 5) || blk->buf == NULL)
+	else if (!strncmp(args[0], "exit", 5) || blk->buf == NULL)
 		ft_exit(inp, blk);
 }
 
-int	ft_is_builtin(t_shell *blk, t_input *inp)
+int	ft_is_builtin(t_shell *blk, char **args)
 {
-	if (!strncmp(inp->args[0], "echo", 5))
+	if (!strncmp(args[0], "echo", 5))
 		return (1);
-	else if (!strncmp(inp->args[0], "cd", 3))
+	else if (!strncmp(args[0], "cd", 3))
 		return (1);
-	else if (!strncmp(inp->args[0], "env", 4))
+	else if (!strncmp(args[0], "env", 4))
 		return (1);
-	else if (!strncmp(inp->args[0], "pwd", 4))
+	else if (!strncmp(args[0], "pwd", 4))
 		return (1);
-	else if (!strncmp(inp->args[0], "export", 7))
+	else if (!strncmp(args[0], "export", 7))
 		return (1);
-	else if (!strncmp(inp->args[0], "unset", 6))
+	else if (!strncmp(args[0], "unset", 6))
 		return (1);
-	else if (!strncmp(inp->args[0], "exit", 5) || blk->buf == NULL)
+	else if (!strncmp(args[0], "exit", 5) || blk->buf == NULL)
 		return (1);
 	return (0);
 }
@@ -98,10 +98,10 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			return ;
 		while (inp->args[inp->size])
 			inp->size++;
-		if (ft_is_builtin(blk, inp))
-			built_run(inp, blk);
-		else if (ft_has_pipes(blk->buf) > 0)
+		if (ft_has_pipes(blk->buf) > 0)
 			ft_pipe_handle(blk, inp);
+		else if (ft_is_builtin(blk, inp->args))
+			built_run(inp, blk, inp->args);
 		else if (ft_has_pipes(blk->buf) == 0)
 			ft_access(blk, inp);
 		ft_freeing(inp->args);

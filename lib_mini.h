@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/06 10:19:28 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/06 19:24:09 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ int			ft_mid_exec(t_input *inp, t_shell *blk);
 int			ft_beg_exec(t_input *inp, t_shell *blk);
 int			ft_end_exec(t_input *inp, t_shell *blk);
 
+//PARSER
+int			ft_is_builtin(t_shell *blk, char **args);
+int			ft_switch(t_shell *blk, t_input *inp, int i);
+void	built_run(t_input *inp, t_shell *blk, char **args);
 
 
 //BUILTINS

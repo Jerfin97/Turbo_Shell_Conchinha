@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 22:24:52 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/04 13:33:12 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/06 19:34:15 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	ft_echo(t_shell *blk, t_input *inp)
 	ft_clean_echo(blk, inp);
 	if (inp->size == -1)
 	{
-		ft_putstr_fd(inp->echo_print, 1);
+		//ft_putstr_fd(inp->echo_print, 1);
+		printf("%s", inp->echo_print);
 	}
 	else
 		ft_putendl_fd(inp->echo_print, 1);
