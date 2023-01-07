@@ -32,12 +32,16 @@ typedef struct s_shell
 {
 	char	**cmd;
 	int		i;
-	int		fd_pipe;
+	int		fd_in;
+	int		redirect;
+	const char *infilename;
 	char	*exp;
 	int		rs;
 	char	*buf;
 	char	**envp;
 	char	*tmpdoc;
+	int		stdin_backup;
+	int		stdout_backup;
 }				t_shell;
 
 //STRUCT DE INPUT
@@ -87,7 +91,6 @@ int			ft_is_builtin(t_shell *blk, char **args);
 int			ft_switch(t_shell *blk, t_input *inp, int i);
 void	built_run(t_input *inp, t_shell *blk, char **args);
 
-
 //BUILTINS
 void		ft_echo(t_shell *blk, t_input *inp, char **args);
 void		ft_exit(t_input *inp, t_shell *blk);
@@ -113,4 +116,10 @@ int			ft_validate_quotes(char *str);
 int			ft_update_quote(int *flag, char c);
 int			ft_var_size(char *str);
 void		ft_swapjoin(char **s1, char *s2);
+
+//PIPES
+void ft_restore_fds(t_shell *blk);
+void ft_redirect_infile(t_shell *blk);
+void ft_pipe_handle(t_shell *blk, t_input *inp);
+
 #endif

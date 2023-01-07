@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
+/*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/06 19:21:27 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/07 11:42:12 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	ft_process(t_shell *blk, t_input *inp)
 	if (pid == 0)
 	{
 		close(pipes[0]);
+		dup2(blk->fd_in, 0);
 		dup2(pipes[1], 1);
-		dup2(blk->fd_pipe, 0);
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
@@ -83,18 +83,25 @@ void	ft_process(t_shell *blk, t_input *inp)
 	if (pid > 0)
 	{
 		close(pipes[1]);
-		blk->fd_pipe = pipes[0];
+		blk->fd_in = pipes[0];
+		wait(NULL);
 	}
 }
 
 void	ft_process_end(t_shell *blk, t_input *inp)
 {
-	int	pid;
+	int		pid;
+	int		fileout;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(blk->fd_pipe, 0);
+  	dup2(blk->fd_in, 0);
+    if (blk->redirect == 1)
+		{
+			fileout = open("TESTE123.txt", O_TRUNC | O_CREAT | O_WRONLY, 0777);
+			dup2(fileout, 1);
+		}
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
@@ -104,37 +111,41 @@ void	ft_process_end(t_shell *blk, t_input *inp)
 			execve(inp->cmd, inp->temp, blk->envp);
 	}
 	if (pid > 0)
+	{
 		wait(NULL);
+	}
 }
 
 // Se precisarmos redirecionar para arquivo, blk->fd_pipe vai precisar dar Open
 // Tentei testar com outra estrutura, mas parece que e necessario chamar antes
 // do while e uma chamada de process_end depois do while.
+// ft_process_end - isntrucao de redirecionamento esta em blk, juntamente com o
+// const char * para nome de arquivo, esse precisa ser verificado antes de
+// vir pra ca lembrar de fechar os fds dentro de blk sao eles
+// blk -> stdin_backup
+// blk -> stdout_backup
+// blk -> fd_in;
+
 void	ft_pipe_handle(t_shell *blk, t_input *inp)
 {
-	int	i;
+	int		i;
 
-	blk->fd_pipe = dup(0);
-	i = 0;
-	inp->temp = ft_split(inp->args[0], ' ');
-	//if (ft_access_pipe(blk, inp, i))
-	if (ft_switch(blk, inp, i))
-		ft_process(blk, inp);
-	while (++i < (inp->size - 1))
+	ft_redirect_infile(blk);
+	i = -1;
+	while (++i < inp->size - 1)
 	{
 		inp->temp = ft_split(inp->args[i], ' ');
-		//if (ft_access_pipe(blk, inp, i))
 		if (ft_switch(blk, inp, i))
 			ft_process(blk, inp);
 		wait(&blk->rs);
 		ft_freeing(inp->temp);
 	}
 	inp->temp = ft_split(inp->args[i], ' ');
-	//if (ft_access_pipe(blk, inp, i))
 	if (ft_switch(blk, inp, i))
 	{
 		ft_process_end(blk, inp);
 		wait(&blk->rs);
 	}
 	ft_freeing(inp->temp);
+	ft_restore_fds(blk);
 }
