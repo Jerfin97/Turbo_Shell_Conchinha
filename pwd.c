@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:27:33 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 07:31:58 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/07 11:37:34 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 void	ft_pwd(t_shell *blk)
 {
 	char	*buffer;
-	int		i;
 
-	i = 3;
 	buffer = ft_search(blk->envp, "PWD=");
 	if (!buffer)
 	{
@@ -29,9 +27,7 @@ void	ft_pwd(t_shell *blk)
 	}
 	else
 	{
-		while (buffer[i++])
-			write(1, &buffer[i], 1);
-		write(1, "\n", 1);
+		printf("%s\n", buffer + 4);
 		blk->rs = 0;
 		free(buffer);
 	}

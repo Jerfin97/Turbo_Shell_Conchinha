@@ -11,13 +11,12 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
-#include "libft/libft.h"
 
 int	ft_build_path(t_shell *blk, t_input *inp)
 {
 	int	i;
 
-	i = 0;
+		i = 0;
 	inp->paths = ft_split(inp->cmd + 5, ':');
 	inp->tmp = ft_strjoin("/", inp->temp[0]);
 	free(inp->cmd);
@@ -73,7 +72,13 @@ void	ft_process(t_shell *blk, t_input *inp)
 		close(pipes[0]);
 		dup2(blk->fd_in, 0);
 		dup2(pipes[1], 1);
-		execve(inp->cmd, inp->temp, blk->envp);
+		if (ft_is_builtin(blk, inp->temp))
+		{
+			built_run(inp, blk, inp->temp);
+			exit(0);
+		}
+		else
+			execve(inp->cmd, inp->temp, blk->envp);
 	}
 	if (pid > 0)
 	{
@@ -91,13 +96,19 @@ void	ft_process_end(t_shell *blk, t_input *inp)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(blk->fd_in, 0);
-		if (blk->redirect == 1)
+  	dup2(blk->fd_in, 0);
+    if (blk->redirect == 1)
 		{
 			fileout = open("TESTE123.txt", O_TRUNC | O_CREAT | O_WRONLY, 0777);
 			dup2(fileout, 1);
 		}
-		execve(inp->cmd, inp->temp, blk->envp);
+		if (ft_is_builtin(blk, inp->temp))
+		{
+			built_run(inp, blk, inp->temp);
+			exit(0);
+		}
+		else
+			execve(inp->cmd, inp->temp, blk->envp);
 	}
 	if (pid > 0)
 	{
@@ -124,13 +135,13 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	while (++i < inp->size - 1)
 	{
 		inp->temp = ft_split(inp->args[i], ' ');
-		if (ft_access_pipe(blk, inp, i))
+		if (ft_switch(blk, inp, i))
 			ft_process(blk, inp);
 		wait(&blk->rs);
 		ft_freeing(inp->temp);
 	}
 	inp->temp = ft_split(inp->args[i], ' ');
-	if (ft_access_pipe(blk, inp, i))
+	if (ft_switch(blk, inp, i))
 	{
 		ft_process_end(blk, inp);
 		wait(&blk->rs);
