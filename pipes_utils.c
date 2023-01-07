@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:54:05 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/07 11:43:16 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/07 11:56:57 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,4 @@ void	ft_redirect_infile(t_shell *blk)
 		close(0);
 		dup2(blk->fd_in, 0);
 	}
+}
