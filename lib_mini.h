@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/06 19:24:09 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/07 10:47:03 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	built_run(t_input *inp, t_shell *blk, char **args);
 
 
 //BUILTINS
-void		ft_echo(t_shell *blk, t_input *inp);
+void		ft_echo(t_shell *blk, t_input *inp, char **args);
 void		ft_exit(t_input *inp, t_shell *blk);
 void		ft_cd(t_shell *blk, char *str);
 void		ft_pwd(t_shell *blk);

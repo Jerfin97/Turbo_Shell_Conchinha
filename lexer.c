@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/06 19:14:17 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/07 10:47:50 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	built_run(t_input *inp, t_shell *blk, char **args)
 {
 	// ECHO
 	if (!strncmp(args[0], "echo", 5))
-		ft_echo(blk, inp);
+		ft_echo(blk, inp, args);
 	// CD
 	else if (!strncmp(args[0], "cd", 3))
 		ft_cd(blk, args[1]);
