@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/06 10:19:28 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/07 11:27:26 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,16 @@ typedef struct s_shell
 {
 	char	**cmd;
 	int		i;
-	int		fd_pipe;
+	int		fd_in;
+	int		redirect;
+	const char *infilename;
 	char	*exp;
 	int		rs;
 	char	*buf;
 	char	**envp;
 	char	*tmpdoc;
+	int		stdin_backup;
+	int		stdout_backup;
 }				t_shell;
 
 //STRUCT DE INPUT
@@ -82,8 +86,6 @@ int			ft_mid_exec(t_input *inp, t_shell *blk);
 int			ft_beg_exec(t_input *inp, t_shell *blk);
 int			ft_end_exec(t_input *inp, t_shell *blk);
 
-
-
 //BUILTINS
 void		ft_echo(t_shell *blk, t_input *inp);
 void		ft_exit(t_input *inp, t_shell *blk);
@@ -109,4 +111,10 @@ int			ft_validate_quotes(char *str);
 int			ft_update_quote(int *flag, char c);
 int			ft_var_size(char *str);
 void		ft_swapjoin(char **s1, char *s2);
+
+//PIPES
+void ft_restore_fds(t_shell *blk);
+void ft_redirect_infile(t_shell *blk);
+void ft_pipe_handle(t_shell *blk, t_input *inp);
+
 #endif
