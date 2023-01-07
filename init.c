@@ -24,6 +24,10 @@ t_shell	*ft_blk_init(void)
 	blk->envp = NULL;
 	blk->tmpdoc = "TEMPFILEHEREDOC";
 	blk->rs = 0;
+	blk->infilename = NULL;
+	blk->redirect = 0;
+	blk->stdin_backup = dup(0);
+	blk->stdout_backup = dup(1);
 	return (blk);
 }
 
