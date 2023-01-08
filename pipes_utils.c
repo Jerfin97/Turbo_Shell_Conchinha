@@ -37,12 +37,16 @@ void	ft_redirect_infile(t_shell *blk)
 	{
 		ft_heredoc(blk, blk->heredoc_name);
 		blk->fd_in = open(blk->heredoc_name, O_RDONLY);
+		if(blk->fd_in < 0)
+			perror("ERNANI");
 		close(0);
 		dup2(blk->fd_in, 0);
 	}
 	if (blk->infilename)
 	{
 		blk->fd_in = open(blk->infilename, O_RDONLY);
+		if(blk->fd_in < 0)
+			perror("ERNANI");
 		close(0);
 		dup2(blk->fd_in, 0);
 	}
