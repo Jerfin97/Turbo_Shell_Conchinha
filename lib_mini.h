@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 10:55:40 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/08 12:41:26 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@
 //STRUCT CORE DO MINISHELL
 typedef struct s_shell
 {
-	char	**cmd;
-	int		i;
-	int		fd_in;
-	int		redirect;
-	const char *infilename;
-	char	*exp;
-	int		rs;
-	char	*buf;
-	char	**envp;
-	char	*tmpdoc;
-	int		stdin_backup;
-	int		stdout_backup;
+	char		**cmd;
+	int			i;
+	int			fd_in;
+	int			redirect;
+	const char	*infilename;
+	char		*exp;
+	int			rs;
+	char		*buf;
+	char		**envp;
+	char		*tmpdoc;
+	int			stdin_backup;
+	int			stdout_backup;
 }				t_shell;
 
 //STRUCT DE INPUT
@@ -92,7 +92,6 @@ int			ft_switch(t_shell *blk, t_input *inp, int i);
 void		built_run(t_input *inp, t_shell *blk, char **args);
 void		ft_cleanse(t_shell *blk, char **args);
 
-
 //BUILTINS
 void		ft_echo(t_shell *blk, t_input *inp, char **args);
 void		ft_exit(t_input *inp, t_shell *blk);
@@ -120,8 +119,8 @@ int			ft_var_size(char *str);
 void		ft_swapjoin(char **s1, char *s2);
 
 //PIPES
-void ft_restore_fds(t_shell *blk);
-void ft_redirect_infile(t_shell *blk);
-void ft_pipe_handle(t_shell *blk, t_input *inp);
+void		ft_restore_fds(t_shell *blk);
+void		ft_redirect_infile(t_shell *blk);
+void		ft_pipe_handle(t_shell *blk, t_input *inp);
 
 #endif

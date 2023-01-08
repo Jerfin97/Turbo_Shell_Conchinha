@@ -6,22 +6,16 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 20:38:45 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 08:55:50 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/08 12:36:26 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 
-char	**ft_build_unset(t_shell *blk, char *str)
+int	ft_re_create(t_shell *blk, char **ret, char *str)
 {
-	char	**ret;
-	int		i;
+	int	i;
 
-	i = 0;
-	blk->i = 0;
-	while (blk->envp[i])
-		i++;
-	ret = malloc(sizeof(char *) * (i + 2));
 	i = 0;
 	while (blk->envp[i])
 	{
@@ -36,8 +30,23 @@ char	**ft_build_unset(t_shell *blk, char *str)
 			i++;
 		}
 	}
+	return (i);
+}
+
+char	**ft_build_unset(t_shell *blk, char *str)
+{
+	char	**ret;
+	int		i;
+
+	i = 0;
+	blk->i = 0;
+	while (blk->envp[i])
+		i++;
+	ret = malloc(sizeof(char *) * (i + 2));
+	i = ft_re_create(blk, ret, str);
 	ret[i - blk->i] = NULL;
 	ret[i + 1 - blk->i] = NULL;
+	free(str);
 	return (ret);
 }
 
@@ -49,7 +58,7 @@ void	ft_unset(t_shell *blk, char **args)
 	i = 0;
 	while (args[i])
 	{
-		new_env = ft_build_unset(blk, args[i]);
+		new_env = ft_build_unset(blk, ft_strjoin(args[i], "="));
 		ft_freeing(blk->envp);
 		blk->envp = new_env;
 		i++;
