@@ -34,6 +34,7 @@ typedef struct s_shell
 	int		i;
 	int		fd_in;
 	int		redirect;
+	char	*heredoc_name;
 	const char *infilename;
 	char	*exp;
 	int		rs;

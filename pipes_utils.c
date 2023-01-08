@@ -19,7 +19,7 @@ int	ft_switch(t_shell *blk, t_input *inp, int i)
 	else if (ft_access_pipe(blk, inp, i))
 		return (1);
 	return (0);
- }
+}
 
 void	ft_restore_fds(t_shell *blk)
 {
@@ -27,9 +27,19 @@ void	ft_restore_fds(t_shell *blk)
 	dup2(blk->stdout_backup, 1);
 }
 
+//Esse redirecionador funciona caso exista heredoc ou infile setado dentro de
+//blk fazendo o input padrao ser heredoc ou infile, como preferir.
+
 void	ft_redirect_infile(t_shell *blk)
 {
 	blk->fd_in = dup(0);
+	if (blk->heredoc_name)
+	{
+		ft_heredoc(blk, blk->heredoc_name);
+		blk->fd_in = open(blk->heredoc_name, O_RDONLY);
+		close(0);
+		dup2(blk->fd_in, 0);
+	}
 	if (blk->infilename)
 	{
 		blk->fd_in = open(blk->infilename, O_RDONLY);

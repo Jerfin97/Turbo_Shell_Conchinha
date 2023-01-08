@@ -96,8 +96,8 @@ void	ft_process_end(t_shell *blk, t_input *inp)
 	pid = fork();
 	if (pid == 0)
 	{
-  	dup2(blk->fd_in, 0);
-    if (blk->redirect == 1)
+		dup2(blk->fd_in, 0);
+		if (blk->redirect == 1)
 		{
 			fileout = open("TESTE123.txt", O_TRUNC | O_CREAT | O_WRONLY, 0777);
 			dup2(fileout, 1);
