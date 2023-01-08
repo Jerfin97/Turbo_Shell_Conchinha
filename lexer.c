@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 10:54:43 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/08 13:02:11 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	built_run(t_input *inp, t_shell *blk, char **args)
 		ft_echo(blk, inp, args);
 	// CD
 	else if (!strncmp(args[0], "cd", 3))
-		ft_cd(blk, args[1]);
+		ft_cd(blk, args[1], args);
 	// ENV
 	else if (!strncmp(args[0], "env", 4))
-		ft_printenv(blk);
+		ft_printenv(blk, args);
 	//PWD
 	else if (!strncmp(args[0], "pwd", 4))
-		ft_pwd(blk);
+		ft_pwd(blk, args);
 	// EXPORT
 	else if (!strncmp(args[0], "export", 7))
 		ft_cleanse(blk, args);
@@ -34,7 +34,7 @@ void	built_run(t_input *inp, t_shell *blk, char **args)
 		ft_unset(blk, args);
 	// EXIT
 	else if (!strncmp(args[0], "exit", 5) || blk->buf == NULL)
-		ft_exit(inp, blk);
+		ft_exit(inp, blk, args);
 }
 
 int	ft_is_builtin(t_shell *blk, char **args)
