@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 10:17:56 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 11:39:46 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/08 12:50:24 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_cleanse(t_shell *blk, char **args)
 			ft_export(blk, str[0], str[1]);
 			ft_freeing(str);
 		}
-		else if (blk->rs == 0)
+		else
 		{
 			args[i][ft_valid_name(args[i], 1)] = '\0';
 			printf("export: not an identifier: %s\n", args[i]);
