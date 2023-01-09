@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/06 09:38:25 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/08 12:40:01 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 	blk->envp = ft_build_env(envp);
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler) ;
+	signal(SIGQUIT, signal_handler);
 	//ft_access(blk, inp);
 	//printf("%s\n", ft_expand(blk, TESTE));
 	//printf("RESULTADO DO TESTE: %s --\n", ft_var_ret(blk, "ASDAS="));
