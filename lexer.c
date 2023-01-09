@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/09 11:31:46 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:06:13 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,22 @@ char	**ft_create_args(t_shell *blk)
 	char	**ret;
 
 	if (ft_find_str(blk->buf, "|") == -1)
-		return (perror("VERIFICAR ERNANI"), NULL);
-	//if (ft_find_string(blk->buf, ">") == -1)
-	//	return(perror("ERRRNANI"));
-	if (ft_find_str(blk->buf, "|") > 0)
+		return (perror("VERIFICAR ERNANI | ERRADO"), NULL);
+	else if (ft_find_str(blk->buf, ">>") == -1)
+		return(perror("ERRRNANI > OU >> ERRADO"), NULL);
+	else if (ft_find_str(blk->buf, "<<") == -1)
+		return(perror("ERRRNANI < OU << ERRADO"), NULL);
+	else if (ft_find_str(blk->buf, "|") > 0)
 		return (ret = ft_hand_split(blk->buf, "|"));
+	//else if (ft_find_str(blk->buf, ">") > 0)
+	//	return (ret = ft_hand_split(blk->buf, "|"));
 	else
-		return (ret = ft_split(blk->buf, ' '));
+	{
+		blk->tmp = ft_expand(blk, blk->buf);
+		ret = ft_split(blk->tmp, ' ');
+		free(blk->tmp);
+		return (ret);
+	}
 }
 
 void	ft_lexer(t_shell *blk, t_input *inp)
@@ -100,10 +109,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		if (inp->args == NULL)
 			return ;
 		while (inp->args[inp->size])
-		{
-			printf("-- %s -- \n", inp->args[inp->size]);
 			inp->size++;
-		}
 		if (ft_find_str(blk->buf, "|") > 0)
 		{
 			ft_pipe_handle(blk, inp);
