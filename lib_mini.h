@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/09 12:24:54 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:01:57 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_shell
 	char		*tmpdoc;
 	int			stdin_backup;
 	int			stdout_backup;
+	char		*tmp;
 }				t_shell;
 
 //STRUCT DE INPUT
