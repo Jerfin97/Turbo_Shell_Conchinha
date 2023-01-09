@@ -27,6 +27,7 @@ SRCS =	main.c \
 		expand_utils.c \
 		pipes.c \
 		pipes_utils.c \
+		parse_utils.c \
 		export.c \
 		unset.c \
 		clean_export_unset.c 

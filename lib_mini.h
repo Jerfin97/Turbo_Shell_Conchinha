@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 13:02:45 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/08 11:57:38 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ t_input		*ft_input_init(void);
 
 // LEXER
 void		ft_lexer(t_shell *blk, t_input *inp);
+
+//PARSER
+int			ft_find_str(char *str, char *c);
+
 
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
