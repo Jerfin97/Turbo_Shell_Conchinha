@@ -15,6 +15,8 @@
 // Heredoc_Handler
 // abrir um arquivo e escrever nele oque esta no prompt
 // Precisa aplicar as funcionalidades do original como imprimir em stdout
+//
+// Dentro de pipes_utils existe um redirecionador para o heredoc
 
 void	ft_heredoc(t_shell *blk, char *hereword)
 {

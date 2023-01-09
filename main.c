@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 	//printf("%s\n", ft_expand(blk, TESTE));
 	//printf("RESULTADO DO TESTE: %s --\n", ft_var_ret(blk, "ASDAS="));
 	ft_prompt(blk, inp);
-	ft_freeing(blk->envp);
+//	ft_freeing(blk->envp);
 	free(blk);
 	free(inp);
 	return (0);

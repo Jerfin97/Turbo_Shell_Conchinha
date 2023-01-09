@@ -23,6 +23,7 @@ t_shell	*ft_blk_init(void)
 	blk->buf = NULL;
 	blk->envp = NULL;
 	blk->tmpdoc = "TEMPFILEHEREDOC";
+	blk->heredoc_name = NULL;
 	blk->rs = 0;
 	blk->infilename = NULL;
 	blk->redirect = 0;

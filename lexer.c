@@ -15,7 +15,7 @@
 void	built_run(t_input *inp, t_shell *blk, char **args)
 {
 	// ECHO
-	if (!strncmp(args[0], "echo", 5))
+	if (!ft_strncmp(args[0], "echo", 5))
 		ft_echo(blk, inp, args);
 	// CD
 	else if (!strncmp(args[0], "cd", 3))
@@ -39,20 +39,22 @@ void	built_run(t_input *inp, t_shell *blk, char **args)
 
 int	ft_is_builtin(t_shell *blk, char **args)
 {
-	if (!strncmp(args[0], "echo", 5))
+	if (!ft_strncmp(args[0], "echo", 5))
 		return (1);
-	else if (!strncmp(args[0], "cd", 3))
+	else if (!ft_strncmp(args[0], "cd", 3))
 		return (1);
-	else if (!strncmp(args[0], "env", 4))
+	else if (!ft_strncmp(args[0], "env", 4))
 		return (1);
-	else if (!strncmp(args[0], "pwd", 4))
+	else if (!ft_strncmp(args[0], "pwd", 4))
 		return (1);
-	else if (!strncmp(args[0], "export", 7))
+	else if (!ft_strncmp(args[0], "export", 7))
 		return (1);
-	else if (!strncmp(args[0], "unset", 6))
+	else if (!ft_strncmp(args[0], "unset", 6))
 		return (1);
-	else if (!strncmp(args[0], "exit", 5) || blk->buf == NULL)
+	else if (!ft_strncmp(args[0], "exit", 5) || blk->buf == NULL)
 		return (1);
+	else if (!ft_strncmp(args[0], "heredoc", 7))
+		return(2);
 	return (0);
 }
 

@@ -30,18 +30,19 @@
 //STRUCT CORE DO MINISHELL
 typedef struct s_shell
 {
-	char		**cmd;
-	int			i;
-	int			fd_in;
-	int			redirect;
-	const char	*infilename;
-	char		*exp;
-	int			rs;
-	char		*buf;
-	char		**envp;
-	char		*tmpdoc;
-	int			stdin_backup;
-	int			stdout_backup;
+	char	**cmd;
+	int		i;
+	int		fd_in;
+	int		redirect;
+	char	*heredoc_name;
+	const char *infilename;
+	char	*exp;
+	int		rs;
+	char	*buf;
+	char	**envp;
+	char	*tmpdoc;
+	int		stdin_backup;
+	int		stdout_backup;
 }				t_shell;
 
 //STRUCT DE INPUT
