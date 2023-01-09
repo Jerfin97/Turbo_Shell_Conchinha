@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 12:38:44 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/09 12:17:56 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,16 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	i = -1;
 	while (++i < inp->size - 1)
 	{
-		inp->temp = ft_split(inp->args[i], ' ');
+		inp->tmp = ft_chase(blk, inp->args[i]);
+		inp->temp = ft_split(inp->tmp, ' ');
 		if (ft_switch(blk, inp, i))
 			ft_process(blk, inp);
 		wait(&blk->rs);
+		free(inp->tmp);
 		ft_freeing(inp->temp);
 	}
-	inp->temp = ft_split(inp->args[i], ' ');
+	inp->tmp = ft_chase(blk, inp->args[i]);
+	inp->temp = ft_split(inp->tmp, ' ');
 	if (ft_switch(blk, inp, i))
 	{
 		ft_process_end(blk, inp);

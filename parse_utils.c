@@ -6,12 +6,11 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 10:04:41 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/08 12:10:07 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/09 10:52:55 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
-#include "libft/libft.h"
 
 int	ft_i_next_input(char *str)
 {

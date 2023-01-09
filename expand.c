@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/05 18:23:22 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/09 12:25:12 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,16 @@ char	*ft_create_var(char *str)
 	var = ft_substr(str, start, len);
 	if (!var)
 		return (NULL);
-	tmp = ft_strjoin(var, "=");
-	var = tmp;
+	i = 1;
+	if (!ft_var_isvalid(var))
+	{
+		while (ft_isalnum(var[i]) || var[i] == '_')
+			i++;
+		tmp = ft_substr(var, 0, i);
+		free(var);
+	}
+	var = ft_strjoin(tmp, "=");
+	free(tmp);
 	return (var);
 }
 
@@ -49,7 +57,7 @@ char	*ft_var_ret(t_shell *blk, char *str)
 	i = 0;
 	ret = ft_search(blk->envp, str);
 	if (!ret)
-		return (NULL);
+		return ("");// Voltar pra null caso de merda
 	while (ret[i] != '=')
 		i++;
 	return (&ret[i + 1]);

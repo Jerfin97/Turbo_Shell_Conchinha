@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 11:57:38 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/09 12:24:54 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@
 //STRUCT CORE DO MINISHELL
 typedef struct s_shell
 {
-	char	**cmd;
-	int		i;
-	int		fd_in;
-	int		redirect;
-	char	*heredoc_name;
-	const char *infilename;
-	char	*exp;
-	int		rs;
-	char	*buf;
-	char	**envp;
-	char	*tmpdoc;
-	int		stdin_backup;
-	int		stdout_backup;
+	char		**cmd;
+	int			i;
+	int			fd_in;
+	int			redirect;
+	char		*heredoc_name;
+	const char	*infilename;
+	char		*exp;
+	int			rs;
+	char		*buf;
+	char		**envp;
+	char		*tmpdoc;
+	int			stdin_backup;
+	int			stdout_backup;
 }				t_shell;
 
 //STRUCT DE INPUT
@@ -68,6 +68,12 @@ t_input		*ft_input_init(void);
 
 // LEXER
 void		ft_lexer(t_shell *blk, t_input *inp);
+
+// PARSER
+int	ft_has_input_next(char *str, char *sep);
+char	**ft_hand_split(char *str, char *sep);
+int	ft_i_next_input(char *str);
+int	ft_find_str(char *str, char *sep);
 
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
@@ -120,6 +126,8 @@ int			ft_validate_quotes(char *str);
 int			ft_update_quote(int *flag, char c);
 int			ft_var_size(char *str);
 void		ft_swapjoin(char **s1, char *s2);
+char		*ft_chase(t_shell *blk, char *str);
+int			ft_var_isvalid(char *str);
 
 //PIPES
 void		ft_restore_fds(t_shell *blk);

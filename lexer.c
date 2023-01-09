@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 13:02:11 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/09 11:31:46 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_is_builtin(t_shell *blk, char **args)
 	return (0);
 }
 
-int	ft_has_pipes(char *str)
+/*int	ft_has_pipes(char *str)
 {
 	int		i;
 	int		pipe;
@@ -70,22 +70,24 @@ int	ft_has_pipes(char *str)
 		if (str[i] == '|')
 		{
 			pipe++;
-			if (str[i + 1] == '|')
-				return (-1);
+			//if (str[i + 1] == '|')
+			//	return (-1);
 		}
 		i++;
 	}
 	return (pipe);
-}
+}*/
 
 char	**ft_create_args(t_shell *blk)
 {
 	char	**ret;
 
-	if (ft_has_pipes(blk->buf) == -1)
+	if (ft_find_str(blk->buf, "|") == -1)
 		return (perror("VERIFICAR ERNANI"), NULL);
-	if (ft_has_pipes(blk->buf) > 0)
-		return (ret = ft_split(blk->buf, '|'));
+	//if (ft_find_string(blk->buf, ">") == -1)
+	//	return(perror("ERRRNANI"));
+	if (ft_find_str(blk->buf, "|") > 0)
+		return (ret = ft_hand_split(blk->buf, "|"));
 	else
 		return (ret = ft_split(blk->buf, ' '));
 }
@@ -95,15 +97,20 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 	if (blk->buf && *blk->buf)
 	{
 		inp->args = ft_create_args(blk);
-		if (!inp->args)
+		if (inp->args == NULL)
 			return ;
 		while (inp->args[inp->size])
+		{
+			printf("-- %s -- \n", inp->args[inp->size]);
 			inp->size++;
-		if (ft_has_pipes(blk->buf) > 0)
+		}
+		if (ft_find_str(blk->buf, "|") > 0)
+		{
 			ft_pipe_handle(blk, inp);
+		}
 		else if (ft_is_builtin(blk, inp->args))
 			built_run(inp, blk, inp->args);
-		else if (ft_has_pipes(blk->buf) == 0)
+		else if (ft_find_str(blk->buf, "|") == 0)
 			ft_access(blk, inp);
 		ft_freeing(inp->args);
 	}
