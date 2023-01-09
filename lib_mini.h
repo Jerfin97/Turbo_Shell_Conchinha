@@ -69,10 +69,6 @@ t_input		*ft_input_init(void);
 // LEXER
 void		ft_lexer(t_shell *blk, t_input *inp);
 
-//PARSER
-int			ft_find_str(char *str, char *c);
-
-
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
 
@@ -96,6 +92,8 @@ int			ft_is_builtin(t_shell *blk, char **args);
 int			ft_switch(t_shell *blk, t_input *inp, int i);
 void		built_run(t_input *inp, t_shell *blk, char **args);
 void		ft_cleanse(t_shell *blk, char **args);
+char		**ft_hand_split(char *str, char *sep);
+int			ft_find_str(char *str, char *sep);
 
 //BUILTINS
 void		ft_echo(t_shell *blk, t_input *inp, char **args);
