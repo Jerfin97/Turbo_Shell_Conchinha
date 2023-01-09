@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:40 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/29 11:55:20 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/08 13:01:05 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,16 @@ int	change_dir(t_shell *blk, char *str)
 
 // Aqui a magica acontece, pego o old_path se change dir funcionar com str
 // atualizamos os paths nas variaveis de ambiente.
-void	ft_cd(t_shell *blk, char *str)
+void	ft_cd(t_shell *blk, char *str, char **args)
 {
 	char	*old_path;
 
+	if (args[2] != NULL)
+	{
+		blk->rs = 1;
+		perror("TOO MANY ARGS");
+		return ;
+	}
 	old_path = getcwd(NULL, 0);
 	if (change_dir(blk, str) == 0)
 	{

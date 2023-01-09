@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 	blk->envp = ft_build_env(envp);
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler) ;
+	signal(SIGQUIT, signal_handler);
 	//ft_access(blk, inp);
 	//printf("%s\n", ft_expand(blk, TESTE));
 	//printf("RESULTADO DO TESTE: %s --\n", ft_var_ret(blk, "ASDAS="));

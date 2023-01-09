@@ -6,12 +6,11 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/07 10:47:50 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/08 13:02:11 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
-#include <stdio.h>
 
 void	built_run(t_input *inp, t_shell *blk, char **args)
 {
@@ -19,26 +18,23 @@ void	built_run(t_input *inp, t_shell *blk, char **args)
 	if (!ft_strncmp(args[0], "echo", 5))
 		ft_echo(blk, inp, args);
 	// CD
-	else if (!ft_strncmp(args[0], "cd", 3))
-		ft_cd(blk, args[1]);
+	else if (!strncmp(args[0], "cd", 3))
+		ft_cd(blk, args[1], args);
 	// ENV
-	else if (!ft_strncmp(args[0], "env", 4))
-		ft_printenv(blk);
+	else if (!strncmp(args[0], "env", 4))
+		ft_printenv(blk, args);
 	//PWD
-	else if (!ft_strncmp(args[0], "pwd", 4))
-		ft_pwd(blk);
+	else if (!strncmp(args[0], "pwd", 4))
+		ft_pwd(blk, args);
 	// EXPORT
-	else if (!ft_strncmp(args[0], "export", 7))
-		ft_export(blk, "VAL=", "5");
+	else if (!strncmp(args[0], "export", 7))
+		ft_cleanse(blk, args);
 	// UNSET
-	else if (!ft_strncmp(args[0], "unset", 6))
-		ft_unset(blk, args[1]);
+	else if (!strncmp(args[0], "unset", 6))
+		ft_unset(blk, args);
 	// EXIT
-	else if (!ft_strncmp(args[0], "exit", 5) || blk->buf == NULL)
-		ft_exit(inp, blk);
-	//HEREDOC TEST
-	else if (!ft_strncmp(args[0], "heredoc", 7))
-		ft_heredoc(blk, "heredoc");
+	else if (!strncmp(args[0], "exit", 5) || blk->buf == NULL)
+		ft_exit(inp, blk, args);
 }
 
 int	ft_is_builtin(t_shell *blk, char **args)

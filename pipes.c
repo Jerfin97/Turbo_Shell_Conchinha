@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/07 11:42:12 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/08 12:38:44 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	ft_access_pipe(t_shell *blk, t_input *inp, int i)
 			free(inp->cmd);
 		inp->cmd = inp->temp[i];
 		blk->rs = 0;
-		//printf("ABSOLUTE PATH SUPREMACY\n");
 		return (1);
 	}
 	else if (inp->cmd != NULL)

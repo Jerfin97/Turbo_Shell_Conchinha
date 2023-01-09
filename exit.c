@@ -6,14 +6,20 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:24:41 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/30 16:28:44 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/08 13:06:28 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 
-void	ft_exit(t_input *inp, t_shell *blk)
+void	ft_exit(t_input *inp, t_shell *blk, char **args)
 {
+	if (args[1] != NULL)
+	{
+		blk->rs = 1;
+		perror("TOO MANY ARGS");
+		return ;
+	}
 	if (!ft_strncmp(inp->args[0], "exit", 4))
 	{
 		ft_freeing(inp->args);

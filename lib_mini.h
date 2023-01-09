@@ -95,15 +95,16 @@ int			ft_end_exec(t_input *inp, t_shell *blk);
 int			ft_is_builtin(t_shell *blk, char **args);
 int			ft_switch(t_shell *blk, t_input *inp, int i);
 void		built_run(t_input *inp, t_shell *blk, char **args);
+void		ft_cleanse(t_shell *blk, char **args);
 
 //BUILTINS
 void		ft_echo(t_shell *blk, t_input *inp, char **args);
-void		ft_exit(t_input *inp, t_shell *blk);
-void		ft_cd(t_shell *blk, char *str);
-void		ft_pwd(t_shell *blk);
-void		ft_printenv(t_shell *blk);
+void		ft_exit(t_input *inp, t_shell *blk, char **args);
+void		ft_cd(t_shell *blk, char *str, char **args);
+void		ft_pwd(t_shell *blk, char **args);
+void		ft_printenv(t_shell *blk, char **args);
 void		ft_export(t_shell *blk, char *str, char *str2);
-void		ft_unset(t_shell *blk, char *str);
+void		ft_unset(t_shell *blk, char **args);
 
 //ENV CREATION; ENV MANIPULATION
 char		**ft_build_env(char **envp);
@@ -123,8 +124,8 @@ int			ft_var_size(char *str);
 void		ft_swapjoin(char **s1, char *s2);
 
 //PIPES
-void ft_restore_fds(t_shell *blk);
-void ft_redirect_infile(t_shell *blk);
-void ft_pipe_handle(t_shell *blk, t_input *inp);
+void		ft_restore_fds(t_shell *blk);
+void		ft_redirect_infile(t_shell *blk);
+void		ft_pipe_handle(t_shell *blk, t_input *inp);
 
 #endif

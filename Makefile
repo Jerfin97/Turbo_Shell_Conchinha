@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2023/01/08 10:25:41 by dvargas          ###   ########.fr        #
+#    Updated: 2023/01/08 10:56:49 by jeluiz4          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,10 @@ SRCS =	main.c \
 		expand_utils.c \
 		pipes.c \
 		pipes_utils.c \
-		parse_utils.c
+		parse_utils.c \
+		export.c \
+		unset.c \
+		clean_export_unset.c 
 
 FLAGS = cc -Wall -Wextra -Werror -g
 
