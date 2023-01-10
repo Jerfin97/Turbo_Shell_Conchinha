@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/09 15:06:13 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:05:20 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ char	**ft_create_args(t_shell *blk)
 	else
 	{
 		blk->tmp = ft_expand(blk, blk->buf);
-		ret = ft_split(blk->tmp, ' ');
+		if (blk->tmp == NULL)
+			return (NULL); 
+		ret = ft_split_in_spaces(blk->tmp, 0, 0, 0);
 		free(blk->tmp);
 		return (ret);
 	}

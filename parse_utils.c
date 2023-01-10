@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 10:04:41 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/10 08:58:26 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/10 10:52:24 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 char	*ft_space_clean(char *str, int i, int quote, int space)
 {
 	char	*ret;
+	char	*tmp;
 
 	ret = calloc(1, 1);
 	while (str[i] == ' ')
@@ -29,14 +30,20 @@ char	*ft_space_clean(char *str, int i, int quote, int space)
 		ft_update_quote(&quote, str[i]);
 		if (str[i] == ' ' && quote == 0 && space == 0)
 		{
-			ret = ft_strjoinchar(ret, ' ');
+			tmp = ft_strjoinchar(ret, ' ');
+			free(ret);
+			ret = ft_strdup(tmp);
+			free(tmp);
 			space = 1;
 		}
 		else if (str[i] != ' ' || quote == 1 || quote == 2)
 		{
 			if (space == 1)
 				space = 0;
-			ret = ft_strjoinchar(ret, str[i]);
+			tmp = ft_strjoinchar(ret, str[i]);
+			free(ret);
+			ret = ft_strdup(tmp);
+			free(tmp);
 		}
 		i++;
 	}
@@ -56,7 +63,7 @@ char	**ft_split_in_spaces(char *dirty, int i, int j, int quote)
 
 	k = 0;
 	clean = ft_space_clean(dirty, 0, 0, 0);
-	ret = malloc(sizeof(char **) * ft_find_str(clean, " ") + 2);
+	ret = malloc(sizeof(char *) * ft_find_str(clean, " ") + 2);
 	while (clean[i])
 	{
 		ft_update_quote(&quote, clean[i]);

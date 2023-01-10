@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 07:16:34 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/31 11:58:48 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/10 10:55:08 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_freeing(char **matrix)
 		free(matrix[i]);
 		i++;
 	}
+	if (matrix[i] != NULL)
+		free(matrix[i]);
 	free(matrix);
 	return (0);
 }

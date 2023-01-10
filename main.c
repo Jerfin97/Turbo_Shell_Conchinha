@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 12:09:50 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:05:36 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,17 @@ int	main(int argc, char **argv, char **envp)
 	//ft_access(blk, inp);
 	//printf("%s\n", ft_expand(blk, TESTE));
 	//printf("RESULTADO DO TESTE: %s --\n", ft_var_ret(blk, "ASDAS="));
-	int i = 0;
-	char *dirty = "    Va m os     \"ASD      'A'SDA\"      testar    ";
-char **teste2 = ft_split_in_spaces(dirty, 0, 0, 0);
-	while(teste2[i] != NULL)
-	{
-		printf("%s\n", teste2[i]);
-		i++;
-	}
-	//ft_prompt(blk, inp);
-//	ft_freeing(blk->envp);
+	//int i = 0;
+	//char *dirty = "    Va m os     \"ASD      'A'SDA\"   \"\"   testar    ";
+	//char **teste2 = ft_split_in_spaces(dirty, 0, 0, 0);
+	//while(teste2[i] != NULL)
+	//{
+	//	printf("%s\n", teste2[i]);
+	//	i++;
+	//}
+	ft_prompt(blk, inp);
+	ft_freeing(blk->envp);
+	//ft_freeing(teste2);
 	free(blk);
 	free(inp);
 	return (0);
