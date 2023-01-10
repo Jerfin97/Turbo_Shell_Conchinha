@@ -12,6 +12,62 @@
 
 #include "lib_mini.h"
 
+char	*ft_space_clean(char *str,int i,int quote,int space)
+{
+	char *ret;
+
+	ret = calloc(1,1);
+	while(str[i] == ' ')
+		i++;
+	while(str[i])
+	{
+		ft_update_quote(&quote, str[i]);
+		if(str[i] == ' ' && quote == 0 && space == 0)
+		{
+			ret = ft_strjoinchar(ret, ' ');
+			space = 1;
+		}
+		else if(str[i] != ' ' || quote == 1 || quote == 2)
+		{
+			if(space == 1)
+				space = 0;
+			ret = ft_strjoinchar(ret, str[i]);
+		}
+		i++;
+	}
+	return(ret);
+}
+
+char	**ft_split_in_spaces(char *str)
+{
+	int i;
+	int j;
+	int k;
+	int quotes;
+	int size;
+	char **ret;
+	char *clean;
+	quotes = 0;
+	i = 0;
+	k = 0;
+	j = 0;
+	clean = ft_space_clean(str, 0, 0, 0);
+	size = ft_find_str(clean, " ");
+	ret = malloc(sizeof(char **) * size + 1);
+	while(clean[i])
+	{
+		if(clean[i] == ' ' && quotes == 0)
+		{
+			ret[j] = ft_substr(str, k, i - k);
+			k = ft_i_next_input(&str[i]) + i;
+			j++;
+		}
+		i++;
+	}
+	ret[j] = NULL;
+	return(ret);
+}
+
 int	ft_i_next_input(char *str)
 {
 	int		i;
