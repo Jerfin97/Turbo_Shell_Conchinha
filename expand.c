@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/09 12:25:12 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/09 22:22:53 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_create_var(char *str)
 	}
 	start = i + 1;
 	len = ft_var_size(str);
-	var = ft_substr(str, start, len);
+	var = ft_substr(str, start, len); // malloc
 	if (!var)
 		return (NULL);
 	i = 1;
@@ -87,7 +87,11 @@ char	*ft_chase(t_shell *blk, char *str)
 			free(tmp);
 		}
 		else
+		{
+			tmp = ret;
 			ret = ft_strjoinchar(ret, str[i]);
+			free(tmp);
+		}
 	}
 	return (ret);
 }
