@@ -75,6 +75,8 @@ int	ft_has_input_next(char *str, char *sep);
 char	**ft_hand_split(char *str, char *sep);
 int	ft_i_next_input(char *str);
 int	ft_find_str(char *str, char *sep);
+char	**ft_split_in_spaces(char *dirty, int i, int j, int quote);
+char	*ft_space_clean(char *str,int i,int quote,int space);
 
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
