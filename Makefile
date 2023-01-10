@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2023/01/09 11:01:47 by jeluiz4          ###   ########.fr        #
+#    Updated: 2023/01/09 23:18:04 by lfarias-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS =	main.c \
 		unset.c \
 		clean_export_unset.c
 
-FLAGS = cc -Wall -Wextra -Werror -g
+FLAGS = cc -Wall -Wextra -Werror -g -fsanitize=address
 
 RM = rm -f
 
@@ -44,16 +44,16 @@ LREADLINE = -lreadline
 OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
-$(NAME):
-	@echo "\e[1;94m======================="
-	@echo "Waves in the ocean"
+$(NAME): $(OBJS)
+	@printf "\e[1;31m=======================\e[0m"
+	@printf "Waves in the ocean"
 	@echo "======================="
 	@ cd $(LIBD) && make
 	@$(FLAGS) -c $(SRCS) 
 	@$(FLAGS) $(OBJS) $(LIBA) -o $(NAME) $(LREADLINE)
-	@echo "======================="
-	@echo "\e[1;93mThe shell is ready\e[0m"
-	@echo "\e[1;94m======================="
+	@printf "======================="
+	@printf "\e[1;93mThe shell is ready\e[0m"
+	@printf "\e[1;94m=======================\e[0m"
 
 clean:
 	@echo 'clean rule'
