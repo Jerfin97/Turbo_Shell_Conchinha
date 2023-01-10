@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:40 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 13:01:05 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/09 22:41:57 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ int	change_dir(t_shell *blk, char *str)
 void	ft_cd(t_shell *blk, char *str, char **args)
 {
 	char	*old_path;
+	int		size;
 
-	if (args[2] != NULL)
+	size = 0;
+	while (args[size])
+		size++;
+	if (size > 2)
 	{
 		blk->rs = 1;
 		perror("TOO MANY ARGS");
