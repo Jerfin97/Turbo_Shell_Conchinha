@@ -31,8 +31,9 @@ SRCS =	main.c \
 		export.c \
 		unset.c \
 		clean_export_unset.c
+SANITIZE = -fsanitize=address
+FLAGS = cc -Wall -Wextra -Werror -g
 
-FLAGS = cc -Wall -Wextra -Werror -g -fsanitize=address
 
 RM = rm -f
 
