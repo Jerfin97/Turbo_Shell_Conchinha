@@ -3,69 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
+/*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 10:04:41 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/09 10:52:55 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/10 08:58:26 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+#include "libft/libft.h"
 
-char	*ft_space_clean(char *str,int i,int quote,int space)
+
+// Essa funcao recebe uma string 'suja' e devolve ela com espacamento correto
+// menos tudo que esta entre quotes. se o ultimo char for espaco ela coloca como
+// \0
+char	*ft_space_clean(char *str, int i, int quote, int space)
 {
-	char *ret;
+	char	*ret;
 
-	ret = calloc(1,1);
-	while(str[i] == ' ')
+	ret = calloc(1, 1);
+	while (str[i] == ' ')
 		i++;
-	while(str[i])
+	while (str[i])
 	{
 		ft_update_quote(&quote, str[i]);
-		if(str[i] == ' ' && quote == 0 && space == 0)
+		if (str[i] == ' ' && quote == 0 && space == 0)
 		{
 			ret = ft_strjoinchar(ret, ' ');
 			space = 1;
 		}
-		else if(str[i] != ' ' || quote == 1 || quote == 2)
+		else if (str[i] != ' ' || quote == 1 || quote == 2)
 		{
-			if(space == 1)
+			if (space == 1)
 				space = 0;
 			ret = ft_strjoinchar(ret, str[i]);
 		}
 		i++;
 	}
-	return(ret);
+	if (ret[ft_strlen(ret) - 1] == ' ')
+		ret[ft_strlen(ret) - 1] = '\0';
+	return (ret);
 }
 
-char	**ft_split_in_spaces(char *str)
+//essa funcao recebe uma string e splita exatamente nos espacos
+//ela primeiro limpa chamando space clean e depois faz substrings
+//alimentando o char ** de retorno.
+char	**ft_split_in_spaces(char *dirty, int i, int j, int quote)
 {
-	int i;
-	int j;
-	int k;
-	int quotes;
-	int size;
-	char **ret;
-	char *clean;
-	quotes = 0;
-	i = 0;
+	int		k;
+	char	**ret;
+	char	*clean;
+
 	k = 0;
-	j = 0;
-	clean = ft_space_clean(str, 0, 0, 0);
-	size = ft_find_str(clean, " ");
-	ret = malloc(sizeof(char **) * size + 1);
-	while(clean[i])
+	clean = ft_space_clean(dirty, 0, 0, 0);
+	ret = malloc(sizeof(char **) * ft_find_str(clean, " ") + 2);
+	while (clean[i])
 	{
-		if(clean[i] == ' ' && quotes == 0)
+		ft_update_quote(&quote, clean[i]);
+		if (clean[i] == ' ' && quote == 0)
 		{
-			ret[j] = ft_substr(str, k, i - k);
-			k = ft_i_next_input(&str[i]) + i;
+			ret[j] = ft_substr(clean, k, i - k);
+			k = i + 1;
 			j++;
 		}
 		i++;
 	}
-	ret[j] = NULL;
-	return(ret);
+	ret[j] = ft_substr(clean, k, i - k);
+	ret[j + 1] = NULL;
+	free(clean);
+	return (ret);
 }
 
 int	ft_i_next_input(char *str)
@@ -94,7 +100,7 @@ char	**ft_hand_split(char *str, char *sep)
 	j = 0;
 	k = 0;
 	quote = 0;
-	ret = malloc(sizeof(char **) * ft_find_str(str, sep) + 1);
+	ret = malloc(sizeof(char **) * ft_find_str(str, sep) + 2);
 	while (str[i])
 	{
 		ft_update_quote(&quote, str[i]);

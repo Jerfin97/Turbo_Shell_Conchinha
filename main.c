@@ -50,7 +50,15 @@ int	main(int argc, char **argv, char **envp)
 	//ft_access(blk, inp);
 	//printf("%s\n", ft_expand(blk, TESTE));
 	//printf("RESULTADO DO TESTE: %s --\n", ft_var_ret(blk, "ASDAS="));
-	ft_prompt(blk, inp);
+	int i = 0;
+	char *dirty = "    Va m os     \"ASD      'A'SDA\"      testar    ";
+char **teste2 = ft_split_in_spaces(dirty, 0, 0, 0);
+	while(teste2[i] != NULL)
+	{
+		printf("%s\n", teste2[i]);
+		i++;
+	}
+	//ft_prompt(blk, inp);
 //	ft_freeing(blk->envp);
 	free(blk);
 	free(inp);
