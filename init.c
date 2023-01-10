@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 07:17:44 by dvargas           #+#    #+#             */
-/*   Updated: 2022/12/30 17:49:57 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/09 22:32:18 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_input	*ft_input_init(void)
 	inp = malloc(sizeof(t_input));
 	inp->cmd = NULL;
 	inp->args = NULL;
+	inp->tmp = NULL;
 	inp->echo_print = NULL;
 	inp->new_path = NULL;
 	inp->ex_name = NULL;

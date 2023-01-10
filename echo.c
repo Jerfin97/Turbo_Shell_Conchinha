@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 22:24:52 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/07 19:08:21 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/09 22:34:10 by lfarias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_find_n(char **args, int i)
 	j = 0;
 	if (args[i][j++] == '-')
 	{
-		while ((args[i][j] == 'n'))
+		while (args[i][j] == 'n')
 			j++;
 		if (args[i][j] == 'n' || args[i][j] == '\0')
 		{
@@ -41,9 +41,13 @@ void	ft_multi_join(t_input *inp, int i, char **args)
 	while (args[i])
 	{
 		if (args[i + 1])
+		{
 			inp->tmp = ft_strjoin(args[i], " ");
+		}
 		else
+		{
 			inp->tmp = ft_strjoin(args[i], "\0");
+		}
 		inp->echo_print = ft_strjoin(swp, inp->tmp);
 		free(swp);
 		swp = ft_strdup(inp->echo_print);
