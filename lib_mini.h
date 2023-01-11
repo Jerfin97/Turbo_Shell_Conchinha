@@ -6,27 +6,26 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/09 15:01:57 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/11 15:48:28 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIB_MINI_H
 # define LIB_MINI_H
 
+# include <stdio.h>
 # include <errno.h>
 # include "libft/libft.h"
-# include <stdio.h>
-# include "/usr/include/readline/readline.h"
-# include "/usr/include/readline/history.h"
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <signal.h>
 # include <fcntl.h>
-
+//# include <readline/readline.h>
+//# include <readline/history.h>
+# include "readline/readline.h"
+# include "readline/history.h"
 //STRUCT CORE DO MINISHELL
 typedef struct s_shell
 {
@@ -45,7 +44,6 @@ typedef struct s_shell
 	int			stdout_backup;
 	char		*tmp;
 }				t_shell;
-
 //STRUCT DE INPUT
 typedef struct s_input
 {

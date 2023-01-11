@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/09 22:22:53 by lfarias-         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:32:02 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*ft_create_var(char *str)
 
 	start = 0;
 	i = 0;
+	tmp = NULL;
 	while (str[i])
 	{
 		if (str[i] == '$')
