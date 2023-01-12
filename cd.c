@@ -53,7 +53,7 @@ int	change_dir(t_shell *blk, char *str)
 void	ft_cd(t_shell *blk, char *str, char **args)
 {
 	char	*old_path;
-	int		size;
+	int	size;
 
 	size = 0;
 	while (args[size])

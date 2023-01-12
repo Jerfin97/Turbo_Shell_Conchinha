@@ -63,7 +63,7 @@ char	**ft_split_in_spaces(char *dirty, int i, int j, int quote)
 
 	k = 0;
 	clean = ft_space_clean(dirty, 0, 0, 0);
-	ret = malloc(sizeof(char *) * ft_find_str(clean, " ") + 2);
+	ret = ft_calloc(sizeof(char *), ft_find_str(clean, " ") + 2);
 	while (clean[i])
 	{
 		ft_update_quote(&quote, clean[i]);
