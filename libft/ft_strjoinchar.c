@@ -15,18 +15,23 @@
 char	*ft_strjoinchar(char const *s1, char s2)
 {
 	char	*temp;
-	int		len2;
 	int		len;
+	int		i;
 
+	i = 0;
 	if (!s1 || !s2)
-		return (0);
+		return (NULL);
 	len = ft_strlen(s1);
-	len2 = 1;
-	temp = ft_calloc((len + len2 + 1), sizeof(char));
-	if (temp)
+	temp = ft_calloc((len + 2), sizeof(char));
+	if (!temp)
+		return (NULL);
+	while(s1[i])
 	{
-		ft_strlcpy(temp, s1, len + 1);
-		ft_strlcat(temp, &s2, len + len2 + 1);
-	}
+		temp[i] = s1[i];
+		i++;
+	}	
+	temp[i] = s2;
+	temp[i + 1] = '\0';
+
 	return (temp);
 }
