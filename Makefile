@@ -58,13 +58,13 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	@printf "\e[1;31m=======================\e[0m\n"
+	@printf "\e[1;94m=======================\e[0m\n"
 	@printf "Waves in the ocean\n"
-	@echo "======================="
+	@printf "\e[1;32m=======================\n"
 	@cd $(LIBD) && make
 	@$(CC) $(FLAGS) $(RIBA) -c $(SRCS)
 	@$(CC) $(OBJS) $(FLAGS) $(LREADLINE) $(LIBA) -o $(NAME) $(HIBA) $(RIBA)
-	@printf "=======================\n"
+	@printf "\e[1;32m=======================\e[0m\n"
 	@printf "\e[1;93mThe shell is ready\e[0m\n"
 	@printf "\e[1;94m=======================\e[0m\n"
 
