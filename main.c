@@ -24,7 +24,7 @@ int	ft_prompt(t_shell *blk, t_input *inp)
 {
 	while (42)
 	{
-		blk->buf = readline("Conchinha/> ");
+		blk->buf = readline("\e[1;93mConchinha/> \e[0m");
 		ft_history(blk->buf);
 		ft_lexer(blk, inp);
 		free(blk->buf);

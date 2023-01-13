@@ -18,7 +18,7 @@ t_shell	*ft_blk_init(void)
 {
 	t_shell	*blk;
 
-	blk = malloc(sizeof(t_shell));
+	blk = ft_calloc(sizeof(t_shell), 1);
 	blk->cmd = NULL;
 	blk->buf = NULL;
 	blk->envp = NULL;
@@ -36,7 +36,7 @@ t_input	*ft_input_init(void)
 {
 	t_input	*inp;
 
-	inp = malloc(sizeof(t_input));
+	inp = ft_calloc(sizeof(t_input), 1);
 	inp->cmd = NULL;
 	inp->args = NULL;
 	inp->tmp = NULL;
