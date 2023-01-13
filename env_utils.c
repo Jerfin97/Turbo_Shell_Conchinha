@@ -20,7 +20,7 @@ char	**ft_build_env(char	**envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	ret = malloc(sizeof(char *) * (i + 2));
+	ret = ft_calloc(sizeof(char *), (i + 2));
 	i = 0;
 	while (envp[i])
 	{
@@ -34,10 +34,12 @@ char	**ft_build_env(char	**envp)
 
 char	*ft_search(char **env, char *str)
 {
-	int		i;
+	int	i;
 	char	*path;
 
 	i = 0;
+	if (!env[i])
+		return (NULL);
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], str, ft_strlen(str)))
@@ -47,8 +49,6 @@ char	*ft_search(char **env, char *str)
 		}
 		i++;
 	}
-	if (!env[i])
-		return (NULL);
 	return (path);
 }
 

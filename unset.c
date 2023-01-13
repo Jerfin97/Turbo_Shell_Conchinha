@@ -42,7 +42,7 @@ char	**ft_build_unset(t_shell *blk, char *str)
 	blk->i = 0;
 	while (blk->envp[i])
 		i++;
-	ret = malloc(sizeof(char *) * (i + 2));
+	ret = ft_calloc(sizeof(char *) * (i + 2));
 	i = ft_re_create(blk, ret, str);
 	ret[i - blk->i] = NULL;
 	ret[i + 1 - blk->i] = NULL;
