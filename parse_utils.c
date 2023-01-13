@@ -107,7 +107,7 @@ char	**ft_hand_split(char *str, char *sep)
 	j = 0;
 	k = 0;
 	quote = 0;
-	ret = ft_calloc(sizeof(char **) * ft_find_str(str, sep) + 2);
+	ret = ft_calloc(sizeof(char *), ft_find_str(str, sep) + 2);
 	while (str[i])
 	{
 		ft_update_quote(&quote, str[i]);
