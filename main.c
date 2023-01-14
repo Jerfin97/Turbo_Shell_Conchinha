@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+#include "libft/libft.h"
 
 // Separado porque ele sempre vai manter o historico se for comando ou não.
 void	ft_history(char *str)
@@ -48,16 +49,6 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	//ft_access(blk, inp);
-	//printf("%s\n", ft_expand(blk, TESTE));
-	//printf("RESULTADO DO TESTE: %s --\n", ft_var_ret(blk, "ASDAS="));
-	//int i = 0;
-	//char *dirty = "    Va m os     \"ASD      'A'SDA\"   \"\"   testar    ";
-	//char **teste2 = ft_split_in_spaces(dirty, 0, 0, 0);
-	//while(teste2[i] != NULL)
-	//{
-	//	printf("%s\n", teste2[i]);
-	//	i++;
-	//}
 	ft_prompt(blk, inp);
 	ft_freeing(blk->envp);
 	//ft_freeing(teste2);

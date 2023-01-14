@@ -94,7 +94,8 @@ char	**ft_create_args(t_shell *blk)
 	//	return (ret = ft_hand_split(blk->buf, "|"));
 	else
 	{
-		blk->tmp = ft_expand(blk, blk->buf);
+		blk->tmp = ft_space_clean(blk->buf, 0, 0, 0);
+		blk->tmp = ft_expand(blk, blk->tmp);
 		if (blk->tmp == NULL)
 			return (NULL); 
 		ret = ft_split_in_spaces(blk->tmp, 0, 0, 0);

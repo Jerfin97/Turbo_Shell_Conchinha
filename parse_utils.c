@@ -47,22 +47,24 @@ char	*ft_space_clean(char *str, int i, int quote, int space)
 		}
 		i++;
 	}
-	if (ret[ft_strlen(ret) - 1] == ' ')
-		ret[ft_strlen(ret) - 1] = '\0';
+	if (ret[i - 1] == ' ')
+		ret[i - 1] = '\0';
+	else
+		ret[i] = '\0';
 	return (ret);
 }
 
 //essa funcao recebe uma string e splita exatamente nos espacos
 //ela primeiro limpa chamando space clean e depois faz substrings
 //alimentando o char ** de retorno.
-char	**ft_split_in_spaces(char *dirty, int i, int j, int quote)
+char	**ft_split_in_spaces(char *clean, int i, int j, int quote)
 {
 	int		k;
 	char	**ret;
-	char	*clean;
+	//char	*clean;
 
 	k = 0;
-	clean = ft_space_clean(dirty, 0, 0, 0);
+//	clean = ft_space_clean(dirty, 0, 0, 0);
 	ret = ft_calloc(sizeof(char *), ft_find_str(clean, " ") + 2);
 	while (clean[i])
 	{
@@ -77,7 +79,7 @@ char	**ft_split_in_spaces(char *dirty, int i, int j, int quote)
 	}
 	ret[j] = ft_substr(clean, k, i - k);
 	ret[j + 1] = NULL;
-	free(clean);
+//	free(clean);
 	return (ret);
 }
 

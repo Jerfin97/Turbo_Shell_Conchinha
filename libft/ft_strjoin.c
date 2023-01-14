@@ -15,18 +15,26 @@
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*temp;
-	int		len2;
 	int		len;
+	int		i;
 
 	if (!s1 || !s2)
-		return (0);
-	len = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	temp = ft_calloc((len + len2 + 1), sizeof(char));
-	if (temp)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	temp = ft_calloc((len + 1), sizeof(char));
+	if(!temp)
+		return (NULL);
+	len = 0;
+	while(s1[len])
 	{
-		ft_strlcpy(temp, s1, len + 1);
-		ft_strlcat(temp, s2, len + len2 + 1);
+		temp[len] = s1[len];
+		len++;
+	}
+	i = 0;
+	while(s2[i])
+	{
+		temp[len + i] = s2[i];
+		i++;
 	}
 	return (temp);
 }
