@@ -64,8 +64,10 @@ char	**ft_split_in_spaces(char *clean, int i, int j, int quote)
 	//char	*clean;
 
 	k = 0;
+    if (ft_find_str(clean, " ") == -1)
+        printf("TOLDYA\n");
 //	clean = ft_space_clean(dirty, 0, 0, 0);
-	ret = malloc(sizeof(char *) * (ft_find_str(clean, " ") + 2));
+	ret = malloc(sizeof(char *) * 10 + ft_find_str(clean, " ")); //Problema no retorno dessa função quando o ultimo é sinal;
 	while (clean[i])
 	{
 		ft_update_quote(&quote, clean[i]);

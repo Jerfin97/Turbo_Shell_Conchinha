@@ -99,6 +99,7 @@ char	**ft_create_args(t_shell *blk)
 		if (blk->tmp == NULL)
 			return (NULL); 
 		ret = ft_split_in_spaces(blk->tmp, 0, 0, 0);
+		//ret = ft_split(blk->tmp, ' ');
 		free(blk->tmp);
 		return (ret);
 	}
