@@ -22,8 +22,6 @@ int	ft_freeing(char **matrix)
 		free(matrix[i]);
 		i++;
 	}
-	if (matrix[i] != NULL)
-		free(matrix[i]);
 	free(matrix);
 	return (0);
 }

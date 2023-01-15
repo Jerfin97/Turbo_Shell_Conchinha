@@ -122,6 +122,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		else if (ft_find_str(blk->buf, "|") == 0)
 			ft_access(blk, inp);
 		ft_freeing(inp->args);
+        //free(inp->args);
 	}
 	inp->size = 0;
 	ft_exit_d(blk);

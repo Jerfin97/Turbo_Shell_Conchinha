@@ -65,11 +65,11 @@ char	**ft_split_in_spaces(char *clean, int i, int j, int quote)
 
 	k = 0;
 //	clean = ft_space_clean(dirty, 0, 0, 0);
-	ret = ft_calloc(sizeof(char *), ft_find_str(clean, " ") + 2);
+	ret = malloc(sizeof(char *) * (ft_find_str(clean, " ") + 2));
 	while (clean[i])
 	{
 		ft_update_quote(&quote, clean[i]);
-		if (clean[i] == ' ' && quote == 0)
+		if ((clean[i] == ' ') && (quote == 0))
 		{
 			ret[j] = ft_substr(clean, k, i - k);
 			k = i + 1;
