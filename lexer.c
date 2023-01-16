@@ -99,6 +99,7 @@ char	**ft_create_args(t_shell *blk)
 		if (blk->tmp == NULL)
 			return (NULL); 
 		ret = ft_split_in_spaces(blk->tmp, 0, 0, 0);
+		//ret = ft_split(blk->tmp, ' ');
 		free(blk->tmp);
 		return (ret);
 	}
@@ -122,6 +123,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		else if (ft_find_str(blk->buf, "|") == 0)
 			ft_access(blk, inp);
 		ft_freeing(inp->args);
+        //free(inp->args);
 	}
 	inp->size = 0;
 	ft_exit_d(blk);
