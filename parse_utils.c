@@ -22,7 +22,7 @@ char	*ft_space_clean(char *str, int i, int quote, int space)
 	char	*ret;
 	char	*tmp;
 
-	ret = calloc(1, 1);
+	ret = ft_calloc(1, 1);
 	while (str[i] == ' ')
 		i++;
 	while (str[i])
@@ -61,13 +61,9 @@ char	**ft_split_in_spaces(char *clean, int i, int j, int quote)
 {
 	int		k;
 	char	**ret;
-	//char	*clean;
 
 	k = 0;
-    if (ft_find_str(clean, " ") == -1)
-        printf("TOLDYA\n");
-//	clean = ft_space_clean(dirty, 0, 0, 0);
-	ret = malloc(sizeof(char *) * 10 + ft_find_str(clean, " ")); //Problema no retorno dessa função quando o ultimo é sinal;
+	ret = ft_calloc(sizeof(char *), ft_find_str(clean, " ") + 2); //Problema no retorno dessa função quando o ultimo é sinal;
 	while (clean[i])
 	{
 		ft_update_quote(&quote, clean[i]);
@@ -81,7 +77,6 @@ char	**ft_split_in_spaces(char *clean, int i, int j, int quote)
 	}
 	ret[j] = ft_substr(clean, k, i - k);
 	ret[j + 1] = NULL;
-//	free(clean);
 	return (ret);
 }
 
@@ -92,7 +87,7 @@ int	ft_i_next_input(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isalpha(str[i]))
+		if (ft_isprint(str[i]))
 			break ;
 		i++;
 	}
@@ -118,7 +113,7 @@ char	**ft_hand_split(char *str, char *sep)
 		if (!ft_strncmp(&str[i], sep, ft_strlen(sep)) && quote == 0)
 		{
 			ret[j] = ft_substr(str, k, i - k);
-			k = ft_i_next_input(&str[i]) + i;
+			k = ft_i_next_input(&str[i]) + i + 2;
 			j++;
 		}
 		i++;
@@ -137,7 +132,7 @@ int	ft_has_input_next(char *str, char *sep)
 	{
 		while (str[i])
 		{
-			if (ft_isalpha(str[i]))
+			if (ft_isprint(str[i]))
 				return (1);
 			i++;
 		}
