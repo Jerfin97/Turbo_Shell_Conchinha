@@ -29,12 +29,13 @@ void	update_path(t_shell *blk, char *str)
 int	change_dir(t_shell *blk, char *str)
 {
 	char	*buffer;
+	char	*tmp;
 
 	buffer = ft_search(blk->envp, "HOME=");
-	buffer = buffer + 5;
+	tmp = buffer + 5;
 	if (!str)
 	{
-		if (chdir(buffer) == -1)
+		if (chdir(tmp) == -1)
 		{
 			printf("deu ruim no chdir buffer\n");
 			blk->rs = 1;
@@ -45,6 +46,7 @@ int	change_dir(t_shell *blk, char *str)
 		printf("No Such File or Directory\n");
 		blk->rs = 1;
 	}
+	free(buffer);
 	return (0);
 }
 
