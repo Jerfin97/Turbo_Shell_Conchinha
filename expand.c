@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/11 15:32:02 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/17 12:54:53 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,17 @@ char	*ft_var_ret(t_shell *blk, char *str)
 {
 	int		i;
 	char	*ret;
+	char	*tmp;
 
 	i = 0;
-	ret = ft_search(blk->envp, str);
-	if (!ret)
-		return ("");// Voltar pra null caso de merda
-	while (ret[i] != '=')
+	tmp = ft_search(blk->envp, str);
+	if (tmp == NULL)
+		return (NULL);// Voltar pra null caso de merda
+	while (tmp[i] != '=')
 		i++;
-	return (&ret[i + 1]);
+	ret = ft_strdup(&tmp[i + 1]);
+	free(tmp);
+	return (ret);
 }
 
 // O -1 e importante pq ele faz a len com o = mas imprime sem ele, logo o
@@ -72,6 +75,7 @@ char	*ft_chase(t_shell *blk, char *str)
 	char	*ret;
 	int		i;
 	int		flag;
+	char	*end;
 
 	i = -1;
 	flag = 0;
@@ -80,11 +84,17 @@ char	*ft_chase(t_shell *blk, char *str)
 	{
 		if (ft_update_quote(&flag, str[i]) == 1)
 			continue ;
-		else if (str[i] == '$' && flag != 1)
+		else if ((str[i] == '$') &&
+			(flag != 1) && (!ft_var_isvalid(&str[i + 1])))
 		{
 			tmp = ft_create_var(&str[i]);
 			i += ft_strlen(tmp) - 1;
-			ft_swapjoin(&ret, ft_var_ret(blk, tmp));
+			end = ft_var_ret(blk, tmp);
+			if (end != NULL)
+			{
+				ft_swapjoin(&ret, end);
+				free(end);
+			}
 			free(tmp);
 		}
 		else
