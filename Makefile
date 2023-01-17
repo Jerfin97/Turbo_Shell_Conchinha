@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2023/01/11 16:09:34 by jeluiz4          ###   ########.fr        #
+#    Updated: 2023/01/17 09:01:31 by dvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,11 @@ SRCS =	main.c \
 		pipes.c \
 		pipes_utils.c \
 		parse_utils.c \
+		parse.c \
 		export.c \
 		unset.c \
 		clean_export_unset.c
+
 
 SANITIZE = -fsanitize=address
 
