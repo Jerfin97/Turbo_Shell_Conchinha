@@ -73,6 +73,7 @@ int	ft_has_input_next(char *str, char *sep);
 char	**ft_hand_split(char *str, char *sep);
 int	ft_i_next_input(char *str);
 int	ft_find_str(char *str, char *sep);
+int	ft_split_count(char *str, char *sep);
 char	**ft_split_in_spaces(char *dirty, int i, int j, int quote);
 char	*ft_space_clean(char *str);
 void	ft_swapjoinchar(char **s1, char s2);

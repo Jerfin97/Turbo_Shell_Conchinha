@@ -110,3 +110,26 @@ int	ft_find_str(char *str, char *sep)
 	}
 	return (ret);
 }
+
+
+int	ft_split_count(char *str, char *sep)
+{
+	int		i;
+	int		quote;
+	int		ret;
+
+	i = 0;
+	quote = 0;
+	ret = 0;
+	while (str[i])
+	{
+		ft_update_quote(&quote, str[i]);
+		if (!ft_strncmp(&str[i], sep, ft_strlen(sep)) && quote == 0)
+		{
+			if (ft_has_input_next(&str[i + 1], sep) == 1)
+				ret++;
+		}
+		i++;
+	}
+	return (ret);
+}

@@ -81,7 +81,9 @@ int	ft_is_builtin(t_shell *blk, char **args)
 char	**ft_create_args(t_shell *blk)
 {
 	char	**ret;
+	char	*tmp;
 
+	tmp = NULL;
 	if (ft_find_str(blk->buf, "|") == -1)
 		return (perror("VERIFICAR ERNANI | ERRADO"), NULL);
 	else if (ft_find_str(blk->buf, ">>") == -1)
@@ -94,13 +96,13 @@ char	**ft_create_args(t_shell *blk)
 	//	return (ret = ft_hand_split(blk->buf, "|"));
 	else
 	{
-		blk->tmp = ft_space_clean(blk->buf);
-		blk->tmp = ft_expand(blk, blk->tmp);
-		if (blk->tmp == NULL)
+		tmp = ft_space_clean(blk->buf);
+		tmp = ft_expand(blk, tmp);
+		if (tmp == NULL)
 			return (NULL); 
-		ret = ft_split_in_spaces(blk->tmp, 0, 0, 0);
+		ret = ft_split_in_spaces(tmp, 0, 0, 0);
 		//ret = ft_split(blk->tmp, ' ');
-		free(blk->tmp);
+		free(tmp);
 		return (ret);
 	}
 }

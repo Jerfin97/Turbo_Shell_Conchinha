@@ -21,7 +21,7 @@ char	**ft_split_in_spaces(char *clean, int i, int j, int quote)
 	char	**ret;
 
 	k = 0;
-	ret = ft_calloc(sizeof(char *), ft_find_str(clean, " ") + 2);
+	ret = ft_calloc(sizeof(char *), ft_split_count(clean, " ") + 2);
 	while (clean[i])
 	{
 		ft_update_quote(&quote, clean[i]);
