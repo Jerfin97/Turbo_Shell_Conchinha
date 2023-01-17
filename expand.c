@@ -108,5 +108,6 @@ char	*ft_expand(t_shell *blk, char *str)
 		return (NULL);
 	}
 	tmp = ft_chase(blk, str);
+	free(str);
 	return (tmp);
 }
