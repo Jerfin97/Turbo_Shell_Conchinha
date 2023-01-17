@@ -6,77 +6,49 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 10:04:41 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/10 10:52:24 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/17 08:59:42 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 #include "libft/libft.h"
 
+void	ft_swapjoinchar(char **s1, char s2)
+{
+	char	*tmp;
+
+	tmp = ft_strjoinchar(*s1, s2);
+	free(*s1);
+	*s1 = tmp;
+}
 
 // Essa funcao recebe uma string 'suja' e devolve ela com espacamento correto
 // menos tudo que esta entre quotes. se o ultimo char for espaco ela coloca como
 // \0
-char	*ft_space_clean(char *str, int i, int quote, int space)
+char	*ft_space_clean(char *str)
 {
 	char	*ret;
-	char	*tmp;
+	int		i;
+	int		quote;
 
+	i = 0;
+	quote = 0;
 	ret = ft_calloc(1, 1);
 	while (str[i] == ' ')
 		i++;
 	while (str[i])
 	{
 		ft_update_quote(&quote, str[i]);
-		if (str[i] == ' ' && quote == 0 && space == 0)
-		{
-			tmp = ft_strjoinchar(ret, ' ');
-			free(ret);
-			ret = ft_strdup(tmp);
-			free(tmp);
-			space = 1;
-		}
+		if (str[i] == ' ' && quote == 0 && str[i - 1] != ' ')
+			ft_swapjoinchar(&ret, ' ');
 		else if (str[i] != ' ' || quote == 1 || quote == 2)
-		{
-			if (space == 1)
-				space = 0;
-			tmp = ft_strjoinchar(ret, str[i]);
-			free(ret);
-			ret = ft_strdup(tmp);
-			free(tmp);
-		}
+			ft_swapjoinchar(&ret, str[i]);
 		i++;
 	}
-	if (ret[i - 1] == ' ')
-		ret[i - 1] = '\0';
+	if (ret[ft_strlen(ret) - 1] == ' ')
+		ret[ft_strlen(ret) - 1] = '\0';
 	else
 		ret[i] = '\0';
-	return (ret);
-}
-
-//essa funcao recebe uma string e splita exatamente nos espacos
-//ela primeiro limpa chamando space clean e depois faz substrings
-//alimentando o char ** de retorno.
-char	**ft_split_in_spaces(char *clean, int i, int j, int quote)
-{
-	int		k;
-	char	**ret;
-
-	k = 0;
-	ret = ft_calloc(sizeof(char *), ft_find_str(clean, " ") + 2); //Problema no retorno dessa função quando o ultimo é sinal;
-	while (clean[i])
-	{
-		ft_update_quote(&quote, clean[i]);
-		if ((clean[i] == ' ') && (quote == 0))
-		{
-			ret[j] = ft_substr(clean, k, i - k);
-			k = i + 1;
-			j++;
-		}
-		i++;
-	}
-	ret[j] = ft_substr(clean, k, i - k);
-	ret[j + 1] = NULL;
 	return (ret);
 }
 
@@ -92,35 +64,6 @@ int	ft_i_next_input(char *str)
 		i++;
 	}
 	return (i);
-}
-
-char	**ft_hand_split(char *str, char *sep)
-{
-	int		i;
-	int		j;
-	int		k;
-	int		quote;
-	char	**ret;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	quote = 0;
-	ret = ft_calloc(sizeof(char *), ft_find_str(str, sep) + 2);
-	while (str[i])
-	{
-		ft_update_quote(&quote, str[i]);
-		if (!ft_strncmp(&str[i], sep, ft_strlen(sep)) && quote == 0)
-		{
-			ret[j] = ft_substr(str, k, i - k);
-			k = ft_i_next_input(&str[i]) + i + 2;
-			j++;
-		}
-		i++;
-	}
-	ret[j] = ft_substr(str, k, i - k);
-	ret[j + 1] = NULL;
-	return (ret);
 }
 
 int	ft_has_input_next(char *str, char *sep)
