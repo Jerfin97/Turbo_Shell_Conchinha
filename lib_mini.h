@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/11 15:48:28 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:42:32 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char		**ft_build_unset(t_shell *blk, char *str);
 int			ft_var_exist(char **env, char *str);
 char		*ft_var_ret(t_shell *blk, char *str);
 char		*ft_expand(t_shell *blk, char *str);
-char		*ft_create_var(char *str);
+char		*ft_create_var(char *str, int i, int start, char *tmp);
 int			ft_validate_quotes(char *str);
 int			ft_update_quote(int *flag, char c);
 int			ft_var_size(char *str);
