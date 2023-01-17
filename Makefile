@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2023/01/17 09:01:31 by dvargas          ###   ########.fr        #
+#    Updated: 2023/01/17 14:04:35 by jeluiz4          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,10 @@ SRCS =	main.c \
 		unset.c \
 		clean_export_unset.c
 
-
-SANITIZE = -fsanitize=address
-
 FLAGS = -Wall -Wextra -Werror -g
+
+#Criei Essa Flags_Sa pra quando precisar usar o sanitize mudar so botando um _SA
+FLAGS_SA = -Wall -Wextra -Werror -g -fsanitize=address
 
 RM = rm -f
 

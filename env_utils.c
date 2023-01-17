@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+	/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 07:14:49 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/07 20:38:31 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/17 12:39:52 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ char	**ft_build_env(char	**envp)
 
 char	*ft_search(char **env, char *str)
 {
-	int	i;
+	int		i;
 	char	*path;
 
 	i = 0;
+	path = NULL;
 	if (!env[i])
 		return (NULL);
 	while (env[i])
@@ -45,11 +46,11 @@ char	*ft_search(char **env, char *str)
 		if (!ft_strncmp(env[i], str, ft_strlen(str)))
 		{
 			path = ft_strdup(env[i]);
-			break ;
+			return (path);
 		}
 		i++;
 	}
-	return (path);
+	return (NULL);
 }
 
 int	ft_var_exist(char **env, char *str)
