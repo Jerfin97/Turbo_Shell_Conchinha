@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/17 12:54:53 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:51:44 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 #include "libft/libft.h"
 
 // crio a variavel dando join no =
-char	*ft_create_var(char *str)
+char	*ft_create_var(char *str, int i, int start, char *tmp)
 {
-	int		i;
-	int		start;
 	int		len;
-	char	*tmp;
 	char	*var;
 
-	start = 0;
-	i = 0;
-	tmp = NULL;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -84,10 +78,20 @@ char	*ft_chase(t_shell *blk, char *str)
 	{
 		if (ft_update_quote(&flag, str[i]) == 1)
 			continue ;
+		else if (str[i] == '$' && str[i + 1] == '?')
+		{
+			i += 1;
+			end = ft_itoa(blk->rs);
+			if (end != NULL)
+			{
+				ft_swapjoin(&ret, end);
+				free(end);
+			}
+		}
 		else if ((str[i] == '$') &&
 			(flag != 1) && (!ft_var_isvalid(&str[i + 1])))
 		{
-			tmp = ft_create_var(&str[i]);
+			tmp = ft_create_var(&str[i], 0, 0, NULL);
 			i += ft_strlen(tmp) - 1;
 			end = ft_var_ret(blk, tmp);
 			if (end != NULL)
