@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/17 15:51:44 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/17 22:51:13 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,6 @@ char	*ft_expand(t_shell *blk, char *str)
 {
 	char	*tmp;
 
-	if (ft_validate_quotes(str) != 0)
-	{
-		perror("CANT FIND CLOSE QUOTES\n");
-		free(blk->exp);
-		return (NULL);
-	}
 	tmp = ft_chase(blk, str);
 	free(str);
 	return (tmp);

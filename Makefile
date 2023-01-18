@@ -66,7 +66,7 @@ $(NAME):
 	@printf "\e[1;32m=======================\n"
 	@cd $(LIBD) && make
 	@$(CC) $(FLAGS) $(RIBA) -c $(SRCS)
-	@$(CC) $(OBJS) $(FLAGS) $(LREADLINE) $(LIBA) -o $(NAME) $(HIBA) $(RIBA)
+	@$(CC) $(OBJS) $(FLAGS_SA) $(LREADLINE) $(LIBA) -o $(NAME) $(HIBA) $(RIBA)
 	@printf "\e[1;32m=======================\e[0m\n"
 	@printf "\e[1;93mThe shell is ready\e[0m\n"
 	@printf "\e[1;94m=======================\e[0m\n"
