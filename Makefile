@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2023/01/17 14:04:35 by jeluiz4          ###   ########.fr        #
+#    Updated: 2023/01/17 22:52:09 by jeluiz4          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ $(NAME):
 	@printf "\e[1;32m=======================\n"
 	@cd $(LIBD) && make
 	@$(CC) $(FLAGS) $(RIBA) -c $(SRCS)
-	@$(CC) $(OBJS) $(FLAGS) $(LREADLINE) $(LIBA) -o $(NAME) $(HIBA) $(RIBA)
+	@$(CC) $(OBJS) $(FLAGS_SA) $(LREADLINE) $(LIBA) -o $(NAME) $(HIBA) $(RIBA)
 	@printf "\e[1;32m=======================\e[0m\n"
 	@printf "\e[1;93mThe shell is ready\e[0m\n"
 	@printf "\e[1;94m=======================\e[0m\n"

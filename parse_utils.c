@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 10:04:41 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/17 08:59:42 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/17 22:55:30 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	ft_split_count(char *str, char *sep)
 
 	i = 0;
 	quote = 0;
-	ret = 0;
+	ret = 1;
 	while (str[i])
 	{
 		ft_update_quote(&quote, str[i]);
