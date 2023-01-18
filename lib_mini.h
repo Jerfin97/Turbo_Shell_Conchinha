@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/17 15:42:32 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/17 22:12:41 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,17 @@ t_input		*ft_input_init(void);
 
 // LEXER
 void		ft_lexer(t_shell *blk, t_input *inp);
+int			ft_count_symbols(char *str);
 
 // PARSER
-int	ft_has_input_next(char *str, char *sep);
-char	**ft_hand_split(char *str, char *sep);
-int	ft_i_next_input(char *str);
-int	ft_find_str(char *str, char *sep);
-int	ft_split_count(char *str, char *sep);
-char	**ft_split_in_spaces(char *dirty, int i, int j, int quote);
-char	*ft_space_clean(char *str);
-void	ft_swapjoinchar(char **s1, char s2);
+int			ft_has_input_next(char *str, char *sep);
+char		**ft_hand_split(char *str, char *sep);
+int			ft_i_next_input(char *str);
+int			ft_find_str(char *str, char *sep);
+int			ft_split_count(char *str, char *sep);
+char		**ft_split_in_spaces(char *dirty, int i, int j, int quote);
+char		*ft_space_clean(char *str);
+void		ft_swapjoinchar(char **s1, char s2);
 
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
