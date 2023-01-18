@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/17 18:00:48 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/17 22:51:56 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,14 @@ char	**ft_create_args(t_shell *blk)
 	char	*tmp;
 
 	tmp = NULL;
-	if (ft_find_str(blk->buf, "|") == -1)
+	if (ft_validate_quotes(blk->buf))
+		return (perror("CANT FIND CLOSE QUOTES"), NULL);
+	else if (ft_find_str(blk->buf, "|") == -1)
 		return (perror("VERIFICAR ERNANI | ERRADO"), NULL);
-	else if (ft_find_str(blk->buf, ">>") == -1)
-		return(perror("ERRRNANI > OU >> ERRADO"), NULL);
 	else if (ft_find_str(blk->buf, "|") > 0)
 		return (ret = ft_hand_split(blk->buf, "|"));
+	else if (ft_find_str(blk->buf, ">>") == -1)
+		return(perror("ERRRNANI > OU >> ERRADO"), NULL);
 	//else if (ft_find_str(blk->buf, ">") > 0)
 	//	return (ret = ft_hand_split(blk->buf, "|"));
 	else
@@ -99,7 +101,6 @@ char	**ft_create_args(t_shell *blk)
 		if (tmp == NULL)
 			return (NULL); 
 		ret = ft_split_in_spaces(tmp, 0, 0, 0);
-		//ret = ft_split(blk->tmp, ' ');
 		free(tmp);
 		return (ret);
 	}
