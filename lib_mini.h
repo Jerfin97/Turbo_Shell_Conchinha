@@ -26,6 +26,12 @@
 //# include <readline/history.h>
 # include "readline/readline.h"
 # include "readline/history.h"
+
+# define SHIFT_R   'A'
+# define SHIFT_L   'B'
+# define SHIFT_DR  'C'
+# define SHIFT_DL  'D'
+
 //STRUCT CORE DO MINISHELL
 typedef struct s_shell
 {

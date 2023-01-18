@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/11 15:29:48 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/17 18:00:48 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ char	**ft_create_args(t_shell *blk)
 		return (perror("VERIFICAR ERNANI | ERRADO"), NULL);
 	else if (ft_find_str(blk->buf, ">>") == -1)
 		return(perror("ERRRNANI > OU >> ERRADO"), NULL);
-	else if (ft_find_str(blk->buf, "<<") == -1)
-		return(perror("ERRRNANI < OU << ERRADO"), NULL);
 	else if (ft_find_str(blk->buf, "|") > 0)
 		return (ret = ft_hand_split(blk->buf, "|"));
 	//else if (ft_find_str(blk->buf, ">") > 0)
