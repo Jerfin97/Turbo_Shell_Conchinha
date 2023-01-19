@@ -54,3 +54,49 @@ char	*ft_red_stk(char *str)
 	}
 	return (out);
 }
+
+int	ft_is_redir_sep(char *str, int i)
+{
+	if (str[i] == '>' || str[i] == '<')
+	{
+		if (str[i + 1] == '>' || str[i + 1] == '<')
+			return (1);
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_count_redir_sep(char *str)
+{
+	int		i;
+	int		count;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '>' || str[i] == '<')
+		{
+			count++;
+			if (str[i] == '>' || str[i] == '<')
+				i++;
+		}
+		i++;
+	}
+	return (count);
+}
+
+int	ft_i_next_redir(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isprint(str[i]) && str[i] != ' '
+			&& str[i] != '<' && str[i] != '>')
+			break ;
+		i++;
+	}
+	return (i);
+}

@@ -54,3 +54,32 @@ int	ft_count_symbols(char *str)
 	}
 	return (count);
 }
+
+char	**ft_split_in_redirect(char *str)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	**ret;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	ret = ft_calloc(sizeof(char *), ft_count_redir_sep(str) + 2);
+	if (!ret)
+		return (printf("MALLOC CRASH"), NULL);
+	while (str[i])
+	{
+		if (ft_is_redir_sep(str, i))
+		{
+			ret[j] = ft_substr(str, k, i - k);
+			k = ft_i_next_redir(&str[i]) + i;
+			i = k;
+			j++;
+		}
+		i++;
+	}
+	ret[j] = ft_substr(str, k, i - k);
+	ret[j + 1] = NULL;
+	return (ret);
+}
