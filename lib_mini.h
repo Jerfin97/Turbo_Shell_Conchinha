@@ -85,6 +85,15 @@ char		**ft_split_in_spaces(char *dirty, int i, int j, int quote);
 char		*ft_space_clean(char *str);
 void		ft_swapjoinchar(char **s1, char s2);
 
+//Redirect
+
+char		**ft_split_in_redirect(char *str);
+int			ft_count_symbols(char *str);
+int			ft_i_next_redir(char *str);
+int			ft_count_redir_sep(char *str);
+int			ft_is_redir_sep(char *str, int i);
+char		*ft_red_stk(char *str);
+
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
 
