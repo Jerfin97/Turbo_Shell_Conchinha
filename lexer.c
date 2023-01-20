@@ -15,43 +15,43 @@
 void	built_run(t_input *inp, t_shell *blk, char **args)
 {
 	// ECHO
-	if (!ft_strncmp(args[0], "echo", 4))
+	if (!ft_strncmp(args[0], "echo", 5))
 		ft_echo(blk, inp, args);
 	// CD
-	else if (!ft_strncmp(args[0], "cd", 2))
+	else if (!ft_strncmp(args[0], "cd", 3))
 		ft_cd(blk, args[1], args);
 	// ENV
-	else if (!ft_strncmp(args[0], "env", 3))
+	else if (!ft_strncmp(args[0], "env", 4))
 		ft_printenv(blk, args);
 	//PWD
-	else if (!ft_strncmp(args[0], "pwd", 3))
+	else if (!ft_strncmp(args[0], "pwd", 5))
 		ft_pwd(blk, args);
 	// EXPORT
-	else if (!ft_strncmp(args[0], "export", 6))
+	else if (!ft_strncmp(args[0], "export", 7))
 		ft_cleanse(blk, args);
 	// UNSET
-	else if (!ft_strncmp(args[0], "unset", 5))
+	else if (!ft_strncmp(args[0], "unset", 6))
 		ft_unset(blk, args);
 	// EXIT
-	else if (!ft_strncmp(args[0], "exit", 4) || blk->buf == NULL)
+	else if (!ft_strncmp(args[0], "exit", 5) || blk->buf == NULL)
 		ft_exit(inp, blk, args);
 }
 
 int	ft_is_builtin(t_shell *blk, char **args)
 {
-	if (!ft_strncmp(args[0], "echo", 4))
+	if (!ft_strncmp(args[0], "echo", 5))
 		return (1);
-	else if (!ft_strncmp(args[0], "cd", 2))
+	else if (!ft_strncmp(args[0], "cd", 3))
 		return (1);
-	else if (!ft_strncmp(args[0], "env", 3))
+	else if (!ft_strncmp(args[0], "env", 4))
 		return (1);
-	else if (!ft_strncmp(args[0], "pwd", 3))
+	else if (!ft_strncmp(args[0], "pwd", 4))
 		return (1);
-	else if (!ft_strncmp(args[0], "export", 6))
+	else if (!ft_strncmp(args[0], "export", 7))
 		return (1);
-	else if (!ft_strncmp(args[0], "unset", 5))
+	else if (!ft_strncmp(args[0], "unset", 6))
 		return (1);
-	else if (!ft_strncmp(args[0], "exit", 4) || blk->buf == NULL)
+	else if (!ft_strncmp(args[0], "exit", 5) || blk->buf == NULL)
 		return (1);
 	else if (!ft_strncmp(args[0], "heredoc", 7))
 		return(2);
