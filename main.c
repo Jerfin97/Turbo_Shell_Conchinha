@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/17 22:12:49 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/20 11:44:38 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	//ft_access(blk, inp);
+	ft_sonic();
+	sleep(2);
 	ft_prompt(blk, inp);
 	ft_freeing(blk->envp);
 	//ft_freeing(teste2);

@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/17 22:12:41 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/20 11:44:56 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_input
 //Init
 t_shell		*ft_blk_init(void);
 t_input		*ft_input_init(void);
+void		ft_sonic(void);
 
 // LEXER
 void		ft_lexer(t_shell *blk, t_input *inp);

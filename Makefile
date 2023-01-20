@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2023/01/17 20:18:05 by dvargas          ###   ########.fr        #
+#    Updated: 2023/01/20 11:44:12 by jeluiz4          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ SRCS =	main.c \
 		export.c \
 		unset.c \
 		clean_export_unset.c \
-		redirect.c
+		redirect.c \
+		redirect_utils.c \
+		sonic.c
 
 FLAGS = -Wall -Wextra -Werror -g
 
