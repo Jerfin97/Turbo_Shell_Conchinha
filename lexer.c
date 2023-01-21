@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/21 09:28:09 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/21 09:44:07 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ char	**ft_create_args(t_shell *blk)
 	{
 		tmp = ft_space_clean(blk->buf);
 		//tmp = ft_expand(blk, tmp);
-		//tmp = ft_expand(blk, blk->buf);
 		if (tmp == NULL)
 			return (NULL); 
 		ret = ft_split_in_spaces(tmp, 0, 0, 0);
@@ -93,8 +92,11 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		if (inp->args == NULL)
 			return ;
 		while (inp->args[inp->size])
+		{
+			inp->args[inp->size] = ft_expand(blk, inp->args[inp->size]);
 			inp->size++;
-		inp->args[0] = ft_expand(blk, inp->args[0]);
+		}
+		//inp->args[0] = ft_expand(blk, inp->args[0]);
 		if (ft_find_str(blk->buf, "|") > 0)
 		{
 			ft_pipe_handle(blk, inp);
