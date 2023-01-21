@@ -38,9 +38,10 @@ typedef struct s_shell
 	char		**cmd;
 	int			i;
 	int			fd_in;
-	int			redirect;
+	int			append;
 	char		*heredoc_name;
 	const char	*infilename;
+	char		*outfile_name;
 	char		*exp;
 	int			rs;
 	char		*buf;
