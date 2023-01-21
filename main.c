@@ -49,8 +49,6 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	//ft_access(blk, inp);
-	ft_sonic();
-	sleep(2);
 	ft_prompt(blk, inp);
 	ft_freeing(blk->envp);
 	//ft_freeing(teste2);
