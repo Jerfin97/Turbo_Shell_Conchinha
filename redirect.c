@@ -83,3 +83,52 @@ char	**ft_split_in_redirect(char *str)
 	ret[j + 1] = NULL;
 	return (ret);
 }
+
+void	ft_heredoc_open(t_shell *blk)
+{
+	if (blk->heredoc_name)
+	{
+		ft_heredoc(blk, blk->heredoc_name);
+		blk->fd_in = open(blk->heredoc_name, O_RDONLY);
+		if (blk->fd_in < 0)
+			perror("ERNANI");
+		close(0);
+		dup2(blk->fd_in, 0);
+	}
+}
+
+void	ft_infile_open(t_shell *blk)
+{
+	if (blk->infilename)
+	{
+		blk->fd_in = open(blk->infilename, O_RDONLY);
+		if (blk->fd_in < 0)
+			perror("ERNANI");
+		close(0);
+		dup2(blk->fd_in, 0);
+	}
+}
+
+void	ft_outfile_open(t_shell *blk)
+{
+	int		outfile;
+
+	if (blk->append == 1)
+		outfile = open(blk->outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
+	else
+		outfile = open(blk->outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
+	dup2(outfile, 1);
+}
+
+//Essa funcao chama as outras tres funcoes de redirecionamento dependendo das
+//informacoes contidas em blk.
+void	ft_redirect_infile(t_shell *blk)
+{
+	blk->fd_in = dup(0);
+	if (blk->heredoc_name)
+		ft_heredoc_open(blk);
+	if (blk->infilename)
+		ft_infile_open(blk);
+	if (blk->outfile_name)
+		ft_outfile_open(blk);
+}

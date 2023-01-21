@@ -90,17 +90,11 @@ void	ft_process(t_shell *blk, t_input *inp)
 void	ft_process_end(t_shell *blk, t_input *inp)
 {
 	int		pid;
-	int		fileout;
 
 	pid = fork();
 	if (pid == 0)
 	{
 		dup2(blk->fd_in, 0);
-		if (blk->redirect == 1)
-		{
-			fileout = open("TESTE123.txt", O_TRUNC | O_CREAT | O_WRONLY, 0777);
-			dup2(fileout, 1);
-		}
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
@@ -110,9 +104,7 @@ void	ft_process_end(t_shell *blk, t_input *inp)
 			execve(inp->cmd, inp->temp, blk->envp);
 	}
 	if (pid > 0)
-	{
 		wait(NULL);
-	}
 }
 
 // Se precisarmos redirecionar para arquivo, blk->fd_pipe vai precisar dar Open
