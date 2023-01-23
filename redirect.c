@@ -34,18 +34,21 @@ int	ft_count_symbols(char *str)
 {
 	int		i;
 	int		count;
+	int		quote;
 
+	quote = 0;
 	i = -1;
 	count = 0;
 	while (str[++i])
 	{
-		if (str[i] == '>')
+		ft_update_quote(&quote, str[i]);
+		if (str[i] == '>' && quote == 0)
 		{
 			count++;
 			if (ft_symbol_control(&i, str, '>') == -1)
 				return (-1);
 		}
-		else if (str[i] == '<')
+		else if (str[i] == '<' && quote == 0)
 		{
 			count++;
 			if (ft_symbol_control(&i, str, '<') == -1)
