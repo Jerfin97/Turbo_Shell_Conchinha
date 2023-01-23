@@ -87,12 +87,12 @@ char	**ft_split_in_redirect(char *str)
 	return (ret);
 }
 
-void	ft_heredoc_open(t_shell *blk)
+void	ft_heredoc_open(t_shell *blk, char *str)
 {
 	if (blk->heredoc_name)
 	{
-		ft_heredoc(blk, blk->heredoc_name);
-		blk->fd_in = open(blk->heredoc_name, O_RDONLY);
+		ft_heredoc(blk, str);
+		blk->fd_in = open(str, O_RDONLY);
 		if (blk->fd_in < 0)
 			perror("ERNANI");
 		close(0);
@@ -100,11 +100,11 @@ void	ft_heredoc_open(t_shell *blk)
 	}
 }
 
-void	ft_infile_open(t_shell *blk)
+void	ft_infile_open(t_shell *blk, char *str)
 {
 	if (blk->infilename)
 	{
-		blk->fd_in = open(blk->infilename, O_RDONLY);
+		blk->fd_in = open(str, O_RDONLY);
 		if (blk->fd_in < 0)
 			perror("ERNANI");
 		close(0);
@@ -112,26 +112,74 @@ void	ft_infile_open(t_shell *blk)
 	}
 }
 
-void	ft_outfile_open(t_shell *blk)
+void	ft_outfile_open(char *str, int flag)
 {
 	int		outfile;
+	char	*outfile_name;
+	int		i;
 
-	if (blk->append == 1)
-		outfile = open(blk->outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
+	i = 0;
+	while (str[i] != ' ')
+		i++;
+
+	outfile_name = ft_substr(str, 0, i);
+	if (flag == 1)
+		outfile = open(outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
 	else
-		outfile = open(blk->outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
+		outfile = open(outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	dup2(outfile, 1);
 }
 
-//Essa funcao chama as outras tres funcoes de redirecionamento dependendo das
-//informacoes contidas em blk.
-void	ft_redirect_infile(t_shell *blk)
+char	*ft_redirect_clean(char *str)
 {
-	blk->fd_in = dup(0);
-	if (blk->heredoc_name)
-		ft_heredoc_open(blk);
-	if (blk->infilename)
-		ft_infile_open(blk);
-	if (blk->outfile_name)
-		ft_outfile_open(blk);
+	int		i;
+
+	i = 0;
+	while(str[i] != ' ')
+	{
+		if (str[i] == '\0')
+			return (NULL);
+		i++;
+	}
+	return(&str[i + 1]);
 }
+
+void	ft_simple_redirect(t_shell *blk, t_input *inp)
+{
+	char	*basestring;
+	int		i;
+	int		j;
+	char	**tmp;
+
+	tmp = inp->args;
+	inp->args = ft_split(tmp[0], ' ');
+	j = 0;
+	i = 0;
+	basestring = ft_red_stk(blk->buf);
+	printf("0 %s\n", tmp[0]);
+	printf("1 %s\n", tmp[1]);
+	printf("0 < 1");
+	while(basestring[i])
+	{
+		if(basestring[i] == SHIFT_R)
+		{
+			ft_outfile_open(tmp[j + 1], 42);
+			tmp[j + 1] = ft_redirect_clean(tmp[j + 1]);
+			printf("%s", tmp[j + 1]);
+		}
+		if(basestring[i] == SHIFT_L)
+		{
+			ft_infile_open(blk, tmp[j + 1]);
+		}
+		if(basestring[i] == SHIFT_DR)
+			ft_outfile_open(tmp[j + 1], 1);
+		if(basestring[i] == SHIFT_DL)
+			ft_heredoc_open(blk, tmp[j + 1]);
+		i++;
+		j++;
+	}
+	ft_access(blk, inp);
+	ft_restore_fds(blk);
+}
+
+

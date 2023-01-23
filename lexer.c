@@ -86,6 +86,7 @@ char	**ft_create_args(t_shell *blk)
 	}
 }
 
+void	ft_simple_redirect(t_shell *blk, t_input *inp);
 void	ft_lexer(t_shell *blk, t_input *inp)
 {
 	if (blk->buf && *blk->buf)
@@ -104,7 +105,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			ft_pipe_handle(blk, inp);
 		}
 		else if (ft_count_symbols(blk->buf) > 0)
-			printf("fazer funcaoaqui\n");
+			ft_simple_redirect(blk, inp);
 		else if (ft_is_builtin(blk, inp->args))
 			built_run(inp, blk, inp->args);
 		else

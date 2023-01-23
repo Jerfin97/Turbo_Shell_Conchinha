@@ -33,6 +33,7 @@ int	ft_prompt(t_shell *blk, t_input *inp)
 	rl_clear_history();
 }
 
+char	*ft_redirect_clean(char *str);
 // Samerda ta aqui só pq tem que ta mesmo.
 int	main(int argc, char **argv, char **envp)
 {
