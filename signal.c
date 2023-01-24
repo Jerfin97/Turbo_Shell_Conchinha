@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:32:11 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/12/30 07:32:56 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/24 13:22:00 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 void	signal_handler(int signo)
 {
 	int	i;
-	//struct sigaction sig;
 	i = -42;
 	wait(&i);
 	if (signo == SIGINT && (i == -42))
