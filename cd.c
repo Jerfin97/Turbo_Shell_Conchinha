@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:40 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/24 13:41:11 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:02:33 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	change_dir(t_shell *blk, char *str)
 void	ft_cd(t_shell *blk, char *str, char **args)
 {
 	char	*old_path;
-	int	size;
+	int		size;
 
 	size = 0;
 	while (args[size])

@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:31:12 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/21 09:24:35 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:01:39 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	ft_access(t_shell *blk, t_input *inp)
 		ft_exec(inp, blk);
 		return ;
 	}
-	else if ((inp->cmd != NULL) && (inp->args[0][0] != '\0') && (inp->args[0][0] != ' '))
+	else if ((inp->cmd != NULL)
+		&& (inp->args[0][0] != '\0') && (inp->args[0][0] != ' '))
 	{
 		ft_build_exec(blk, inp);
 		if (blk->rs == 0)

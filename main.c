@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/24 13:15:40 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:13:32 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ int	ft_prompt(t_shell *blk, t_input *inp)
 }
 
 char	*ft_redirect_clean(char *str);
+
 // Samerda ta aqui só pq tem que ta mesmo.
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*blk;
 	t_input		*inp;
-	//char		TESTE[99] = "$PATH";
 
+	//char		TESTE[99] = "$PATH";
 	(void)argc;
 	(void)argv;
 	blk = ft_blk_init();

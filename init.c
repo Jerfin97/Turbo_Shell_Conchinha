@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 07:17:44 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/09 22:32:18 by lfarias-         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:54:30 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_shell	*ft_blk_init(void)
 	blk->infilename = NULL;
 	blk->outfile_name = NULL;
 	blk->append = 0;
-	//blk->fd_in = dup(0);
 	blk->stdin_backup = dup(0);
 	blk->stdout_backup = dup(1);
 	return (blk);

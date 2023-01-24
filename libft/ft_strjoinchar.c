@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:56:30 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/07 11:32:33 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/24 13:53:16 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ char	*ft_strjoinchar(char const *s1, char s2)
 	temp = ft_calloc((len + 2), sizeof(char));
 	if (!temp)
 		return (NULL);
-	while(s1[i])
+	while (s1[i])
 	{
 		temp[i] = s1[i];
 		i++;
 	}	
 	temp[i] = s2;
 	temp[i + 1] = '\0';
-
 	return (temp);
 }
