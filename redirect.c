@@ -87,51 +87,125 @@ char	**ft_split_in_redirect(char *str)
 	return (ret);
 }
 
-void	ft_heredoc_open(t_shell *blk)
+void	ft_heredoc_open(t_shell *blk, char *str)
 {
-	if (blk->heredoc_name)
-	{
-		ft_heredoc(blk, blk->heredoc_name);
-		blk->fd_in = open(blk->heredoc_name, O_RDONLY);
-		if (blk->fd_in < 0)
-			perror("ERNANI");
-		close(0);
-		dup2(blk->fd_in, 0);
-	}
+	ft_heredoc(blk, str);
+	blk->fd_in = open(blk->tmpdoc, O_RDONLY);
+	if (blk->fd_in < 0)
+		perror("ERNANI");
+	close(0);
+	dup2(blk->fd_in, 0);
 }
 
-void	ft_infile_open(t_shell *blk)
+void	ft_infile_open(t_shell *blk, char *str)
 {
-	if (blk->infilename)
-	{
-		blk->fd_in = open(blk->infilename, O_RDONLY);
-		if (blk->fd_in < 0)
-			perror("ERNANI");
-		close(0);
-		dup2(blk->fd_in, 0);
-	}
+	blk->fd_in = open(str, O_RDONLY);
+	if (blk->fd_in < 0)
+		perror("ERNANI");
+	close(0);
+	dup2(blk->fd_in, 0);
 }
 
-void	ft_outfile_open(t_shell *blk)
+void	ft_outfile_open(char *str, int flag)
 {
 	int		outfile;
+	char	*outfile_name;
+	int		i;
 
-	if (blk->append == 1)
-		outfile = open(blk->outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
+	i = 0;
+	while (str[i] != ' ')
+		i++;
+
+	outfile_name = ft_substr(str, 0, i);
+	if (flag == 1)
+		outfile = open(outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
 	else
-		outfile = open(blk->outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
+		outfile = open(outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	dup2(outfile, 1);
 }
 
-//Essa funcao chama as outras tres funcoes de redirecionamento dependendo das
-//informacoes contidas em blk.
-void	ft_redirect_infile(t_shell *blk)
+char  *ft_redirect_clean(char *str)
 {
-	blk->fd_in = dup(0);
-	if (blk->heredoc_name)
-		ft_heredoc_open(blk);
-	if (blk->infilename)
-		ft_infile_open(blk);
-	if (blk->outfile_name)
-		ft_outfile_open(blk);
+	int		i;
+
+	i = 0;
+	while(str[i] != ' ')
+	{
+		if (str[i] == '\0')
+			return (NULL);
+		i++;
+	}
+    return(&str[i + 1]);
+}
+
+char  **ft_compose_cmd(char **matrix)
+{
+  char  *tmp;
+  char  **aux;
+  int   i;
+  int   j;
+
+  i = 1;
+  tmp = matrix[0];
+  while (matrix[i])
+  {
+    j = 1;
+    aux = ft_split(matrix[i], ' ');
+    while (aux[j])
+    {
+      ft_swapjoin(&tmp, aux[j]);
+      ft_swapjoin(&tmp, " ");
+      j++;
+    }
+    ft_freeing(aux);
+    i++;
+  }
+  aux = ft_split(tmp, ' ');
+  free(tmp);
+  return (aux);
+}
+
+void	ft_simple_redirect(t_shell *blk, t_input *inp)
+{
+	char	*basestring;
+	int		i;
+	int		j;
+	char	**tmp;
+  char  **aux;
+
+	tmp = inp->args;
+	inp->args = ft_compose_cmd(tmp);
+  i = 0;
+  while (inp->args[i])
+  {
+    printf("-%s-\n", inp->args[i]);
+    i++;
+  }
+	j = 0;
+	i = 0;
+	basestring = ft_red_stk(blk->buf);
+	while(basestring[i])
+	{
+		if(basestring[i] == SHIFT_R)
+		{
+			ft_outfile_open(tmp[j + 1], 42);
+		}
+		if(basestring[i] == SHIFT_L)
+		{
+      aux = ft_split(tmp [j + 1], ' ');
+			ft_infile_open(blk, aux[0]);
+      ft_freeing(aux);
+		}
+		if(basestring[i] == SHIFT_DR)
+			ft_outfile_open(tmp[j + 1], 1);
+		if(basestring[i] == SHIFT_DL)
+			ft_heredoc_open(blk, tmp[j + 1]);
+		i++;
+		j++;
+	}
+	ft_access(blk, inp);
+	ft_restore_fds(blk);
+  free(basestring);
+  unlink(blk->tmpdoc);
+  //ft_freeing(tmp);
 }

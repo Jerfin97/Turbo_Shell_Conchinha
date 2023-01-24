@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:54:05 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 12:39:20 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:12:52 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ void	ft_restore_fds(t_shell *blk)
 	dup2(blk->stdin_backup, 0);
 	dup2(blk->stdout_backup, 1);
 }
-

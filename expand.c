@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/21 08:53:24 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:07:09 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_var_ret(t_shell *blk, char *str)
 	i = 0;
 	tmp = ft_search(blk->envp, str);
 	if (tmp == NULL)
-		return (NULL);// Voltar pra null caso de merda
+		return (NULL);
 	while (tmp[i] != '=')
 		i++;
 	ret = ft_strdup(&tmp[i + 1]);
@@ -88,8 +88,8 @@ char	*ft_chase(t_shell *blk, char *str)
 				free(end);
 			}
 		}
-		else if ((str[i] == '$') &&
-			(flag != 1) && (!ft_var_isvalid(&str[i + 1])))
+		else if ((str[i] == '$')
+			&& (flag != 1) && (!ft_var_isvalid(&str[i + 1])))
 		{
 			tmp = ft_create_var(&str[i], 0, 0, NULL);
 			i += ft_strlen(tmp) - 1;

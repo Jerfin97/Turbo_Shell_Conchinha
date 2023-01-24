@@ -121,7 +121,7 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 {
 	int		i;
 
-	ft_redirect_infile(blk);
+//	ft_redirect_infile(blk);
 	i = -1;
 	while (++i < inp->size - 1)
 	{

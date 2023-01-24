@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/21 09:44:07 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:12:04 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_is_builtin(t_shell *blk, char **args)
 	else if (!ft_strcmp(args[0], "exit") || blk->buf == NULL)
 		return (1);
 	else if (!ft_strcmp(args[0], "heredoc"))
-		return(2);
+		return (2);
 	return (0);
 }
 
@@ -71,20 +71,21 @@ char	**ft_create_args(t_shell *blk)
 	else if (ft_find_str(blk->buf, "|") > 0)
 		return (ret = ft_hand_split(blk->buf, "|"));
 	else if (ft_count_symbols(blk->buf) == -1)
-		return(perror("ERRRNANI > OU >> ERRADO"), NULL);
+		return (perror("ERRRNANI > OU >> ERRADO"), NULL);
 	else if (ft_count_symbols(blk->buf) > 0)
 		return (ret = ft_split_in_redirect(blk->buf));
 	else
 	{
 		tmp = ft_space_clean(blk->buf);
-		//tmp = ft_expand(blk, tmp);
 		if (tmp == NULL)
-			return (NULL); 
+			return (NULL);
 		ret = ft_split_in_spaces(tmp, 0, 0, 0);
 		free(tmp);
 		return (ret);
 	}
 }
+
+void	ft_simple_redirect(t_shell *blk, t_input *inp);
 
 void	ft_lexer(t_shell *blk, t_input *inp)
 {
@@ -98,19 +99,18 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			inp->args[inp->size] = ft_expand(blk, inp->args[inp->size]);
 			inp->size++;
 		}
-		//inp->args[0] = ft_expand(blk, inp->args[0]);
 		if (ft_find_str(blk->buf, "|") > 0)
 		{
 			ft_pipe_handle(blk, inp);
 		}
 		else if (ft_count_symbols(blk->buf) > 0)
-			printf("fazer funcaoaqui\n");
+			ft_simple_redirect(blk, inp);
 		else if (ft_is_builtin(blk, inp->args))
 			built_run(inp, blk, inp->args);
 		else
 			ft_access(blk, inp);
 		ft_freeing(inp->args);
-        //free(inp->args);
+		//free(inp->args);
 	}
 	inp->size = 0;
 	ft_exit_d(blk);

@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 07:17:44 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/09 22:32:18 by lfarias-         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:54:30 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_shell	*ft_blk_init(void)
 	blk->cmd = NULL;
 	blk->buf = NULL;
 	blk->envp = NULL;
-	blk->tmpdoc = "TEMPFILEHEREDOC";
+	blk->tmpdoc = ".TEMPFILEHEREDOC";
 	blk->heredoc_name = NULL;
 	blk->rs = 0;
 	blk->infilename = NULL;

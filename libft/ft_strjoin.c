@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 17:15:25 by jeluiz4           #+#    #+#             */
-/*   Updated: 2022/10/05 14:57:49 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/24 13:52:47 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
 	temp = ft_calloc((len + 1), sizeof(char));
-	if(!temp)
+	if (!temp)
 		return (NULL);
 	len = 0;
-	while(s1[len])
+	while (s1[len])
 	{
 		temp[len] = s1[len];
 		len++;
 	}
 	i = 0;
-	while(s2[i])
+	while (s2[i])
 	{
 		temp[len + i] = s2[i];
 		i++;
