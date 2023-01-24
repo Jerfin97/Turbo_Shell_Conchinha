@@ -22,17 +22,23 @@ void	ft_heredoc(t_shell *blk, char *hereword)
 {
 	int		fd;
 	char	*buffer;
+  char  *tmp;
 
 	fd = open(blk->tmpdoc, O_TRUNC | O_CREAT | O_WRONLY, 0777);
+  tmp = calloc(1, 1);
 	buffer = readline("heredoc> ");
-	while (1)
+	while (42)
 	{
 		if (ft_strcmp(hereword, buffer) == 0)
 			break ;
-		write(fd, buffer, ft_strlen(buffer));
-		write(fd, "\n", 1);
+    ft_swapjoin(&tmp, buffer);
+    ft_swapjoin(&tmp, "\n");
 		buffer = readline("heredoc> ");
 	}
 	free(buffer);
+  buffer = ft_chase(blk, tmp);
+  free(tmp);
+  write(fd, buffer, ft_strlen(buffer));
+  free(buffer);
 	close(fd);
 }

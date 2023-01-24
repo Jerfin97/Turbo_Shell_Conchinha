@@ -71,7 +71,6 @@ typedef struct s_input
 //Init
 t_shell		*ft_blk_init(void);
 t_input		*ft_input_init(void);
-void		ft_sonic(void);
 
 // LEXER
 void		ft_lexer(t_shell *blk, t_input *inp);

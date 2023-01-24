@@ -22,13 +22,13 @@ t_shell	*ft_blk_init(void)
 	blk->cmd = NULL;
 	blk->buf = NULL;
 	blk->envp = NULL;
-	blk->tmpdoc = "TEMPFILEHEREDOC";
+	blk->tmpdoc = ".TEMPFILEHEREDOC";
 	blk->heredoc_name = NULL;
 	blk->rs = 0;
 	blk->infilename = NULL;
 	blk->outfile_name = NULL;
 	blk->append = 0;
-	blk->fd_in = dup(0);
+	//blk->fd_in = dup(0);
 	blk->stdin_backup = dup(0);
 	blk->stdout_backup = dup(1);
 	return (blk);
