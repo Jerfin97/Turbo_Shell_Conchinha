@@ -6,11 +6,20 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:47:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/17 20:28:36 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/25 11:03:27 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+
+char	ft_assign_char(char c, int flag, int *i)
+{
+	if (flag == 0)
+		*i = *i + 1;
+	else if (flag == 1)
+		*i = *i + 2;
+	return (c);
+}
 
 char	*ft_red_stk(char *str)
 {
@@ -26,29 +35,13 @@ char	*ft_red_stk(char *str)
 	while (str[i])
 	{
 		if (str[i] == '>' && str[i + 1] == '>')
-		{
-			out[j] = SHIFT_DR;
-			j++;
-			i += 2;
-		}
+			out[j++] = ft_assign_char(SHIFT_DR, 1, &i);
 		else if (str[i] == '<' && str[i + 1] == '<')
-		{
-			out[j] = SHIFT_DL;
-			j++;
-			i += 2;
-		}
+			out[j++] = ft_assign_char(SHIFT_DL, 1, &i);
 		else if (str[i] == '>')
-		{
-			out[j] = SHIFT_R;
-			j++;
-			i++;
-		}
+			out[j++] = ft_assign_char(SHIFT_R, 0, &i);
 		else if (str[i] == '<')
-		{
-			out[j] = SHIFT_L;
-			j++;
-			i++;
-		}
+			out[j++] = ft_assign_char(SHIFT_L, 0, &i);
 		else
 			i++;
 	}
