@@ -68,7 +68,7 @@ $(NAME):
 	@printf "\e[1;32m=======================\n"
 	@cd $(LIBD) && make
 	@$(CC) $(FLAGS) $(RIBA) -c $(SRCS)
-	@$(CC) $(OBJS) $(FLAGS) $(LREADLINE) $(LIBA) -o $(NAME) $(HIBA) $(RIBA)
+	@$(CC) $(OBJS) $(FLAGS_SA) $(LREADLINE) $(LIBA) -o $(NAME) $(HIBA) $(RIBA)
 	@printf "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 	@printf "\t\t⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⠤⠐⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
 	@printf "\t\t⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡌⡦⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
