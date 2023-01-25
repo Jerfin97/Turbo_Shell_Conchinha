@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 10:04:41 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/17 22:55:30 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/25 15:56:24 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int	ft_find_str(char *str, char *sep)
 	}
 	return (ret);
 }
-
 
 int	ft_split_count(char *str, char *sep)
 {
