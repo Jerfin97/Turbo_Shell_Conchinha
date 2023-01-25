@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/24 15:06:35 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/25 09:14:15 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,34 +135,34 @@ char  *ft_redirect_clean(char *str)
 			return (NULL);
 		i++;
 	}
-    return(&str[i + 1]);
+	return(&str[i + 1]);
 }
 
 char  **ft_compose_cmd(char **matrix)
 {
-  char  *tmp;
-  char  **aux;
-  int   i;
-  int   j;
+	char  *tmp;
+	char  **aux;
+	int   i;
+	int   j;
 
-  i = 1;
-  tmp = matrix[0];
-  while (matrix[i])
-  {
-    j = 1;
-    aux = ft_split(matrix[i], ' ');
-    while (aux[j])
-    {
-      ft_swapjoin(&tmp, aux[j]);
-      ft_swapjoin(&tmp, " ");
-      j++;
-    }
-    ft_freeing(aux);
-    i++;
-  }
-  aux = ft_split(tmp, ' ');
-  free(tmp);
-  return (aux);
+	i = 1;
+	tmp = matrix[0];
+	while (matrix[i])
+	{
+		j = 1;
+		aux = ft_split(matrix[i], ' ');
+		while (aux[j])
+		{
+			ft_swapjoin(&tmp, aux[j]);
+			ft_swapjoin(&tmp, " ");
+			j++;
+		}
+		ft_freeing(aux);
+		i++;
+	}
+	aux = ft_split(tmp, ' ');
+	free(tmp);
+	return (aux);
 }
 
 void	ft_simple_redirect(t_shell *blk, t_input *inp)
@@ -171,16 +171,16 @@ void	ft_simple_redirect(t_shell *blk, t_input *inp)
 	int		i;
 	int		j;
 	char	**tmp;
-  char  **aux;
+	char  **aux;
 
 	tmp = inp->args;
 	inp->args = ft_compose_cmd(tmp);
-  i = 0;
-  while (inp->args[i])
-  {
-    printf("-%s-\n", inp->args[i]);
-    i++;
-  }
+	i = 0;
+	while (inp->args[i])
+	{
+		printf("-%s-\n", inp->args[i]);
+		i++;
+	}
 	j = 0;
 	i = 0;
 	basestring = ft_red_stk(blk->buf);
@@ -192,14 +192,18 @@ void	ft_simple_redirect(t_shell *blk, t_input *inp)
 		}
 		if(basestring[i] == SHIFT_L)
 		{
-      aux = ft_split(tmp [j + 1], ' ');
+			aux = ft_split(tmp [j + 1], ' ');
 			ft_infile_open(blk, aux[0]);
-      ft_freeing(aux);
+			ft_freeing(aux);
 		}
 		if(basestring[i] == SHIFT_DR)
 			ft_outfile_open(tmp[j + 1], 1);
 		if(basestring[i] == SHIFT_DL)
-			ft_heredoc_open(blk, tmp[j + 1]);
+		{
+			aux = ft_split(tmp[j + 1], ' ');
+			ft_heredoc_open(blk, aux[0]);
+			ft_freeing(aux);
+		}
 		i++;
 		j++;
 	}
