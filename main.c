@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/24 14:13:32 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/25 08:31:53 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 	blk->envp = ft_build_env(envp);
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	//ft_access(blk, inp);
 	ft_prompt(blk, inp);
 	ft_freeing(blk->envp);

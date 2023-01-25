@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/17 22:11:46 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/24 15:06:35 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,9 +203,12 @@ void	ft_simple_redirect(t_shell *blk, t_input *inp)
 		i++;
 		j++;
 	}
-	ft_access(blk, inp);
+	if (inp->args[0])
+	{
+		ft_access(blk, inp);
+	}
 	ft_restore_fds(blk);
-  free(basestring);
-  unlink(blk->tmpdoc);
-  //ft_freeing(tmp);
+	free(basestring);
+	unlink(blk->tmpdoc);
+	//ft_freeing(tmp);
 }
