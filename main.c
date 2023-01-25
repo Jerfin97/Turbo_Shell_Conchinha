@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/25 08:31:53 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/25 11:06:06 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	main(int argc, char **argv, char **envp)
 	t_shell		*blk;
 	t_input		*inp;
 
-	//char		TESTE[99] = "$PATH";
 	(void)argc;
 	(void)argv;
 	blk = ft_blk_init();

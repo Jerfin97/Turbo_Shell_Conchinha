@@ -85,8 +85,6 @@ char	**ft_create_args(t_shell *blk)
 	}
 }
 
-void	ft_simple_redirect(t_shell *blk, t_input *inp);
-
 void	ft_lexer(t_shell *blk, t_input *inp)
 {
 	if (blk->buf && *blk->buf)
