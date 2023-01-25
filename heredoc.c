@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:05:37 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/25 10:39:47 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/25 15:45:41 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	*ft_here_routine(char *hereword)
 		if (buffer == NULL)
 		{
 			free(buffer);
+			printf("Conchinha: warning: here-document delimited by");
+			printf(" end-of-file (wanted `%s')\n", hereword);
 			break ;
 		}
 		if (ft_strcmp(hereword, buffer) == 0)
