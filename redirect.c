@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/25 16:55:59 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:10:10 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ void	ft_infile_open(t_shell *blk, char *str)
 	dup2(blk->fd_in, 0);
 }
 
-void	ft_outfile_open(char *str, int flag)
+void	ft_outfile_open(char *str, int flag, t_shell *blk)
 {
-	int		outfile;
 	char	*outfile_name;
 	int		i;
 
@@ -44,13 +43,14 @@ void	ft_outfile_open(char *str, int flag)
 	outfile_name = ft_substr(str, 0, i);
 	if (flag == 1)
 	{
-		outfile = open(outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
+		blk->fd_in = open(outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
 	}
 	else
 	{
-		outfile = open(outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
+		blk->fd_in = open(outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	}
-	dup2(outfile, 1);
+	free(outfile_name);
+	dup2(blk->fd_in, 1);
 }
 
 void	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
@@ -62,7 +62,7 @@ void	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 	while (basestring[++i])
 	{
 		if (basestring[i] == SHIFT_R)
-			ft_outfile_open(tmp[j + 1], 42);
+			ft_outfile_open(tmp[j + 1], 42, blk);
 		if (basestring[i] == SHIFT_L)
 		{
 			aux = ft_split(tmp [j + 1], ' ');
@@ -70,14 +70,17 @@ void	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 			ft_freeing(aux);
 		}
 		if (basestring[i] == SHIFT_DR)
-			ft_outfile_open(tmp[j + 1], 1);
+			ft_outfile_open(tmp[j + 1], 1, blk);
 		if (basestring[i] == SHIFT_DL)
 		{
 			aux = ft_split(tmp[j + 1], ' ');
 			ft_heredoc_open(blk, aux[0]);
 			ft_freeing(aux);
 		}
-		i++;
+		if (!basestring[i + 1])
+		{
+			close(blk->fd_in);
+		}
 		j++;
 	}
 }
