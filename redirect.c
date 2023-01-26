@@ -91,7 +91,8 @@ void	ft_simple_redirect(t_shell *blk, t_input *inp)
 	char	*basestring;
 
 	basestring = ft_red_stk(blk->buf);
-	tmp = inp->args;
+	tmp = ft_build_env(inp->args);
+	ft_freeing(inp->args);
 	inp->args = ft_compose_cmd(tmp);
 	ft_redirect_do(blk, tmp, basestring, 0);
 	if (inp->args[0])
@@ -99,5 +100,4 @@ void	ft_simple_redirect(t_shell *blk, t_input *inp)
 	ft_restore_fds(blk);
 	free(basestring);
 	unlink(blk->tmpdoc);
-	//ft_freeing(tmp);
 }
