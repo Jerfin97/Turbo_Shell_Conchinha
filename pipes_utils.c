@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:54:05 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/24 14:12:52 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/26 09:28:09 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 int	ft_switch(t_shell *blk, t_input *inp, int i)
 {
-	if (ft_is_builtin(blk, inp->temp))
+	if (ft_count_symbols(inp->args[i]))
+	{
+		//split_no_redirect
+		//Executa o redirect
+		return (0);
+	}
+	else if (ft_is_builtin(blk, inp->temp))
 		return (1);
 	else if (ft_access_pipe(blk, inp, i))
 		return (1);
