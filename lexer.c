@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/24 14:12:04 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:59:15 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**ft_create_args(t_shell *blk)
 		return (ret);
 	}
 }
-
+//lembrar poassar copia de inp args no redirect
 void	ft_lexer(t_shell *blk, t_input *inp)
 {
 	if (blk->buf && *blk->buf)
@@ -102,7 +102,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			ft_pipe_handle(blk, inp);
 		}
 		else if (ft_count_symbols(blk->buf) > 0)
-			ft_simple_redirect(blk, inp);
+			ft_simple_redirect(blk, inp, inp->args);
 		else if (ft_is_builtin(blk, inp->args))
 			built_run(inp, blk, inp->args);
 		else

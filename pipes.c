@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/09 12:17:56 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/26 12:10:14 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ int	ft_access_pipe(t_shell *blk, t_input *inp, int i)
 	return (-1);
 }
 
-void	ft_process(t_shell *blk, t_input *inp)
+void	ft_process(t_shell *blk, t_input *inp, int i)
 {
 	int		pid;
 	int		pipes[2];
+	char	**tmp;
 
 	if (pipe(pipes) == -1)
 		perror("VEM DE ERRO NO PIPE MEU AMOR");
@@ -71,7 +72,14 @@ void	ft_process(t_shell *blk, t_input *inp)
 		close(pipes[0]);
 		dup2(blk->fd_in, 0);
 		dup2(pipes[1], 1);
-		if (ft_is_builtin(blk, inp->temp))
+		if (ft_count_symbols(inp->args[i]) > 0)
+		{
+			tmp = ft_split_in_redirect(inp->args[i]);
+			ft_simple_redirect(blk, inp, tmp);
+			ft_freeing(tmp);
+			exit(0);
+		}
+		else if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
 			exit(0);
@@ -87,14 +95,22 @@ void	ft_process(t_shell *blk, t_input *inp)
 	}
 }
 
-void	ft_process_end(t_shell *blk, t_input *inp)
+void	ft_process_end(t_shell *blk, t_input *inp, int i)
 {
 	int		pid;
+	char	**tmp;
 
 	pid = fork();
 	if (pid == 0)
 	{
 		dup2(blk->fd_in, 0);
+		if (ft_count_symbols(inp->args[i]) > 0)
+		{
+			tmp = ft_split_in_redirect(inp->args[i]);
+			ft_simple_redirect(blk, inp, tmp);
+			ft_freeing(tmp);
+			exit(0);
+		}
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
@@ -121,14 +137,13 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 {
 	int		i;
 
-//	ft_redirect_infile(blk);
 	i = -1;
 	while (++i < inp->size - 1)
 	{
 		inp->tmp = ft_chase(blk, inp->args[i]);
 		inp->temp = ft_split(inp->tmp, ' ');
 		if (ft_switch(blk, inp, i))
-			ft_process(blk, inp);
+			ft_process(blk, inp, i);
 		wait(&blk->rs);
 		free(inp->tmp);
 		ft_freeing(inp->temp);
@@ -137,7 +152,7 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	inp->temp = ft_split(inp->tmp, ' ');
 	if (ft_switch(blk, inp, i))
 	{
-		ft_process_end(blk, inp);
+		ft_process_end(blk, inp, i);
 		wait(&blk->rs);
 	}
 	ft_freeing(inp->temp);

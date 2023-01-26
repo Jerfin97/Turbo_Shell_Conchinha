@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/26 10:10:10 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/26 12:13:34 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,31 @@ void	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 	}
 }
 
-void	ft_simple_redirect(t_shell *blk, t_input *inp)
+void	ft_redirect_access(t_shell *blk, t_input *inp, char **redir)
+{
+	char **tmp;
+
+
+	if (redir == NULL)
+		ft_access(blk,inp);
+	tmp = inp->args;
+	inp->args = redir;
+	ft_access(blk, inp);
+	inp->args = tmp;
+}
+
+void	ft_simple_redirect(t_shell *blk, t_input *inp, char **splited)
 {
 	char	**tmp;
 	char	*basestring;
 
 	basestring = ft_red_stk(blk->buf);
-	tmp = ft_build_env(inp->args);
-	ft_freeing(inp->args);
-	inp->args = ft_compose_cmd(tmp);
+	tmp = ft_build_env(splited);
+	ft_freeing(splited);
+	splited = ft_compose_cmd(tmp);
 	ft_redirect_do(blk, tmp, basestring, 0);
-	if (inp->args[0])
-		ft_access(blk, inp);
+	if (splited[0])
+		ft_redirect_access(blk, inp, splited);
 	ft_restore_fds(blk);
 	free(basestring);
 	unlink(blk->tmpdoc);
