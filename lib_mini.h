@@ -94,7 +94,7 @@ int			ft_i_next_redir(char *str);
 int			ft_count_redir_sep(char *str);
 int			ft_is_redir_sep(char *str, int i);
 char		*ft_red_stk(char *str);
-void		ft_simple_redirect(t_shell *blk, t_input *inp);
+void		ft_simple_redirect(t_shell *blk, t_input *inp, char **splited);
 char		**ft_compose_cmd(char **matrix);
 
 //Heredoc
