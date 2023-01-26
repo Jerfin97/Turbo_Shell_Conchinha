@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/25 09:55:07 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/25 16:55:59 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,17 @@ void	ft_outfile_open(char *str, int flag)
 	int		i;
 
 	i = 0;
-	while (str[i] != ' ')
+	while (str[i] != ' ' && str[i])
 		i++;
 	outfile_name = ft_substr(str, 0, i);
 	if (flag == 1)
+	{
 		outfile = open(outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
+	}
 	else
+	{
 		outfile = open(outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
+	}
 	dup2(outfile, 1);
 }
 
