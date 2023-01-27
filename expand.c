@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/24 14:07:09 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:07:25 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ char	*ft_chase(t_shell *blk, char *str)
 		}
 		else
 		{
-			tmp = ret;
-			ret = ft_strjoinchar(ret, str[i]);
-			free(tmp);
+			//tmp = ret;
+			ft_swapjoinchar(&ret, str[i]);
+			//free(tmp);
 		}
 	}
 	return (ret);
