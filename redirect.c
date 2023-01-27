@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/26 12:28:31 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:32:13 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,34 @@ void	ft_outfile_open(char *str, int flag, t_shell *blk)
 		i++;
 	outfile_name = ft_substr(str, 0, i);
 	if (flag == 1)
-	{
 		blk->fd_in = open(outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
-	}
 	else
-	{
 		blk->fd_in = open(outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
-	}
 	free(outfile_name);
 	dup2(blk->fd_in, 1);
 }
 
-void	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
+void	ft_split_inf(t_shell *blk, char **tmp, int j)
 {
 	char	**aux;
+
+	aux = ft_split(tmp [j + 1], ' ');
+	ft_infile_open(blk, aux[0]);
+	ft_freeing(aux);
+}
+
+void	ft_split_hdoc(t_shell *blk, char **tmp, int j)
+{
+	char	**aux;
+
+	aux = ft_split(tmp [j + 1], ' ');
+	ft_heredoc_open(blk, aux[0]);
+	ft_freeing(aux);
+}
+
+void	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
+{
+	//char	**aux;
 	int		i;
 
 	i = -1;
@@ -65,33 +79,32 @@ void	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 			ft_outfile_open(tmp[j + 1], 42, blk);
 		if (basestring[i] == SHIFT_L)
 		{
-			aux = ft_split(tmp [j + 1], ' ');
-			ft_infile_open(blk, aux[0]);
-			ft_freeing(aux);
+			ft_split_inf(blk, tmp, j);
+			//aux = ft_split(tmp [j + 1], ' ');
+			//ft_infile_open(blk, aux[0]);
+			//ft_freeing(aux);
 		}
 		if (basestring[i] == SHIFT_DR)
 			ft_outfile_open(tmp[j + 1], 1, blk);
 		if (basestring[i] == SHIFT_DL)
 		{
-			aux = ft_split(tmp[j + 1], ' ');
-			ft_heredoc_open(blk, aux[0]);
-			ft_freeing(aux);
+			ft_split_hdoc(blk, tmp, j);
+			//aux = ft_split(tmp[j + 1], ' ');
+			//ft_heredoc_open(blk, aux[0]);
+			//ft_freeing(aux);
 		}
 		if (!basestring[i + 1])
-		{
 			close(blk->fd_in);
-		}
 		j++;
 	}
 }
 
 void	ft_redirect_access(t_shell *blk, t_input *inp, char **redir)
 {
-	char **tmp;
-
+	char	**tmp;
 
 	if (redir == NULL)
-		ft_access(blk,inp);
+		ft_access(blk, inp);
 	tmp = inp->args;
 	inp->args = redir;
 	ft_access(blk, inp);
