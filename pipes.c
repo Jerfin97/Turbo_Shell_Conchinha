@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/26 12:10:14 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:37:05 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@ int	ft_build_path(t_shell *blk, t_input *inp)
 {
 	int	i;
 
-		i = 0;
+	i = 0;
 	inp->paths = ft_split(inp->cmd + 5, ':');
 	inp->tmp = ft_strjoin("/", inp->temp[0]);
-	free(inp->cmd);
 	while (inp->paths[i])
 	{
+		free(inp->cmd);
 		inp->cmd = ft_strjoin(inp->paths[i], inp->tmp);
 		if (!access(inp->cmd, X_OK))
+		{
+		//	free(inp->cmd);
+			free(inp->tmp);
+			ft_freeing(inp->paths);
 			return (1);
-		free(inp->cmd);
+		}
 		i++;
 	}
 	blk->rs = 1;
@@ -142,17 +146,20 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	{
 		inp->tmp = ft_chase(blk, inp->args[i]);
 		inp->temp = ft_split(inp->tmp, ' ');
+		free(inp->tmp);
 		if (ft_switch(blk, inp, i))
 			ft_process(blk, inp, i);
+		free(inp->cmd);
 		wait(&blk->rs);
-		free(inp->tmp);
 		ft_freeing(inp->temp);
 	}
 	inp->tmp = ft_chase(blk, inp->args[i]);
 	inp->temp = ft_split(inp->tmp, ' ');
+	free(inp->tmp);
 	if (ft_switch(blk, inp, i))
 	{
 		ft_process_end(blk, inp, i);
+		free(inp->cmd);
 		wait(&blk->rs);
 	}
 	ft_freeing(inp->temp);
