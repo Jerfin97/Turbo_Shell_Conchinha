@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/28 16:04:23 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:50:56 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_heredoc_open(t_shell *blk, char *str)
 	blk->fd_in = open(blk->tmpdoc, O_RDONLY);
 	if (blk->fd_in < 0)
 	{
-		perror("ERNANI");
+		perror("ERNANI-HEREDOC");
 		return (0);
 	}
 	close(0);
@@ -32,7 +32,8 @@ int	ft_infile_open(t_shell *blk, char *str)
 	blk->fd_in = open(str, O_RDONLY);
 	if (blk->fd_in < 0)
 	{
-		perror("ERNANI");
+		printf("%s\n\n", str);
+		perror("ERNANI-INFILE");
 		return (0);
 	}
 	close(0);
@@ -92,11 +93,11 @@ int	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 	{
 		if (basestring[i] == SHIFT_R)
 			out = ft_outfile_open(tmp, j, 42, blk);
-		if (basestring[i] == SHIFT_L)
+		else if (basestring[i] == SHIFT_L)
 			out = ft_split_inf(blk, tmp, j);
-		if (basestring[i] == SHIFT_DR)
+		else if (basestring[i] == SHIFT_DR)
 			out = ft_outfile_open(tmp, j, 1, blk);
-		if (basestring[i] == SHIFT_DL)
+		else if (basestring[i] == SHIFT_DL)
 			out = ft_split_hdoc(blk, tmp, j);
 		if (!basestring[i + 1])
 			close(blk->fd_in);
@@ -117,13 +118,13 @@ void	ft_redirect_access(t_shell *blk, t_input *inp, char **redir)
 	inp->args = tmp;
 }
 
-void	ft_simple_redirect(t_shell *blk, t_input *inp, char **splited)
+void	ft_simple_redirect(t_shell *blk, t_input *inp, char **splited, char *str)
 {
 	char	**tmp;
 	char	*basestring;
 	int		flag;
 
-	basestring = ft_red_stk(blk->buf);
+	basestring = ft_red_stk(str);
 	tmp = ft_compose_cmd(splited);
 	flag = ft_redirect_do(blk, splited, basestring, 0);
 	ft_freeing(splited);

@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/28 15:33:09 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:50:55 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 		if (ft_count_symbols(inp->args[i]) > 0)
 		{
 			tmp = ft_split_in_redirect(inp->args[i]);
-			ft_simple_redirect(blk, inp, tmp);
+			ft_simple_redirect(blk, inp, tmp, inp->args[i]);
 			//ft_freeing(tmp);
 			exit(0);
 		}
@@ -112,7 +112,7 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 		if (ft_count_symbols(inp->args[i]) > 0)
 		{
 			tmp = ft_split_in_redirect(inp->args[i]);
-			ft_simple_redirect(blk, inp, tmp);
+			ft_simple_redirect(blk, inp, tmp, inp->args[i]);
 			//ft_freeing(tmp);
 			exit(0);
 		}

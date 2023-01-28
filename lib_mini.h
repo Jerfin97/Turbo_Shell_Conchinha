@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/28 11:39:49 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:51:51 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			ft_i_next_redir(char *str);
 int			ft_count_redir_sep(char *str);
 int			ft_is_redir_sep(char *str, int i);
 char		*ft_red_stk(char *str);
-void		ft_simple_redirect(t_shell *blk, t_input *inp, char **splited);
+void		ft_simple_redirect(t_shell *blk, t_input *inp, char **splited, char *str);
 char		**ft_compose_cmd(char **matrix);
 
 //Heredoc
