@@ -25,7 +25,6 @@ int	ft_build_path(t_shell *blk, t_input *inp)
 		inp->cmd = ft_strjoin(inp->paths[i], inp->tmp);
 		if (!access(inp->cmd, X_OK))
 		{
-		//	free(inp->cmd);
 			free(inp->tmp);
 			ft_freeing(inp->paths);
 			return (1);
@@ -80,7 +79,6 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 		{
 			tmp = ft_split_in_redirect(inp->args[i]);
 			ft_simple_redirect(blk, inp, tmp, inp->args[i]);
-			//ft_freeing(tmp);
 			exit(0);
 		}
 		else if (ft_is_builtin(blk, inp->temp))
@@ -113,13 +111,11 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 		{
 			tmp = ft_split_in_redirect(inp->args[i]);
 			ft_simple_redirect(blk, inp, tmp, inp->args[i]);
-			//ft_freeing(tmp);
 			exit(0);
 		}
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
-			//if (ft_strcmp(inp->temp[0], "exit"))
 			exit(0);
 		}
 		else
