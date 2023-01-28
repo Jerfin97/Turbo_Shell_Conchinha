@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:05:37 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/25 15:45:41 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 11:46:12 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@ char	*ft_here_routine(char *hereword)
 	char	*aux;
 
 	aux = ft_calloc(1, 1);
+	g_return = -42;
 	while (42)
 	{
 		buffer = readline("heredoc> ");
+		if (g_return == 130)
+		{
+			free(buffer);
+			return (NULL);
+		}
 		if (buffer == NULL)
 		{
 			free(buffer);
@@ -54,6 +60,11 @@ void	ft_heredoc(t_shell *blk, char *hereword)
 
 	fd = open(blk->tmpdoc, O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	tmp = ft_here_routine(hereword);
+	if (tmp == NULL && g_return == 130)
+	{
+		close(fd);
+		return ;
+	}
 	buffer = ft_chase(blk, tmp);
 	free(tmp);
 	write(fd, buffer, ft_strlen(buffer));

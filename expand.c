@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/27 10:07:25 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 11:11:33 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*ft_chase(t_shell *blk, char *str)
 		else if (str[i] == '$' && str[i + 1] == '?')
 		{
 			i += 1;
-			end = ft_itoa(blk->rs);
+			end = ft_itoa(g_return);
 			if (end != NULL)
 			{
 				ft_swapjoin(&ret, end);

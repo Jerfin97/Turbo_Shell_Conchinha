@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/25 15:56:56 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 11:39:49 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <termios.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <sys/ioctl.h>
 //# include <readline/readline.h>
 //# include <readline/history.h>
 # include "readline/readline.h"

@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:32:11 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/25 10:26:48 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 11:50:46 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@ void	signal_handler(int signo)
 	wait(&i);
 	if (signo == SIGINT && (i == -42))
 	{
-		write(1, "\n", 1);
+		g_return = 130;
+		if (RL_ISSTATE(RL_STATE_READCMD))
+			ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		else
+			write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
 	}
 	else if (i != -42)
 	{
+		g_return = i;
 		write(1, "\n", 1);
 		rl_replace_line("\n", 0);
 		rl_redisplay();
