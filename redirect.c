@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/28 15:12:05 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:04:23 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,18 @@ int	ft_infile_open(t_shell *blk, char *str)
 	return (1);
 }
 
-int	ft_outfile_open(char *str, int flag, t_shell *blk)
+int	ft_outfile_open(char **str, int j, int flag, t_shell *blk)
 {
-	//char	*outfile_name;
-	//int		i;
 	char	**aux;
 
-	//i = 0;
-	aux = ft_split(str, ' ');
-	if (aux == NULL)
-		printf("HELLO AMIGOS %s\n", str);
-	//outfile_name = ft_strdup(aux[0]);
-	//while (str[i] != ' ' && str[i])
-	//	i++;
-	//outfile_name = ft_substr(str, 0, i);
-	if (flag == 1)
-	{
-		printf("if   %p\n", aux[0]);
-		blk->fd_in = open(aux[0], O_APPEND | O_CREAT | O_WRONLY, 0777);
-	}
+	if (str[j + 1] == NULL)
+		aux = ft_split(str[j], ' ');
 	else
-	{
-		printf("else   %p\n", aux[0]);
+		aux = ft_split(str[j + 1], ' ');
+	if (flag == 1)
+		blk->fd_in = open(aux[0], O_APPEND | O_CREAT | O_WRONLY, 0777);
+	else
 		blk->fd_in = open(aux[0], O_TRUNC | O_CREAT | O_WRONLY, 0777);
-	}
-	//free(outfile_name);
 	ft_freeing(aux);
 	dup2(blk->fd_in, 1);
 	return (1);
@@ -75,7 +62,10 @@ int	ft_split_inf(t_shell *blk, char **tmp, int j)
 	char	**aux;
 	int		out;
 
-	aux = ft_split(tmp [j + 1], ' ');
+	if (tmp[j][0])
+		aux = ft_split(tmp [j], ' ');
+	else
+		aux = ft_split(tmp [j + 1], ' ');
 	out = ft_infile_open(blk, aux[0]);
 	ft_freeing(aux);
 	return (out);
@@ -101,11 +91,11 @@ int	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 	while (basestring[++i])
 	{
 		if (basestring[i] == SHIFT_R)
-			out = ft_outfile_open(tmp[j + 1], 42, blk);
+			out = ft_outfile_open(tmp, j, 42, blk);
 		if (basestring[i] == SHIFT_L)
 			out = ft_split_inf(blk, tmp, j);
 		if (basestring[i] == SHIFT_DR)
-			out = ft_outfile_open(tmp[j + 1], 1, blk);
+			out = ft_outfile_open(tmp, j, 1, blk);
 		if (basestring[i] == SHIFT_DL)
 			out = ft_split_hdoc(blk, tmp, j);
 		if (!basestring[i + 1])
