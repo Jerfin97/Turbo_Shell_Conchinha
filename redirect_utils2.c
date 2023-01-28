@@ -94,7 +94,7 @@ char	**ft_compose_cmd(char **matrix)
 	int		j;
 
 	i = 1;
-	tmp = matrix[0];
+	tmp = ft_strdup(matrix[0]);
 	while (matrix[i])
 	{
 		j = 1;

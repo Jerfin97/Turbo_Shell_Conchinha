@@ -24,9 +24,12 @@ void	ft_exit(t_input *inp, t_shell *blk, char **args)
 	{
 		ft_freeing(inp->args);
 		free(blk->buf);
+		ft_freeing(blk->envp);
+		free(blk);
+		free(inp);
 		write(1, "exit\n", 5);
-		blk->rs = 0;
-		exit(blk->rs);
+		g_return = 0;
+		exit(g_return);
 	}
 }
 

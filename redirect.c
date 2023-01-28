@@ -69,7 +69,6 @@ void	ft_split_hdoc(t_shell *blk, char **tmp, int j)
 
 void	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 {
-	//char	**aux;
 	int		i;
 
 	i = -1;
@@ -78,21 +77,11 @@ void	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 		if (basestring[i] == SHIFT_R)
 			ft_outfile_open(tmp[j + 1], 42, blk);
 		if (basestring[i] == SHIFT_L)
-		{
 			ft_split_inf(blk, tmp, j);
-			//aux = ft_split(tmp [j + 1], ' ');
-			//ft_infile_open(blk, aux[0]);
-			//ft_freeing(aux);
-		}
 		if (basestring[i] == SHIFT_DR)
 			ft_outfile_open(tmp[j + 1], 1, blk);
 		if (basestring[i] == SHIFT_DL)
-		{
 			ft_split_hdoc(blk, tmp, j);
-			//aux = ft_split(tmp[j + 1], ' ');
-			//ft_heredoc_open(blk, aux[0]);
-			//ft_freeing(aux);
-		}
 		if (!basestring[i + 1])
 			close(blk->fd_in);
 		j++;
@@ -117,13 +106,13 @@ void	ft_simple_redirect(t_shell *blk, t_input *inp, char **splited)
 	char	*basestring;
 
 	basestring = ft_red_stk(blk->buf);
-	tmp = ft_build_env(splited);
+	tmp = ft_compose_cmd(splited);
+	ft_redirect_do(blk, splited, basestring, 0);
 	ft_freeing(splited);
-	splited = ft_compose_cmd(tmp);
-	ft_redirect_do(blk, tmp, basestring, 0);
-	if (splited[0])
-		ft_redirect_access(blk, inp, splited);
+	if (tmp[0])
+		ft_redirect_access(blk, inp, tmp);
 	ft_restore_fds(blk);
+	ft_freeing(tmp);
 	free(basestring);
 	unlink(blk->tmpdoc);
 }

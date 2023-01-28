@@ -102,7 +102,11 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			ft_pipe_handle(blk, inp);
 		}
 		else if (ft_count_symbols(blk->buf) > 0)
-			ft_simple_redirect(blk, inp, inp->args);
+		{
+			char **splited;
+			splited = ft_build_env(inp->args);
+			ft_simple_redirect(blk, inp, splited);
+		}
 		else if (ft_is_builtin(blk, inp->args))
 			built_run(inp, blk, inp->args);
 		else
