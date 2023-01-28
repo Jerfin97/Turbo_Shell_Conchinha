@@ -21,7 +21,7 @@ int	ft_symbol_control(int *i, char *str, char good)
 	while (str[*i])
 	{
 		*i = *i + 1;
-		if (ft_isalpha(str[*i]) == 1 && str[*i] != ' ')
+		if (ft_isprint(str[*i]) == 1 && str[*i] != ' ')
 			return (0);
 		if (str[*i] == '<' || str[*i] == '>' || str[*i] == '\0')
 			return (-1);
