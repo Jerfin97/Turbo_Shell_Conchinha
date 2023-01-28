@@ -60,53 +60,52 @@ char	*ft_var_ret(t_shell *blk, char *str)
 	free(tmp);
 	return (ret);
 }
+void	ft_expand_return(int *i, char *end, char **ret)
+{
+	*i = *i + 1;
+	end = ft_itoa(g_return);
+	if(end != NULL)
+	{
+		ft_swapjoin(ret, end);
+		free(end);
+	}
+}
+
+void ft_expand_var(char *end, char **ret)
+{
+	if (end != NULL)
+	{
+		ft_swapjoin(ret, end);
+		free(end);
+	}
+}
 
 // O -1 e importante pq ele faz a len com o = mas imprime sem ele, logo o
 // caractere depois de variavel esta sendo ignorado, com o -1 retornamos correto
-char	*ft_chase(t_shell *blk, char *str)
+char	*ft_chase(t_shell *blk, char *str, int i, int flag)
 {
 	char	*tmp;
 	char	*ret;
-	int		i;
-	int		flag;
 	char	*end;
 
-	i = -1;
-	flag = 0;
 	ret = ft_calloc(1, 1);
 	while (str[++i])
 	{
 		if (ft_update_quote(&flag, str[i]) == 1)
 			continue ;
 		else if (str[i] == '$' && str[i + 1] == '?')
-		{
-			i += 1;
-			end = ft_itoa(g_return);
-			if (end != NULL)
-			{
-				ft_swapjoin(&ret, end);
-				free(end);
-			}
-		}
+			ft_expand_return(&i, end, &ret);
 		else if ((str[i] == '$')
 			&& (flag != 1) && (!ft_var_isvalid(&str[i + 1])))
 		{
 			tmp = ft_create_var(&str[i], 0, 0, NULL);
 			i += ft_strlen(tmp) - 1;
 			end = ft_var_ret(blk, tmp);
-			if (end != NULL)
-			{
-				ft_swapjoin(&ret, end);
-				free(end);
-			}
+			ft_expand_var(end, &ret);
 			free(tmp);
 		}
 		else
-		{
-			//tmp = ret;
 			ft_swapjoinchar(&ret, str[i]);
-			//free(tmp);
-		}
 	}
 	return (ret);
 }
@@ -115,7 +114,7 @@ char	*ft_expand(t_shell *blk, char *str)
 {
 	char	*tmp;
 
-	tmp = ft_chase(blk, str);
+	tmp = ft_chase(blk, str, -1, 0);
 	free(str);
 	return (tmp);
 }
