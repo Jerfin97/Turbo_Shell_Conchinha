@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:54:05 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/27 10:16:28 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 14:06:00 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_switch(t_shell *blk, t_input *inp, int i)
 	else if (ft_is_builtin(blk, inp->temp))
 		return (1);
 	else if (ft_access_pipe(blk, inp, i))
-		return (1);
+		return (42);
 	return (0);
 }
 

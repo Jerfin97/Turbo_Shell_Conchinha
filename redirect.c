@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/28 13:22:29 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 15:12:05 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,30 @@ int	ft_infile_open(t_shell *blk, char *str)
 
 int	ft_outfile_open(char *str, int flag, t_shell *blk)
 {
-	char	*outfile_name;
-	int		i;
+	//char	*outfile_name;
+	//int		i;
+	char	**aux;
 
-	i = 0;
-	while (str[i] != ' ' && str[i])
-		i++;
-	outfile_name = ft_substr(str, 0, i);
+	//i = 0;
+	aux = ft_split(str, ' ');
+	if (aux == NULL)
+		printf("HELLO AMIGOS %s\n", str);
+	//outfile_name = ft_strdup(aux[0]);
+	//while (str[i] != ' ' && str[i])
+	//	i++;
+	//outfile_name = ft_substr(str, 0, i);
 	if (flag == 1)
-		blk->fd_in = open(outfile_name, O_APPEND | O_CREAT | O_WRONLY, 0777);
+	{
+		printf("if   %p\n", aux[0]);
+		blk->fd_in = open(aux[0], O_APPEND | O_CREAT | O_WRONLY, 0777);
+	}
 	else
-		blk->fd_in = open(outfile_name, O_TRUNC | O_CREAT | O_WRONLY, 0777);
-	free(outfile_name);
+	{
+		printf("else   %p\n", aux[0]);
+		blk->fd_in = open(aux[0], O_TRUNC | O_CREAT | O_WRONLY, 0777);
+	}
+	//free(outfile_name);
+	ft_freeing(aux);
 	dup2(blk->fd_in, 1);
 	return (1);
 }

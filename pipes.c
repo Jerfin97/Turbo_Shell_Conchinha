@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/27 10:37:05 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 15:23:05 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,14 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 		{
 			tmp = ft_split_in_redirect(inp->args[i]);
 			ft_simple_redirect(blk, inp, tmp);
-			ft_freeing(tmp);
+			//ft_freeing(tmp);
 			exit(0);
 		}
 		else if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
-			exit(0);
+			if (ft_strcmp(inp->temp[0], "exit"))
+				exit(0);
 		}
 		else
 			execve(inp->cmd, inp->temp, blk->envp);
@@ -112,12 +113,13 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 		{
 			tmp = ft_split_in_redirect(inp->args[i]);
 			ft_simple_redirect(blk, inp, tmp);
-			ft_freeing(tmp);
+			//ft_freeing(tmp);
 			exit(0);
 		}
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
+			//if (ft_strcmp(inp->temp[0], "exit"))
 			exit(0);
 		}
 		else
@@ -140,6 +142,7 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 void	ft_pipe_handle(t_shell *blk, t_input *inp)
 {
 	int		i;
+	int		key;
 
 	i = -1;
 	while (++i < inp->size - 1)
@@ -147,19 +150,23 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 		inp->tmp = ft_chase(blk, inp->args[i]);
 		inp->temp = ft_split(inp->tmp, ' ');
 		free(inp->tmp);
-		if (ft_switch(blk, inp, i))
+		key = ft_switch(blk, inp, i);
+		if (key)
 			ft_process(blk, inp, i);
-		free(inp->cmd);
+		if	(key == 42)
+			free(inp->cmd);
 		wait(&blk->rs);
 		ft_freeing(inp->temp);
 	}
 	inp->tmp = ft_chase(blk, inp->args[i]);
 	inp->temp = ft_split(inp->tmp, ' ');
 	free(inp->tmp);
-	if (ft_switch(blk, inp, i))
+	key = ft_switch(blk, inp, i);
+	if (key)
 	{
 		ft_process_end(blk, inp, i);
-		free(inp->cmd);
+		if (key == 42)
+			free(inp->cmd);
 		wait(&blk->rs);
 	}
 	ft_freeing(inp->temp);
