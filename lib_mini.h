@@ -32,6 +32,8 @@
 # define SHIFT_DR  'C'
 # define SHIFT_DL  'D'
 
+extern int		g_return;
+
 //STRUCT CORE DO MINISHELL
 typedef struct s_shell
 {

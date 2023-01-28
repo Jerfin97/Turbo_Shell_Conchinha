@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
-#include "libft/libft.h"
 
+int 	g_return;
 // Separado porque ele sempre vai manter o historico se for comando ou não.
 void	ft_history(char *str)
 {
@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell		*blk;
 	t_input		*inp;
 
+	g_return = 0;
 	(void)argc;
 	(void)argv;
 	blk = ft_blk_init();
@@ -52,7 +53,6 @@ int	main(int argc, char **argv, char **envp)
 	//ft_access(blk, inp);
 	ft_prompt(blk, inp);
 	ft_freeing(blk->envp);
-	//ft_freeing(teste2);
 	free(blk);
 	free(inp);
 	return (0);
