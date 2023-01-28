@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/26 11:59:15 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:50:12 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		{
 			char **splited;
 			splited = ft_build_env(inp->args);
-			ft_simple_redirect(blk, inp, splited);
+			ft_simple_redirect(blk, inp, splited, blk->buf);
 		}
 		else if (ft_is_builtin(blk, inp->args))
 			built_run(inp, blk, inp->args);
