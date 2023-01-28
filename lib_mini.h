@@ -151,7 +151,7 @@ int			ft_validate_quotes(char *str);
 int			ft_update_quote(int *flag, char c);
 int			ft_var_size(char *str);
 void		ft_swapjoin(char **s1, char *s2);
-char		*ft_chase(t_shell *blk, char *str);
+char		*ft_chase(t_shell *blk, char *str, int i, int flag);
 int			ft_var_isvalid(char *str);
 
 //PIPES

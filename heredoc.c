@@ -65,7 +65,7 @@ void	ft_heredoc(t_shell *blk, char *hereword)
 		close(fd);
 		return ;
 	}
-	buffer = ft_chase(blk, tmp);
+	buffer = ft_chase(blk, tmp, -1, 0);
 	free(tmp);
 	write(fd, buffer, ft_strlen(buffer));
 	free(buffer);

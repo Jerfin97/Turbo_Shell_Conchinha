@@ -12,60 +12,30 @@
 
 #include "lib_mini.h"
 
-int	ft_build_path(t_shell *blk, t_input *inp)
+void	ft_process_do(t_shell *blk, t_input *inp, int i)
 {
-	int	i;
+	char	**tmp;
 
-	i = 0;
-	inp->paths = ft_split(inp->cmd + 5, ':');
-	inp->tmp = ft_strjoin("/", inp->temp[0]);
-	while (inp->paths[i])
+	if (ft_count_symbols(inp->args[i]) > 0)
 	{
-		free(inp->cmd);
-		inp->cmd = ft_strjoin(inp->paths[i], inp->tmp);
-		if (!access(inp->cmd, X_OK))
-		{
-			free(inp->tmp);
-			ft_freeing(inp->paths);
-			return (1);
-		}
-		i++;
+		tmp = ft_split_in_redirect(inp->args[i]);
+		ft_simple_redirect(blk, inp, tmp, inp->args[i]);
+		exit(0);
 	}
-	blk->rs = 1;
-	free(inp->tmp);
-	ft_freeing(inp->paths);
-	return (0);
-}
-
-int	ft_access_pipe(t_shell *blk, t_input *inp, int i)
-{
-	inp->cmd = ft_search(blk->envp, "PATH=");
-	if (!access(inp->temp[i], X_OK))
+	else if (ft_is_builtin(blk, inp->temp))
 	{
-		if (inp->cmd != NULL)
-			free(inp->cmd);
-		inp->cmd = inp->temp[i];
-		blk->rs = 0;
-		return (1);
+		built_run(inp, blk, inp->temp);
+		if (ft_strcmp(inp->temp[0], "exit"))
+			exit(0);
 	}
-	else if (inp->cmd != NULL)
-	{
-		return (ft_build_path(blk, inp));
-	}
-	else if (inp->cmd == NULL)
-	{
-		perror("PATH VARIABLE NOT FOUND");
-		blk->rs = 1;
-		return (0);
-	}
-	return (-1);
+	else
+		execve(inp->cmd, inp->temp, blk->envp);
 }
 
 void	ft_process(t_shell *blk, t_input *inp, int i)
 {
 	int		pid;
 	int		pipes[2];
-	char	**tmp;
 
 	if (pipe(pipes) == -1)
 		perror("VEM DE ERRO NO PIPE MEU AMOR");
@@ -75,20 +45,7 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 		close(pipes[0]);
 		dup2(blk->fd_in, 0);
 		dup2(pipes[1], 1);
-		if (ft_count_symbols(inp->args[i]) > 0)
-		{
-			tmp = ft_split_in_redirect(inp->args[i]);
-			ft_simple_redirect(blk, inp, tmp, inp->args[i]);
-			exit(0);
-		}
-		else if (ft_is_builtin(blk, inp->temp))
-		{
-			built_run(inp, blk, inp->temp);
-			if (ft_strcmp(inp->temp[0], "exit"))
-				exit(0);
-		}
-		else
-			execve(inp->cmd, inp->temp, blk->envp);
+		ft_process_do(blk, inp, i);
 	}
 	if (pid > 0)
 	{
@@ -135,26 +92,30 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 // blk -> stdout_backup
 // blk -> fd_in;
 
+void	ft_pipe_routine(t_shell *blk, t_input *inp, int i, int key)
+{
+	inp->tmp = ft_chase(blk, inp->args[i], -1, 0);
+	inp->temp = ft_split(inp->tmp, ' ');
+	free(inp->tmp);
+	key = ft_switch(blk, inp, i);
+	if (key)
+		ft_process(blk, inp, i);
+	if (key == 42)
+		free(inp->cmd);
+	wait(&blk->rs);
+	ft_freeing(inp->temp);
+}
+
 void	ft_pipe_handle(t_shell *blk, t_input *inp)
 {
 	int		i;
 	int		key;
 
+	key = 0;
 	i = -1;
 	while (++i < inp->size - 1)
-	{
-		inp->tmp = ft_chase(blk, inp->args[i]);
-		inp->temp = ft_split(inp->tmp, ' ');
-		free(inp->tmp);
-		key = ft_switch(blk, inp, i);
-		if (key)
-			ft_process(blk, inp, i);
-		if	(key == 42)
-			free(inp->cmd);
-		wait(&blk->rs);
-		ft_freeing(inp->temp);
-	}
-	inp->tmp = ft_chase(blk, inp->args[i]);
+		ft_pipe_routine(blk, inp, i, key);
+	inp->tmp = ft_chase(blk, inp->args[i], -1 ,0);
 	inp->temp = ft_split(inp->tmp, ' ');
 	free(inp->tmp);
 	key = ft_switch(blk, inp, i);
