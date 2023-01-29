@@ -6,14 +6,11 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:31:12 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/24 14:01:39 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 21:11:50 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
-
-// A Ideia é só chamar o exec pra forkar e executar o comando.
-// E retornar o signal 0 se der bom ou o de erro Caso de merda.
 
 void	ft_build_exec(t_shell *blk, t_input *inp)
 {
@@ -74,7 +71,6 @@ int	ft_exec(t_input *inp, t_shell *blk)
 	int	pid;
 
 	pid = fork();
-	//inp->cmd = inp->args[0];
 	if (pid == 0)
 	{
 		execve(inp->cmd, inp->args, blk->envp);
@@ -85,6 +81,5 @@ int	ft_exec(t_input *inp, t_shell *blk)
 		return (blk->rs);
 	}
 	perror("fork crash");
-	//ft_exec("./a.out",inp, blk);
 	return (127);
 }

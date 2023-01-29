@@ -6,21 +6,20 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/25 11:06:06 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/28 21:11:16 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 
-int 	g_return;
-// Separado porque ele sempre vai manter o historico se for comando ou não.
+int	g_return;
+
 void	ft_history(char *str)
 {
 	if (str && *str)
 		add_history(str);
 }
 
-// É o nucleo do codigo Aqui que começa o merderê todo.
 int	ft_prompt(t_shell *blk, t_input *inp)
 {
 	while (42)
@@ -35,7 +34,6 @@ int	ft_prompt(t_shell *blk, t_input *inp)
 
 char	*ft_redirect_clean(char *str);
 
-// Samerda ta aqui só pq tem que ta mesmo.
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*blk;
@@ -50,7 +48,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_suppress_output();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-	//ft_access(blk, inp);
 	ft_prompt(blk, inp);
 	ft_freeing(blk->envp);
 	free(blk);

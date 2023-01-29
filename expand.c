@@ -6,14 +6,12 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/28 11:11:33 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/28 21:08:31 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
-#include "libft/libft.h"
 
-// crio a variavel dando join no =
 char	*ft_create_var(char *str, int i, int start, char *tmp)
 {
 	int		len;
@@ -27,7 +25,7 @@ char	*ft_create_var(char *str, int i, int start, char *tmp)
 	}
 	start = i + 1;
 	len = ft_var_size(str);
-	var = ft_substr(str, start, len); // malloc
+	var = ft_substr(str, start, len);
 	if (!var)
 		return (NULL);
 	i = 1;
@@ -60,18 +58,19 @@ char	*ft_var_ret(t_shell *blk, char *str)
 	free(tmp);
 	return (ret);
 }
+
 void	ft_expand_return(int *i, char *end, char **ret)
 {
 	*i = *i + 1;
 	end = ft_itoa(g_return);
-	if(end != NULL)
+	if (end != NULL)
 	{
 		ft_swapjoin(ret, end);
 		free(end);
 	}
 }
 
-void ft_expand_var(char *end, char **ret)
+void	ft_expand_var(char *end, char **ret)
 {
 	if (end != NULL)
 	{
