@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/28 21:10:07 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/29 08:42:26 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ t_input		*ft_input_init(void);
 // LEXER
 void		ft_lexer(t_shell *blk, t_input *inp);
 int			ft_count_symbols(char *str);
+void		ft_size_args(t_input *inp, t_shell *blk);
+void		ft_redir_path(t_input *inp, t_shell *blk);
 
 // PARSER
 int			ft_has_input_next(char *str, char *sep);
@@ -87,7 +89,6 @@ int			ft_find_str(char *str, char *sep);
 int			ft_split_count(char *str, char *sep);
 char		**ft_split_in_spaces(char *dirty, int i, int j, int quote);
 char		*ft_space_clean(char *str);
-void		ft_swapjoinchar(char **s1, char s2);
 
 //Redirect
 
@@ -97,8 +98,14 @@ int			ft_i_next_redir(char *str);
 int			ft_count_redir_sep(char *str);
 int			ft_is_redir_sep(char *str, int i);
 char		*ft_red_stk(char *str);
-void		ft_simple_redirect(t_shell *blk, t_input *inp, char **splited, char *str);
+void		ft_simple_redirect(t_shell *blk, t_input *inp, \
+				char **splited, char *str);
 char		**ft_compose_cmd(char **matrix);
+int			ft_heredoc_open(t_shell *blk, char *str);
+int			ft_infile_open(t_shell *blk, char *str);
+int			ft_outfile_open(char **str, int j, int flag, t_shell *blk);
+int			ft_split_inf(t_shell *blk, char **tmp, int j);
+int			ft_split_hdoc(t_shell *blk, char **tmp, int j);
 
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
@@ -150,7 +157,6 @@ char		*ft_create_var(char *str, int i, int start, char *tmp);
 int			ft_validate_quotes(char *str);
 int			ft_update_quote(int *flag, char c);
 int			ft_var_size(char *str);
-void		ft_swapjoin(char **s1, char *s2);
 char		*ft_chase(t_shell *blk, char *str, int i, int flag);
 int			ft_var_isvalid(char *str);
 

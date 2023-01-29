@@ -6,11 +6,29 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:50:58 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/17 08:27:28 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/29 08:36:13 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+
+// busco a variavel na nossa env e retorno o resultado da busca depois do =
+char	*ft_var_ret(t_shell *blk, char *str)
+{
+	int		i;
+	char	*ret;
+	char	*tmp;
+
+	i = 0;
+	tmp = ft_search(blk->envp, str);
+	if (tmp == NULL)
+		return (NULL);
+	while (tmp[i] != '=')
+		i++;
+	ret = ft_strdup(&tmp[i + 1]);
+	free(tmp);
+	return (ret);
+}
 
 // vejo o tamanho da variavel
 int	ft_var_size(char *str)
@@ -93,13 +111,4 @@ int	ft_validate_quotes(char *str)
 		i++;
 	}
 	return (mirror_flag);
-}
-
-void	ft_swapjoin(char **s1, char *s2)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(*s1, s2);
-	free(*s1);
-	*s1 = tmp;
 }
