@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 21:23:23 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/28 21:08:31 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/29 08:35:59 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,6 @@ char	*ft_create_var(char *str, int i, int start, char *tmp)
 	var = ft_strjoin(tmp, "=");
 	free(tmp);
 	return (var);
-}
-
-// busco a variavel na nossa env e retorno o resultado da busca depois do =
-char	*ft_var_ret(t_shell *blk, char *str)
-{
-	int		i;
-	char	*ret;
-	char	*tmp;
-
-	i = 0;
-	tmp = ft_search(blk->envp, str);
-	if (tmp == NULL)
-		return (NULL);
-	while (tmp[i] != '=')
-		i++;
-	ret = ft_strdup(&tmp[i + 1]);
-	free(tmp);
-	return (ret);
 }
 
 void	ft_expand_return(int *i, char *end, char **ret)

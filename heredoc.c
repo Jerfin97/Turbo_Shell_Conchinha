@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
+/*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:05:37 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/28 11:46:12 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/29 09:06:53 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // Precisa aplicar as funcionalidades do original como imprimir em stdout
 //
 // Dentro de pipes_utils existe um redirecionador para o heredoc
-
+/*
 char	*ft_here_routine(char *hereword)
 {
 	char	*buffer;
@@ -49,6 +49,36 @@ char	*ft_here_routine(char *hereword)
 		ft_swapjoin(&aux, "\n");
 		free(buffer);
 	}
+	return (aux);
+}
+*/
+
+char	*ft_here_routine(char *hereword)
+{
+	char	*buffer;
+	char	*aux;
+
+	aux = ft_calloc(1, 1);
+	g_return = -42;
+	while (42)
+	{
+		buffer = readline("heredoc> ");
+		if (g_return == 130 || buffer == NULL)
+		{
+			free(buffer);
+			if (g_return == 130)
+				return (NULL);
+			printf("Conchinha: warning: here-document delimited by");
+			printf(" end-of-file (wanted `%s')\n", hereword);
+			break ;
+		}
+		if (!ft_strcmp(hereword, buffer))
+			break ;
+		ft_swapjoin(&aux, buffer);
+		ft_swapjoin(&aux, "\n");
+		free(buffer);
+	}
+	free(buffer);
 	return (aux);
 }
 

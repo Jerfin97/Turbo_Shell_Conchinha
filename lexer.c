@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/28 21:03:52 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/29 08:44:13 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	ft_is_builtin(t_shell *blk, char **args)
 		return (1);
 	else if (!ft_strcmp(args[0], "exit") || blk->buf == NULL)
 		return (1);
-	else if (!ft_strcmp(args[0], "heredoc"))
-		return (2);
 	return (0);
 }
 
@@ -76,23 +74,6 @@ char	**ft_create_args(t_shell *blk)
 		free(tmp);
 		return (ret);
 	}
-}
-
-void	ft_size_args(t_input *inp, t_shell *blk)
-{
-	while (inp->args[inp->size])
-	{
-		inp->args[inp->size] = ft_expand(blk, inp->args[inp->size]);
-		inp->size++;
-	}
-}
-
-void	ft_redir_path(t_input *inp, t_shell *blk)
-{
-	char	**splited;
-
-	splited = ft_build_env(inp->args);
-	ft_simple_redirect(blk, inp, splited, blk->buf);
 }
 
 void	ft_lexer(t_shell *blk, t_input *inp)

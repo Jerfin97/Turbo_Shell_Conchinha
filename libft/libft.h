@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:38:28 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/05 17:57:12 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/29 08:32:04 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_strcmp(char *s1, char *s2);
+void	ft_swapjoinchar(char **s1, char s2);
+void	ft_swapjoin(char **s1, char *s2);
 
 //GNL
 char	*get_next_line(int fd);
