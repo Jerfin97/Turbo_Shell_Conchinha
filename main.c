@@ -32,8 +32,6 @@ int	ft_prompt(t_shell *blk, t_input *inp)
 	rl_clear_history();
 }
 
-char	*ft_redirect_clean(char *str);
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		*blk;

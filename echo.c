@@ -69,7 +69,7 @@ void	ft_clean_echo(t_shell *blk, t_input *inp, char **args)
 	}
 	else if (args[i])
 		printf("%s", args[i]);
-	blk->rs = 0;
+	g_return = 0;
 }
 
 void	ft_echo(t_shell *blk, t_input *inp, char **args)
@@ -83,5 +83,5 @@ void	ft_echo(t_shell *blk, t_input *inp, char **args)
 	{
 		printf("\n");
 	}
-	blk->rs = 0;
+	g_return = 0;
 }

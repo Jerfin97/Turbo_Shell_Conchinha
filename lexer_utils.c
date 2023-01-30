@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+#include "libft/libft.h"
 
 void	ft_size_args(t_input *inp, t_shell *blk)
 {
@@ -19,7 +20,7 @@ void	ft_size_args(t_input *inp, t_shell *blk)
 		inp->args[inp->size] = ft_expand(blk, inp->args[inp->size]);
 		inp->size++;
 	}
-}
+}	
 
 void	ft_redir_path(t_input *inp, t_shell *blk)
 {

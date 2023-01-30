@@ -26,7 +26,7 @@ void	ft_build_exec(t_shell *blk, t_input *inp)
 		if (!access(inp->cmd, X_OK))
 		{
 			ft_exec(inp, blk);
-			blk->rs = 0;
+			g_return = 0;
 			free(inp->cmd);
 			free(inp->tmp);
 			ft_freeing(inp->paths);
@@ -35,7 +35,7 @@ void	ft_build_exec(t_shell *blk, t_input *inp)
 		free(inp->cmd);
 		i++;
 	}
-	blk->rs = 1;
+	g_return = 1;
 	free(inp->tmp);
 	ft_freeing(inp->paths);
 }
@@ -53,19 +53,19 @@ int	ft_is_dir(char *path)
 	return (1);
 }
 
-void    ft_abs_path_supremacy(t_input *inp, t_shell *blk)
+void	ft_abs_path_supremacy(t_input *inp, t_shell *blk)
 {
-    if (inp->cmd != NULL)
-        free(inp->cmd);
-    inp->cmd = inp->args[0];
-    blk->rs = 0;
-    if (ft_is_dir(inp->args[0]))
-        ft_exec(inp, blk);
-    else
-    {
-        perror("PASTA NAO FELLADAPOTA");
-        g_return = 126;
-    }
+	if (inp->cmd != NULL)
+		free(inp->cmd);
+	inp->cmd = inp->args[0];
+	g_return = 0;
+	if (ft_is_dir(inp->args[0]))
+		ft_exec(inp, blk);
+	else
+	{
+		perror("PASTA NAO FELLADAPOTA");
+		g_return = 126;
+	}
 }
 
 void	ft_access(t_shell *blk, t_input *inp)
@@ -80,13 +80,13 @@ void	ft_access(t_shell *blk, t_input *inp)
 		&& (inp->args[0][0] != '\0') && (inp->args[0][0] != ' '))
 	{
 		ft_build_exec(blk, inp);
-		if (blk->rs == 0)
+		if (g_return == 0)
 			return ;
 	}
-	if (blk->rs == 1 || (inp->args[0][0] != '\0') || (inp->args[0][0] != ' '))
+	if (g_return == 1 || (inp->args[0][0] != '\0') || (inp->args[0][0] != ' '))
 	{
 		perror("PATH NOT FOUND");
-		blk->rs = 1;
+		g_return = 127;
 	}
 }
 
@@ -101,8 +101,8 @@ int	ft_exec(t_input *inp, t_shell *blk)
 	}
 	else if ((pid > 0) && (pid != -1))
 	{
-		wait(&blk->rs);
-		return (blk->rs);
+		wait((int *)g_return);
+		return (g_return);
 	}
 	perror("fork crash");
 	return (127);

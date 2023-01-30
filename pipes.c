@@ -38,7 +38,7 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 	int		pipes[2];
 
 	if (pipe(pipes) == -1)
-		perror("VEM DE ERRO NO PIPE MEU AMOR");
+		perror("PIPE CREATION ERROR");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -102,7 +102,7 @@ void	ft_pipe_routine(t_shell *blk, t_input *inp, int i, int key)
 		ft_process(blk, inp, i);
 	if (key == 42)
 		free(inp->cmd);
-	wait(&blk->rs);
+	wait((int *)g_return);
 	ft_freeing(inp->temp);
 }
 
@@ -124,7 +124,7 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 		ft_process_end(blk, inp, i);
 		if (key == 42)
 			free(inp->cmd);
-		wait(&blk->rs);
+		wait((int *)g_return);
 	}
 	ft_freeing(inp->temp);
 	ft_restore_fds(blk);
