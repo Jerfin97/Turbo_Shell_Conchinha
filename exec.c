@@ -53,16 +53,27 @@ int	ft_is_dir(char *path)
 	return (1);
 }
 
+void    ft_abs_path_supremacy(t_input *inp, t_shell *blk)
+{
+    if (inp->cmd != NULL)
+        free(inp->cmd);
+    inp->cmd = inp->args[0];
+    blk->rs = 0;
+    if (ft_is_dir(inp->args[0]))
+        ft_exec(inp, blk);
+    else
+    {
+        perror("PASTA NAO FELLADAPOTA");
+        g_return = 126;
+    }
+}
+
 void	ft_access(t_shell *blk, t_input *inp)
 {
 	inp->cmd = ft_search(blk->envp, "PATH=");
-	if (!access(inp->args[0], X_OK) && ft_is_dir(inp->args[0]))
+	if (!access(inp->args[0], X_OK))
 	{
-		if (inp->cmd != NULL)
-			free(inp->cmd);
-		inp->cmd = inp->args[0];
-		blk->rs = 0;
-		ft_exec(inp, blk);
+		ft_abs_path_supremacy(inp, blk);
 		return ;
 	}
 	else if ((inp->cmd != NULL)
