@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:24:41 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/08 13:06:28 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/29 22:47:27 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,26 @@
 
 void	ft_exit(t_input *inp, t_shell *blk, char **args)
 {
+	long int *pop;
+
+	if (args[2] != NULL)
+	{
+		g_return = 1;
+		perror("Conchinha: exit: numero excessivo de argumentos");
+		return ;
+	}
 	if (args[1] != NULL)
 	{
-		blk->rs = 1;
-		perror("TOO MANY ARGS");
-		return ;
+		pop = ft_a_rlylong_int(args[1], 0, 0LL);
+		if (pop == NULL)
+		{
+			free (pop);
+			printf("Conchinha: exit: %s: requer argumento numerico\n", args[1]);
+			exit(2);
+		}
+		g_return = pop[0];
+		free(pop);
+		exit(g_return);
 	}
 	if (!ft_strncmp(inp->args[0], "exit", 4))
 	{
@@ -39,7 +54,6 @@ void	ft_exit_d(t_shell *blk)
 	{
 		free(blk->buf);
 		write(1, "exit\n", 4);
-		blk->rs = 0;
-		exit(blk->rs);
+		exit(g_return);
 	}
 }

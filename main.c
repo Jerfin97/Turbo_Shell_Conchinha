@@ -6,13 +6,13 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:17:32 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/28 21:11:16 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/29 21:54:16 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 
-int	g_return;
+long long int	g_return;
 
 void	ft_history(char *str)
 {

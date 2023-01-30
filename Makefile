@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2023/01/29 10:59:29 by jeluiz4          ###   ########.fr        #
+#    Updated: 2023/01/29 20:04:10 by jeluiz4          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRCS =	main.c \
 		redirect.c \
 		redirect_op.c \
 		redirect_utils.c \
-		redirect_utils2.c 
+		redirect_utils2.c \
+		ft_a_rlylong_int.c 
 
 FLAGS = -Wall -Wextra -Werror -g
 
