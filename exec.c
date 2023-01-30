@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:31:12 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/28 21:11:50 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/30 09:06:40 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,23 @@ void	ft_build_exec(t_shell *blk, t_input *inp)
 	ft_freeing(inp->paths);
 }
 
+int	ft_is_dir(char *path)
+{
+	void	*fd;
+
+	fd = opendir(path);
+	if (fd != NULL)
+	{
+		closedir(fd);
+		return (0);
+	}
+	return (1);
+}
+
 void	ft_access(t_shell *blk, t_input *inp)
 {
 	inp->cmd = ft_search(blk->envp, "PATH=");
-	if (!access(inp->args[0], X_OK))
+	if (!access(inp->args[0], X_OK) && ft_is_dir(inp->args[0]))
 	{
 		if (inp->cmd != NULL)
 			free(inp->cmd);

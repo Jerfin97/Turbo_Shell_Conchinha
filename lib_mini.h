@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/29 22:19:10 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/30 08:57:48 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 //# include <readline/history.h>
 # include "readline/readline.h"
 # include "readline/history.h"
+# include <sys/types.h>
+# include <dirent.h>
 
 # define SHIFT_R   'A'
 # define SHIFT_L   'B'
 # define SHIFT_DR  'C'
 # define SHIFT_DL  'D'
-# define MINLLI (-9223372036854775807 -1)
-# define MAXLLI 9223372036854775807
 
 extern long long int		g_return;
 
