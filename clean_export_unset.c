@@ -42,7 +42,7 @@ void	ft_cleanse(t_shell *blk, char **args)
 	char	**str;
 
 	i = 1;
-	blk->rs = 0;
+	g_return = 0;
 	while (args[i])
 	{
 		if (!ft_var_isvalid(args[i]) && !ft_valid_name(args[i], 0))
@@ -58,7 +58,7 @@ void	ft_cleanse(t_shell *blk, char **args)
 		{
 			args[i][ft_valid_name(args[i], 1)] = '\0';
 			printf("export: not an identifier: %s\n", args[i]);
-			blk->rs = 1;
+			g_return = 1;
 		}
 		i++;
 	}

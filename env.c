@@ -19,7 +19,7 @@ void	ft_printenv(t_shell *blk, char **args)
 	i = 0;
 	if (args[1] != NULL)
 	{
-		blk->rs = 1;
+		g_return = 127;
 		perror("TOO MANY ARGS");
 		return ;
 	}
@@ -28,5 +28,5 @@ void	ft_printenv(t_shell *blk, char **args)
 		printf("%s\n", blk->envp[i]);
 		i++;
 	}
-	blk->rs = 0;
+	g_return = 0;
 }

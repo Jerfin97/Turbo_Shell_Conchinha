@@ -53,19 +53,19 @@ int	ft_is_dir(char *path)
 	return (1);
 }
 
-void    ft_abs_path_supremacy(t_input *inp, t_shell *blk)
+void	ft_abs_path_supremacy(t_input *inp, t_shell *blk)
 {
-    if (inp->cmd != NULL)
-        free(inp->cmd);
-    inp->cmd = inp->args[0];
-    g_return = 0;
-    if (ft_is_dir(inp->args[0]))
-        ft_exec(inp, blk);
-    else
-    {
-        perror("PASTA NAO FELLADAPOTA");
-        g_return = 126;
-    }
+	if (inp->cmd != NULL)
+		free(inp->cmd);
+	inp->cmd = inp->args[0];
+	g_return = 0;
+	if (ft_is_dir(inp->args[0]))
+		ft_exec(inp, blk);
+	else
+	{
+		perror("PASTA NAO FELLADAPOTA");
+		g_return = 126;
+	}
 }
 
 void	ft_access(t_shell *blk, t_input *inp)
@@ -101,7 +101,7 @@ int	ft_exec(t_input *inp, t_shell *blk)
 	}
 	else if ((pid > 0) && (pid != -1))
 	{
-		wait((int*)g_return);
+		wait((int *)g_return);
 		return (g_return);
 	}
 	perror("fork crash");

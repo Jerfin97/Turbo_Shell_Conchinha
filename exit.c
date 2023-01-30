@@ -14,7 +14,7 @@
 
 void	ft_exit(t_input *inp, t_shell *blk, char **args)
 {
-	long int *pop;
+	long int	*pop;
 
 	if (args[2] != NULL)
 	{

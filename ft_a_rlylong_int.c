@@ -53,7 +53,7 @@ long int	*ft_a_rlylong_int(char *str, int i, long int out)
 	ft_sum_up(&out, str, &i);
 	out = out * sign;
 	if (((sign == -1) && (out > 0)) || ((sign == 1) && (out < 0))
-			|| !ft_isdigit(str[i - 1]))
+		|| !ft_isdigit(str[i - 1]))
 	{
 		free(pop);
 		return (NULL);

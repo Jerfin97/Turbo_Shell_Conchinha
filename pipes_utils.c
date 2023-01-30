@@ -48,7 +48,7 @@ int	ft_build_path(t_shell *blk, t_input *inp)
 		}
 		i++;
 	}
-	blk->rs = 1;
+	g_return = 1;
 	free(inp->tmp);
 	ft_freeing(inp->paths);
 	return (0);
@@ -56,12 +56,12 @@ int	ft_build_path(t_shell *blk, t_input *inp)
 
 int	ft_abs_path_pipe(t_input *inp, t_shell *blk)
 {
-    if (inp->cmd != NULL)
-        free(inp->cmd);
-    inp->cmd = ft_strdup(inp->temp[0]);
-    blk->rs = 0;
-    if (ft_is_dir(inp->temp[0]))
-        return (1);
+	if (inp->cmd != NULL)
+		free(inp->cmd);
+	inp->cmd = ft_strdup(inp->temp[0]);
+	g_return = 0;
+	if (ft_is_dir(inp->temp[0]))
+		return (1);
 	else
 	{
 		perror("PASTA NAO MERMAO NO PIPE AINDA ");
@@ -74,13 +74,13 @@ int	ft_access_pipe(t_shell *blk, t_input *inp)
 {
 	inp->cmd = ft_search(blk->envp, "PATH=");
 	if (!access(inp->temp[0], X_OK))
-		return(ft_abs_path_pipe(inp, blk));
+		return (ft_abs_path_pipe(inp, blk));
 	else if (inp->cmd != NULL)
 		return (ft_build_path(blk, inp));
 	else if (inp->cmd == NULL)
 	{
 		perror("PATH VARIABLE NOT FOUND");
-		blk->rs = 1;
+		g_return = 1;
 		return (0);
 	}
 	return (-1);
