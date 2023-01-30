@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/30 08:57:48 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/30 10:05:12 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void		ft_exit_d(t_shell *blk);
 int			ft_exec(t_input *inp, t_shell *blk);
 void		ft_access(t_shell *blk, t_input *inp);
 void		ft_pipe_handle(t_shell *blk, t_input *inp);
-int			ft_access_pipe(t_shell *blk, t_input *inp, int i);
+int			ft_access_pipe(t_shell *blk, t_input *inp);
 int			ft_build_path(t_shell *blk, t_input *inp);
 int			ft_mid_exec(t_input *inp, t_shell *blk);
 int			ft_beg_exec(t_input *inp, t_shell *blk);
@@ -169,5 +169,6 @@ int			ft_var_isvalid(char *str);
 void		ft_restore_fds(t_shell *blk);
 void		ft_redirect_infile(t_shell *blk);
 void		ft_pipe_handle(t_shell *blk, t_input *inp);
+int			ft_is_dir(char *path);
 
 #endif
