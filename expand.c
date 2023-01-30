@@ -43,8 +43,11 @@ char	*ft_create_var(char *str, int i, int start, char *tmp)
 
 void	ft_expand_return(int *i, char *end, char **ret)
 {
+	int		return_tmp;
+
+	return_tmp = (int)g_return;
 	*i = *i + 1;
-	end = ft_itoa(g_return);
+	end = ft_itoa(return_tmp);
 	if (end != NULL)
 	{
 		ft_swapjoin(ret, end);

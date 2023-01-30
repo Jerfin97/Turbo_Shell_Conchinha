@@ -37,14 +37,14 @@ int	change_dir(t_shell *blk, char *str)
 	{
 		if (chdir(tmp) == -1)
 		{
-			printf("deu ruim no chdir buffer\n");
-			blk->rs = 1;
+			perror("HOME not defined");
+			g_return = 1;
 		}
 	}
 	else if (chdir(str) == -1)
 	{
 		printf("No Such File or Directory\n");
-		blk->rs = 1;
+		g_return = 1;
 	}
 	free(buffer);
 	return (0);
@@ -62,7 +62,7 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 		size++;
 	if (size > 2)
 	{
-		blk->rs = 1;
+		g_return = 1;
 		perror("TOO MANY ARGS");
 		return ;
 	}
@@ -71,8 +71,8 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 	{
 		update_path(blk, old_path);
 		free(old_path);
-		blk->rs = 0;
+		return ;
 	}
 	else
-		blk->rs = 1;
+		g_return = 1;
 }
