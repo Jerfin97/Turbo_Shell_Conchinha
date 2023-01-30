@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/29 08:42:26 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/01/29 22:19:10 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@
 # define SHIFT_L   'B'
 # define SHIFT_DR  'C'
 # define SHIFT_DL  'D'
+# define MINLLI (-9223372036854775807 -1)
+# define MAXLLI 9223372036854775807
 
-extern int		g_return;
+extern long long int		g_return;
 
 //STRUCT CORE DO MINISHELL
 typedef struct s_shell
@@ -135,7 +137,10 @@ int			ft_find_str(char *str, char *sep);
 
 //BUILTINS
 void		ft_echo(t_shell *blk, t_input *inp, char **args);
+
 void		ft_exit(t_input *inp, t_shell *blk, char **args);
+long int	*ft_a_rlylong_int(char *str, int i, long int out);
+
 void		ft_cd(t_shell *blk, char *str, char **args);
 void		ft_pwd(t_shell *blk, char **args);
 void		ft_printenv(t_shell *blk, char **args);
