@@ -20,7 +20,7 @@ void	ft_pwd(t_shell *blk, char **args)
 
 	if (args[1] != NULL)
 	{
-		blk->rs = 1;
+		g_return = 1;
 		perror("TOO MANY ARGS");
 		return ;
 	}
@@ -34,7 +34,7 @@ void	ft_pwd(t_shell *blk, char **args)
 	else
 	{
 		printf("%s\n", buffer + 4);
-		blk->rs = 0;
+		g_return = 0;
 		free(buffer);
 	}
 }

@@ -83,6 +83,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		inp->args = ft_create_args(blk);
 		if (inp->args == NULL)
 			return ;
+		blk->aux = ft_strdup(inp->args[0]);
 		ft_size_args(inp, blk);
 		if (ft_find_str(blk->buf, "|") > 0)
 			ft_pipe_handle(blk, inp);
@@ -90,9 +91,12 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			ft_redir_path(inp, blk);
 		else if (ft_is_builtin(blk, inp->args))
 			built_run(inp, blk, inp->args);
+		else if (inp->args[0][0] == '\0' && ft_strrchr(blk->aux, '$'))
+			inp->size = 0;
 		else
 			ft_access(blk, inp);
 		ft_freeing(inp->args);
+		free(blk->aux);
 	}
 	inp->size = 0;
 	ft_exit_d(blk);

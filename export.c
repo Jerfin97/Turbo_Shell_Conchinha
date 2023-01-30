@@ -29,6 +29,7 @@ int	ft_new_pwd(t_shell *blk, char	*str, char *str2)
 		}
 		i++;
 	}
+	g_return = 1;
 	return (1);
 }
 
@@ -40,7 +41,7 @@ void	ft_export(t_shell *blk, char *str, char *str2)
 	i = 0;
 	if (ft_new_pwd(blk, str, str2) == 0)
 	{
-		blk->rs = 0;
+		g_return = 0;
 		return ;
 	}
 	while (blk->envp[i])
@@ -49,5 +50,5 @@ void	ft_export(t_shell *blk, char *str, char *str2)
 	new_env = ft_build_env(blk->envp);
 	ft_freeing(blk->envp);
 	blk->envp = new_env;
-	blk->rs = 0;
+	g_return = 0;
 }
