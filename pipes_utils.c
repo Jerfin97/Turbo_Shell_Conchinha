@@ -50,6 +50,7 @@ int	ft_build_path(t_input *inp)
 	}
 	g_return = 1;
 	free(inp->tmp);
+	free(inp->cmd);
 	ft_freeing(inp->paths);
 	return (0);
 }
@@ -64,7 +65,7 @@ int	ft_abs_path_pipe(t_input *inp)
 		return (1);
 	else
 	{
-		perror("PASTA NAO MERMAO NO PIPE AINDA ");
+		printf("%s :Is a directory\n", inp->temp[0]);
 		g_return = 126;
 	}
 	return (0);
@@ -77,11 +78,11 @@ int	ft_access_pipe(t_shell *blk, t_input *inp)
 		return (ft_abs_path_pipe(inp));
 	else if (inp->cmd != NULL)
 		return (ft_build_path(inp));
-	else if (inp->cmd == NULL)
+	else if (inp->cmd == NULL && inp->cmd[0] == '\0')
 	{
-		perror("PATH VARIABLE NOT FOUND");
+		printf("PATH VARIABLE NOT FOUND\n");
 		g_return = 1;
 		return (0);
 	}
-	return (-1);
+	return (0);
 }

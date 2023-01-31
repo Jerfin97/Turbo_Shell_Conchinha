@@ -77,7 +77,7 @@ void	ft_echo(t_input *inp, char **args)
 	ft_clean_echo(inp, args);
 	if (inp->size == -1)
 	{
-		printf("%c", '\0');
+		printf("");
 	}
 	else
 	{

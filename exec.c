@@ -63,7 +63,7 @@ void	ft_abs_path_supremacy(t_input *inp, t_shell *blk)
 		ft_exec(inp, blk);
 	else
 	{
-		perror("PASTA NAO FELLADAPOTA");
+		printf("%s :Is a directory\n", inp->args[0]);
 		g_return = 126;
 	}
 }
