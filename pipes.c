@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/30 10:04:49 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/31 18:32:03 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	ft_process_do(t_shell *blk, t_input *inp, int i)
 			exit(0);
 	}
 	else
+	{
 		execve(inp->cmd, inp->temp, blk->envp);
+		exit(182);
+	}
 }
 
 void	ft_process(t_shell *blk, t_input *inp, int i)
@@ -51,7 +54,7 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 	{
 		close(pipes[1]);
 		blk->fd_in = pipes[0];
-		wait(NULL);
+		wait((int *)g_return);
 	}
 }
 
@@ -73,13 +76,21 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
+			printf("Sera ? \n");
 			exit(0);
 		}
 		else
+		{
 			execve(inp->cmd, inp->temp, blk->envp);
+			exit(50);
+		}
 	}
 	if (pid > 0)
-		wait(NULL);
+	{
+		//close(blk->fd_in);
+		wait((int *)g_return);
+		//printf("");
+	}
 }
 
 // Se precisarmos redirecionar para arquivo, blk->fd_pipe vai precisar dar Open
@@ -98,8 +109,15 @@ void	ft_pipe_routine(t_shell *blk, t_input *inp, int i, int key)
 	inp->temp = ft_split(inp->tmp, ' ');
 	free(inp->tmp);
 	key = ft_switch(blk, inp, i);
-	if (key)
+	if (key == 0)
+	{
+		printf("Command not found %s\n", inp->temp[0]);
 		ft_process(blk, inp, i);
+	}
+	else if (key)
+	{
+		ft_process(blk, inp, i);
+	}
 	if (key == 42)
 		free(inp->cmd);
 	wait((int *)g_return);
@@ -119,12 +137,16 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	inp->temp = ft_split(inp->tmp, ' ');
 	free(inp->tmp);
 	key = ft_switch(blk, inp, i);
-	if (key)
+	if (key == 0)
+	{
+		printf("Command not found %s\n", inp->temp[0]);
+		ft_process_end(blk, inp, i);
+	}
+	else if (key)
 	{
 		ft_process_end(blk, inp, i);
 		if (key == 42)
 			free(inp->cmd);
-		wait((int *)g_return);
 	}
 	ft_freeing(inp->temp);
 	ft_restore_fds(blk);
