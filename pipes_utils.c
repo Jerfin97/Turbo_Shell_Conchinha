@@ -29,7 +29,7 @@ void	ft_restore_fds(t_shell *blk)
 	dup2(blk->stdout_backup, 1);
 }
 
-int	ft_build_path(t_shell *blk, t_input *inp)
+int	ft_build_path(t_input *inp)
 {
 	int	i;
 
@@ -54,7 +54,7 @@ int	ft_build_path(t_shell *blk, t_input *inp)
 	return (0);
 }
 
-int	ft_abs_path_pipe(t_input *inp, t_shell *blk)
+int	ft_abs_path_pipe(t_input *inp)
 {
 	if (inp->cmd != NULL)
 		free(inp->cmd);
@@ -74,9 +74,9 @@ int	ft_access_pipe(t_shell *blk, t_input *inp)
 {
 	inp->cmd = ft_search(blk->envp, "PATH=");
 	if (!access(inp->temp[0], X_OK))
-		return (ft_abs_path_pipe(inp, blk));
+		return (ft_abs_path_pipe(inp));
 	else if (inp->cmd != NULL)
-		return (ft_build_path(blk, inp));
+		return (ft_build_path(inp));
 	else if (inp->cmd == NULL)
 	{
 		perror("PATH VARIABLE NOT FOUND");

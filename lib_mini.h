@@ -124,7 +124,7 @@ int			ft_exec(t_input *inp, t_shell *blk);
 void		ft_access(t_shell *blk, t_input *inp);
 void		ft_pipe_handle(t_shell *blk, t_input *inp);
 int			ft_access_pipe(t_shell *blk, t_input *inp);
-int			ft_build_path(t_shell *blk, t_input *inp);
+int			ft_build_path(t_input *inp);
 int			ft_mid_exec(t_input *inp, t_shell *blk);
 int			ft_beg_exec(t_input *inp, t_shell *blk);
 int			ft_end_exec(t_input *inp, t_shell *blk);
@@ -138,7 +138,7 @@ char		**ft_hand_split(char *str, char *sep);
 int			ft_find_str(char *str, char *sep);
 
 //BUILTINS
-void		ft_echo(t_shell *blk, t_input *inp, char **args);
+void		ft_echo(t_input *inp, char **args);
 
 void		ft_exit(t_input *inp, t_shell *blk, char **args);
 long int	*ft_a_rlylong_int(char *str, int i, long int out);

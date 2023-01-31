@@ -15,7 +15,7 @@
 void	built_run(t_input *inp, t_shell *blk, char **args)
 {
 	if (!ft_strcmp(args[0], "echo"))
-		ft_echo(blk, inp, args);
+		ft_echo(inp, args);
 	else if (!ft_strcmp(args[0], "cd"))
 		ft_cd(blk, args[1], args);
 	else if (!ft_strcmp(args[0], "env"))

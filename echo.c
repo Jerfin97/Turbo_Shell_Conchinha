@@ -50,7 +50,7 @@ void	ft_multi_print(t_input *inp, int i, char **args)
 	}
 }
 
-void	ft_clean_echo(t_shell *blk, t_input *inp, char **args)
+void	ft_clean_echo(t_input *inp, char **args)
 {
 	int	i;
 
@@ -72,9 +72,9 @@ void	ft_clean_echo(t_shell *blk, t_input *inp, char **args)
 	g_return = 0;
 }
 
-void	ft_echo(t_shell *blk, t_input *inp, char **args)
+void	ft_echo(t_input *inp, char **args)
 {
-	ft_clean_echo(blk, inp, args);
+	ft_clean_echo(inp, args);
 	if (inp->size == -1)
 	{
 		printf("%c", '\0');
