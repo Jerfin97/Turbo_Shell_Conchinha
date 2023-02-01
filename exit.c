@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:24:41 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/29 22:47:27 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:57:40 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_exit(t_input *inp, t_shell *blk, char **args)
 	if (!ft_strncmp(inp->args[0], "exit", 4))
 	{
 		ft_freeing(inp->args);
+		free(blk->aux);
 		free(blk->buf);
 		ft_freeing(blk->envp);
 		free(blk);
