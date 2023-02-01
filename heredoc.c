@@ -12,47 +12,6 @@
 
 #include "lib_mini.h"
 
-// Heredoc_Handler
-// abrir um arquivo e escrever nele oque esta no prompt
-// Precisa aplicar as funcionalidades do original como imprimir em stdout
-//
-// Dentro de pipes_utils existe um redirecionador para o heredoc
-/*
-char	*ft_here_routine(char *hereword)
-{
-	char	*buffer;
-	char	*aux;
-
-	aux = ft_calloc(1, 1);
-	g_return = -42;
-	while (42)
-	{
-		buffer = readline("heredoc> ");
-		if (g_return == 130)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		if (buffer == NULL)
-		{
-			free(buffer);
-			printf("Conchinha: warning: here-document delimited by");
-			printf(" end-of-file (wanted `%s')\n", hereword);
-			break ;
-		}
-		if (ft_strcmp(hereword, buffer) == 0)
-		{
-			free(buffer);
-			break ;
-		}
-		ft_swapjoin(&aux, buffer);
-		ft_swapjoin(&aux, "\n");
-		free(buffer);
-	}
-	return (aux);
-}
-*/
-
 char	*ft_here_routine(char *hereword, char *aux)
 {
 	char	*buffer;
@@ -86,7 +45,7 @@ void	ft_heredoc(t_shell *blk, char *hereword)
 	char	*tmp;
 	char	*aux;
 
-	fd = open(blk->tmpdoc, O_TRUNC | O_CREAT | O_WRONLY, 0777);
+	fd = open(blk->tmpdoc, O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	g_return = -42;
 	aux = NULL;
 	tmp = ft_here_routine(hereword, aux);

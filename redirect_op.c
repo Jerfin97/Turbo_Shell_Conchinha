@@ -49,9 +49,9 @@ int	ft_outfile_open(char **str, int j, int flag, t_shell *blk)
 	else
 		aux = ft_split(str[j + 1], ' ');
 	if (flag == 1)
-		blk->fd_in = open(aux[0], O_APPEND | O_CREAT | O_WRONLY, 0777);
+		blk->fd_in = open(aux[0], O_APPEND | O_CREAT | O_WRONLY, 0644);
 	else
-		blk->fd_in = open(aux[0], O_TRUNC | O_CREAT | O_WRONLY, 0777);
+		blk->fd_in = open(aux[0], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	ft_freeing(aux);
 	dup2(blk->fd_in, 1);
 	return (1);
@@ -62,10 +62,7 @@ int	ft_split_inf(t_shell *blk, char **tmp, int j)
 	char	**aux;
 	int		out;
 
-	if (tmp[j][0])
-		aux = ft_split(tmp [j], ' ');
-	else
-		aux = ft_split(tmp [j + 1], ' ');
+	aux = ft_split(tmp [j + 1], ' ');
 	out = ft_infile_open(blk, aux[0]);
 	ft_freeing(aux);
 	return (out);

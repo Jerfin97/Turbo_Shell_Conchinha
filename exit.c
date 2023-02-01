@@ -52,11 +52,14 @@ void	ft_exit(t_input *inp, t_shell *blk, char **args)
 		free_end(blk, inp);
 }
 
-void	ft_exit_d(t_shell *blk)
+void	ft_exit_d(t_shell *blk, t_input *inp)
 {
 	if (blk->buf == NULL)
 	{
 		free(blk->buf);
+		ft_freeing(blk->envp);
+		free(blk);
+		free(inp);
 		write(1, "exit\n", 4);
 		exit(g_return);
 	}

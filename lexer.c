@@ -100,6 +100,6 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		free(blk->aux);
 	}
 	inp->size = 0;
-	ft_exit_d(blk);
+	ft_exit_d(blk, inp);
 	return ;
 }
