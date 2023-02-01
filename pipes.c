@@ -87,7 +87,7 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 	}
 	if (pid > 0)
 	{
-		close(blk->fd_in);
+		//close(blk->fd_in);
 	}
 }
 
@@ -104,7 +104,7 @@ void	ft_process_error(t_shell *blk)
 		close(pipes[0]);
 		dup2(blk->fd_in, 0);
 		dup2(pipes[1], 1);
-		printf("%c", '\0');
+		printf("");
 		exit(1);
 	}
 	if (pid > 0)
@@ -160,6 +160,8 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 			free(inp->cmd);
 	}
 	i = -1;
+
+	close(blk->fd_in);
 	while (++i < inp->size)
 		wait(NULL);
 	ft_freeing(inp->temp);
