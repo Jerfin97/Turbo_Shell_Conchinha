@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 19:51:07 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/29 22:47:58 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/01 15:25:30 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,11 @@ long int	*ft_a_rlylong_int(char *str, int i, long int out)
 	out = out * sign;
 	if (((sign == -1) && (out > 0)) || ((sign == 1) && (out < 0))
 		|| !ft_isdigit(str[i - 1]))
-	{
-		free(pop);
-		return (NULL);
-	}
+		return (free(pop), NULL);
 	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] != '\0')
-	{
-		free(pop);
-		return (NULL);
-	}
+		return (free(pop), NULL);
 	pop[0] = out;
 	return (pop);
 }

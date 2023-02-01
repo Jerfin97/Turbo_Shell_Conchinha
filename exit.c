@@ -6,11 +6,24 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:24:41 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/01 11:57:40 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/01 15:30:01 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+
+void	free_end(t_shell *blk, t_input *inp)
+{	
+	ft_freeing(inp->args);
+	free(blk->aux);
+	free(blk->buf);
+	ft_freeing(blk->envp);
+	free(blk);
+	free(inp);
+	write(1, "exit\n", 5);
+	g_return = 0;
+	exit(g_return);
+}
 
 void	ft_exit(t_input *inp, t_shell *blk, char **args)
 {
@@ -36,17 +49,7 @@ void	ft_exit(t_input *inp, t_shell *blk, char **args)
 		exit(g_return);
 	}
 	if (!ft_strncmp(inp->args[0], "exit", 4))
-	{
-		ft_freeing(inp->args);
-		free(blk->aux);
-		free(blk->buf);
-		ft_freeing(blk->envp);
-		free(blk);
-		free(inp);
-		write(1, "exit\n", 5);
-		g_return = 0;
-		exit(g_return);
-	}
+		free_end(blk, inp);
 }
 
 void	ft_exit_d(t_shell *blk)
