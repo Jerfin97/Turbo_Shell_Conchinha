@@ -89,7 +89,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (0);
 	i = ft_wordcount((char *)s, c);
-	matriz = malloc((i + 1) * sizeof(char *));
+	matriz = malloc((i + 2) * sizeof(char *));
 	if (!matriz)
 	{
 		free(matriz);
@@ -98,6 +98,7 @@ char	**ft_split(char const *s, char c)
 	if (ft_mount(s, c, matriz, i))
 	{
 		matriz[i] = NULL;
+		matriz[i + 1] = NULL;
 		return (matriz);
 	}
 	return (0);
