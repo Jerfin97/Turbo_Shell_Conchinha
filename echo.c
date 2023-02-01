@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 22:24:52 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/24 14:00:45 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/31 21:52:36 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_echo(t_input *inp, char **args)
 	ft_clean_echo(inp, args);
 	if (inp->size == -1)
 	{
-		printf("");
+		printf("%c", '\0');
 	}
 	else
 	{
