@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/01 00:15:54 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/01 15:26:56 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_process_do(t_shell *blk, t_input *inp, int i)
 	else if (ft_is_builtin(blk, inp->temp))
 	{
 		built_run(inp, blk, inp->temp);
-//		if (ft_strcmp(inp->temp[0], "exit"))
 		exit(0);
 	}
 	else
@@ -83,44 +82,10 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 			exit(50);
 		}
 		else
-		{
 			execve(inp->cmd, inp->temp, blk->envp);
-			exit(50);
-		}
 	}
 	if (pid > 0)
-	{
-		blk->pid[blk->rs] = pid;
-		blk->rs++;
-		//ft_restore_fds(blk);
-		//dup2(0, blk->fd_in);
-		//close(blk->fd_in);
-	}
-}
-
-void	ft_process_error(t_shell *blk)
-{
-	int		pid;
-	int		pipes[2];
-
-	if (pipe(pipes) == -1)
-		perror("PIPE CREATION ERROR");
-	pid = fork();
-	if (pid == 0)
-	{
-		close(pipes[0]);
-		dup2(blk->fd_in, 0);
-		dup2(pipes[1], 1);
-		printf("");
-		exit(1);
-	}
-	if (pid > 0)
-	{
-		close(pipes[1]);
-		blk->fd_in = pipes[0];
-		blk->pid[blk->rs] = pid;
-		blk->rs++;
-	}
+		ft_pid_control(blk, pid);
 }
 
 void	ft_pipe_routine(t_shell *blk, t_input *inp, int i, int key)
@@ -130,10 +95,7 @@ void	ft_pipe_routine(t_shell *blk, t_input *inp, int i, int key)
 	free(inp->tmp);
 	key = ft_switch(blk, inp, i);
 	if (key == 0)
-	{
-		printf("Command not found %s\n", inp->temp[0]);
-		ft_process_error(blk);
-	}
+		ft_process_error(blk, inp);
 	else if (key)
 	{
 		ft_process(blk, inp, i);
@@ -151,7 +113,6 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	blk->rs = 0;
 	key = 0;
 	i = -1;
-	//blk->fd_in = dup(0);
 	blk->pid = ft_calloc(sizeof(int), inp->size);
 	while (++i < inp->size - 1)
 		ft_pipe_routine(blk, inp, i, key);
@@ -160,22 +121,12 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	free(inp->tmp);
 	key = ft_switch(blk, inp, i);
 	if (key == 0)
-	{
-		printf("Command not found %s\n", inp->temp[0]);
-		ft_process_error(blk);
-	}
+		ft_process_error(blk, inp);
 	else if (key)
 	{
 		ft_process_end(blk, inp, i);
 		if (key == 42)
 			free(inp->cmd);
 	}
-	i = -1;
-	close(blk->fd_in);
-	blk->fd_in = dup(0);
-	while (++i < inp->size)
-		waitpid(blk->pid[i], NULL, 0);
-	ft_freeing(inp->temp);
-	free(blk->pid);
-	ft_restore_fds(blk);
+	ft_end_pipes(blk, inp);
 }
