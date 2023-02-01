@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+#include <unistd.h>
 
 //Inicializacao do MINISHELL
 
@@ -21,7 +22,6 @@ t_shell	*ft_blk_init(void)
 	blk = ft_calloc(sizeof(t_shell), 1);
 	blk->cmd = NULL;
 	blk->buf = NULL;
-	blk->envp = NULL;
 	blk->tmpdoc = ".TEMPFILEHEREDOC";
 	blk->heredoc_name = NULL;
 	blk->rs = 0;
@@ -32,6 +32,7 @@ t_shell	*ft_blk_init(void)
 	blk->append = 0;
 	blk->stdin_backup = dup(0);
 	blk->stdout_backup = dup(1);
+	blk->pwd = getcwd(NULL, 0);
 	return (blk);
 }
 

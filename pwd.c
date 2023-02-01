@@ -16,25 +16,15 @@
 
 void	ft_pwd(t_shell *blk, char **args)
 {
-	char	*buffer;
-
 	if (args[1] != NULL)
 	{
 		g_return = 1;
 		perror("TOO MANY ARGS");
 		return ;
 	}
-	buffer = ft_search(blk->envp, "PWD=");
-	if (!buffer)
-	{
-		buffer = getcwd(NULL, 0);
-		printf("%s\n", buffer);
-		free(buffer);
-	}
 	else
 	{
-		printf("%s\n", buffer + 4);
+		printf("%s\n", blk->pwd);
 		g_return = 0;
-		free(buffer);
 	}
 }

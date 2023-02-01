@@ -57,6 +57,7 @@ typedef struct s_shell
 	char		*tmp;
 	char		*aux;
 	int			*pid;
+	char		*pwd;
 }				t_shell;
 //STRUCT DE INPUT
 typedef struct s_input

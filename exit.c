@@ -17,6 +17,7 @@ void	free_end(t_shell *blk, t_input *inp)
 	ft_freeing(inp->args);
 	free(blk->aux);
 	free(blk->buf);
+	free(blk->pwd);
 	ft_freeing(blk->envp);
 	free(blk);
 	free(inp);
@@ -58,6 +59,7 @@ void	ft_exit_d(t_shell *blk, t_input *inp)
 	{
 		free(blk->buf);
 		ft_freeing(blk->envp);
+		free(blk->pwd);
 		free(blk);
 		free(inp);
 		write(1, "exit\n", 4);

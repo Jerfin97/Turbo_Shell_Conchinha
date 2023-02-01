@@ -12,18 +12,6 @@
 
 #include "lib_mini.h"
 
-//Update no path SEM PRECISAR QUE TENHA PWD
-
-void	update_path(t_shell *blk, char *str)
-{
-	char	*buffer;
-
-	buffer = getcwd(NULL, 0);
-	ft_new_pwd(blk, "OLDPWD=", str);
-	ft_new_pwd(blk, "PWD=", buffer);
-	free(buffer);
-}
-
 //Se str for nula, joga para Home
 //se o caminho de str for invalido, retorn deu ruim.
 int	change_dir(t_shell *blk, char *str)
@@ -50,6 +38,15 @@ int	change_dir(t_shell *blk, char *str)
 	return (0);
 }
 
+void	ft_cd_end(t_shell *blk, char *old_path)
+{
+		ft_new_pwd(blk, "PWD=", old_path);
+		ft_export(blk, "OLDPWD=", old_path);
+		free(blk->pwd);
+		blk->pwd = getcwd(NULL, 0);
+		free(old_path);
+}
+
 // Aqui a magica acontece, pego o old_path se change dir funcionar com str
 // atualizamos os paths nas variaveis de ambiente.
 void	ft_cd(t_shell *blk, char *str, char **args)
@@ -69,8 +66,15 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 	old_path = getcwd(NULL, 0);
 	if (change_dir(blk, str) == 0)
 	{
-		update_path(blk, old_path);
-		free(old_path);
+		old_path = getcwd(NULL, 0);
+		if(!old_path)
+		{
+			printf("cd: error retrieving current directory: getcwd: cannot");
+			printf("access parent directories: No such file or directory\n");
+			g_return = 1;
+			return ;
+		}
+		ft_cd_end(blk, old_path);
 		return ;
 	}
 	else
