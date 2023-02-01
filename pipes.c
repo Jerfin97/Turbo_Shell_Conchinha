@@ -26,8 +26,8 @@ void	ft_process_do(t_shell *blk, t_input *inp, int i)
 	else if (ft_is_builtin(blk, inp->temp))
 	{
 		built_run(inp, blk, inp->temp);
-		if (ft_strcmp(inp->temp[0], "exit"))
-			exit(0);
+//		if (ft_strcmp(inp->temp[0], "exit"))
+		exit(0);
 	}
 	else
 	{
@@ -118,7 +118,8 @@ void	ft_process_error(t_shell *blk)
 	{
 		close(pipes[1]);
 		blk->fd_in = pipes[0];
-		wait((int *)g_return);
+		blk->pid[blk->rs] = pid;
+		blk->rs++;
 	}
 }
 
