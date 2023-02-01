@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:31:12 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/01 11:51:56 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/01 16:52:54 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	ft_exec(t_input *inp, t_shell *blk)
 	}
 	else if ((pid > 0) && (pid != -1))
 	{
-		wait((int *)g_return);
+		waitpid(0, NULL, 0);
 		return (g_return);
 	}
 	perror("fork crash");
