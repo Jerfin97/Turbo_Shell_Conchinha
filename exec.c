@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:31:12 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/30 09:06:40 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:51:56 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_build_exec(t_shell *blk, t_input *inp)
 	i = 0;
 	inp->paths = ft_split(inp->cmd + 5, ':');
 	inp->tmp = ft_strjoin("/", inp->args[0]);
-	free(inp->cmd);
 	while (inp->paths[i])
 	{
+		free(inp->cmd);
 		inp->cmd = ft_strjoin(inp->paths[i], inp->tmp);
 		if (!access(inp->cmd, X_OK))
 		{
@@ -32,7 +32,6 @@ void	ft_build_exec(t_shell *blk, t_input *inp)
 			ft_freeing(inp->paths);
 			return ;
 		}
-		free(inp->cmd);
 		i++;
 	}
 	g_return = 1;
@@ -85,6 +84,7 @@ void	ft_access(t_shell *blk, t_input *inp)
 	}
 	if (g_return == 1 || (inp->args[0][0] != '\0') || (inp->args[0][0] != ' '))
 	{
+		free(inp->cmd);
 		perror("PATH NOT FOUND");
 		g_return = 127;
 	}

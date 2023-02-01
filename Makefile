@@ -6,7 +6,7 @@
 #    By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 10:29:53 by jeluiz4           #+#    #+#              #
-#    Updated: 2023/01/30 09:51:13 by jeluiz4          ###   ########.fr        #
+#    Updated: 2023/01/31 16:28:40 by jeluiz4          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,9 +55,9 @@ LIBA = "libft/libft.a"
 LREADLINE = -lreadline
 
 
-RIBA = -I /Users/dvargas/.brew/Cellar/readline/8.2.1/include
+RIBA = -I /Users/jeluiz4/.brew/Cellar/readline/8.2.1/include
 
-HIBA = -L /Users/dvargas/.brew/Cellar/readline/8.2.1/lib
+HIBA = -L /Users/jeluiz4/.brew/Cellar/readline/8.2.1/lib
 
 CC = cc
 
