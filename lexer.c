@@ -58,11 +58,12 @@ char	**ft_create_args(t_shell *blk)
 	if (ft_validate_quotes(blk->buf))
 		return (perror("CANT FIND CLOSE QUOTES"), NULL);
 	else if (ft_find_str(blk->buf, "|") == -1)
-		return (perror("VERIFICAR ERNANI | ERRADO"), NULL);
+		return (perror("Syntax error near unexpected token \"|\" "), NULL);
 	else if (ft_find_str(blk->buf, "|") > 0)
 		return (ret = ft_hand_split(blk->buf, "|"));
 	else if (ft_count_symbols(blk->buf) == -1)
-		return (perror("ERRRNANI > OU >> ERRADO"), NULL);
+		return (perror("Syntax error near \
+			unexpected token \">\" or \"<\""), NULL);
 	else if (ft_count_symbols(blk->buf) > 0)
 		return (ret = ft_split_in_redirect(blk->buf));
 	else

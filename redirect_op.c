@@ -18,7 +18,7 @@ int	ft_heredoc_open(t_shell *blk, char *str)
 	blk->fd_in = open(blk->tmpdoc, O_RDONLY);
 	if (blk->fd_in < 0)
 	{
-		perror("ERNANI-HEREDOC");
+		perror("Heredoc error");
 		return (0);
 	}
 	close(0);
@@ -31,8 +31,8 @@ int	ft_infile_open(t_shell *blk, char *str)
 	blk->fd_in = open(str, O_RDONLY);
 	if (blk->fd_in < 0)
 	{
-		printf("%s\n\n", str);
-		perror("ERNANI-INFILE");
+		printf("%s : ", str);
+		perror("No such file or directory");
 		return (0);
 	}
 	close(0);

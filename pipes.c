@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/30 10:04:49 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/31 22:06:31 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	ft_process_do(t_shell *blk, t_input *inp, int i)
 			exit(0);
 	}
 	else
+	{
 		execve(inp->cmd, inp->temp, blk->envp);
+		exit(182);
+	}
 }
 
 void	ft_process(t_shell *blk, t_input *inp, int i)
@@ -51,7 +54,7 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 	{
 		close(pipes[1]);
 		blk->fd_in = pipes[0];
-		wait(NULL);
+		wait((int *)g_return);
 	}
 }
 
@@ -76,21 +79,38 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 			exit(0);
 		}
 		else
+		{
 			execve(inp->cmd, inp->temp, blk->envp);
+			exit(50);
+		}
 	}
 	if (pid > 0)
-		wait(NULL);
+		wait((int *)g_return);
 }
 
-// Se precisarmos redirecionar para arquivo, blk->fd_pipe vai precisar dar Open
-// Tentei testar com outra estrutura, mas parece que e necessario chamar antes
-// do while e uma chamada de process_end depois do while.
-// ft_process_end - isntrucao de redirecionamento esta em blk, juntamente com o
-// const char * para nome de arquivo, esse precisa ser verificado antes de
-// vir pra ca lembrar de fechar os fds dentro de blk sao eles
-// blk -> stdin_backup
-// blk -> stdout_backup
-// blk -> fd_in;
+void	ft_process_error(t_shell *blk)
+{
+	int		pid;
+	int		pipes[2];
+
+	if (pipe(pipes) == -1)
+		perror("PIPE CREATION ERROR");
+	pid = fork();
+	if (pid == 0)
+	{
+		close(pipes[0]);
+		dup2(blk->fd_in, 0);
+		dup2(pipes[1], 1);
+		printf("%c", '\0');
+		exit(1);
+	}
+	if (pid > 0)
+	{
+		close(pipes[1]);
+		blk->fd_in = pipes[0];
+		wait((int *)g_return);
+	}
+}
 
 void	ft_pipe_routine(t_shell *blk, t_input *inp, int i, int key)
 {
@@ -98,11 +118,18 @@ void	ft_pipe_routine(t_shell *blk, t_input *inp, int i, int key)
 	inp->temp = ft_split(inp->tmp, ' ');
 	free(inp->tmp);
 	key = ft_switch(blk, inp, i);
-	if (key)
+	if (key == 0)
+	{
+		printf("Command not found %s\n", inp->temp[0]);
+		ft_process_error(blk);
+	}
+	else if (key)
+	{
 		ft_process(blk, inp, i);
+	}
 	if (key == 42)
 		free(inp->cmd);
-	wait((int *)g_return);
+	//wait((int *)g_return);
 	ft_freeing(inp->temp);
 }
 
@@ -119,12 +146,16 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	inp->temp = ft_split(inp->tmp, ' ');
 	free(inp->tmp);
 	key = ft_switch(blk, inp, i);
-	if (key)
+	if (key == 0)
+	{
+		printf("Command not found %s\n", inp->temp[0]);
+		ft_process_error(blk);
+	}
+	else if (key)
 	{
 		ft_process_end(blk, inp, i);
 		if (key == 42)
 			free(inp->cmd);
-		wait((int *)g_return);
 	}
 	ft_freeing(inp->temp);
 	ft_restore_fds(blk);
