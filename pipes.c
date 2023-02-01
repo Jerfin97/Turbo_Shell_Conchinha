@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/31 22:06:31 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/01 00:06:01 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,19 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 	{
 		close(pipes[1]);
 		blk->fd_in = pipes[0];
-		wait((int *)g_return);
+		//wait((int *)g_return);
 	}
 }
 
 void	ft_process_end(t_shell *blk, t_input *inp, int i)
 {
 	int		pid;
+	int		out;
 	char	**tmp;
 
+	out = 0;
 	pid = fork();
+	printf("Pre exit %d\n", out);
 	if (pid == 0)
 	{
 		dup2(blk->fd_in, 0);
@@ -76,7 +79,8 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
-			exit(0);
+			g_return = 50;
+			exit(50);
 		}
 		else
 		{
@@ -85,7 +89,11 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 		}
 	}
 	if (pid > 0)
-		wait((int *)g_return);
+	{
+		close(blk->fd_in);
+		//waitpid(0, &out, WNOHANG);
+	}
+	printf("Pos exit %d\n", out);
 }
 
 void	ft_process_error(t_shell *blk)
@@ -157,6 +165,10 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 		if (key == 42)
 			free(inp->cmd);
 	}
+	//i = -1;
+	//while (++i < inp->size)
+	waitpid(0, (int *)g_return, WNOHANG);
+	//	wait(NULL);
 	ft_freeing(inp->temp);
 	ft_restore_fds(blk);
 }
