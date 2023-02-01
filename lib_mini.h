@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/31 22:23:08 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/01 15:27:58 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,5 +173,8 @@ void		ft_restore_fds(t_shell *blk);
 void		ft_redirect_infile(t_shell *blk);
 void		ft_pipe_handle(t_shell *blk, t_input *inp);
 int			ft_is_dir(char *path);
+void		ft_end_pipes(t_shell *blk, t_input *inp);
+void		ft_pid_control(t_shell *blk, int pid);
+void		ft_process_error(t_shell *blk, t_input *inp);
 
 #endif
