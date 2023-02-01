@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+#include "libft/libft.h"
 
 void	ft_process_do(t_shell *blk, t_input *inp, int i)
 {
@@ -55,6 +56,8 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 		close(pipes[1]);
 		close(blk->fd_in);
 		blk->fd_in = pipes[0];
+		blk->pid[blk->rs] = pid;
+		blk->rs++;
 	}
 }
 
@@ -87,6 +90,10 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 	}
 	if (pid > 0)
 	{
+		blk->pid[blk->rs] = pid;
+		blk->rs++;
+		//ft_restore_fds(blk);
+		//dup2(0, blk->fd_in);
 		//close(blk->fd_in);
 	}
 }
@@ -140,8 +147,11 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 	int		i;
 	int		key;
 
+	blk->rs = 0;
 	key = 0;
 	i = -1;
+	//blk->fd_in = dup(0);
+	blk->pid = ft_calloc(sizeof(int), inp->size);
 	while (++i < inp->size - 1)
 		ft_pipe_routine(blk, inp, i, key);
 	inp->tmp = ft_chase(blk, inp->args[i], -1, 0);
@@ -160,10 +170,11 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 			free(inp->cmd);
 	}
 	i = -1;
-
 	close(blk->fd_in);
+	blk->fd_in = dup(0);
 	while (++i < inp->size)
-		wait(NULL);
+		waitpid(blk->pid[i], NULL, 0);
 	ft_freeing(inp->temp);
+	free(blk->pid);
 	ft_restore_fds(blk);
 }

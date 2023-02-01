@@ -56,6 +56,7 @@ typedef struct s_shell
 	int			stdout_backup;
 	char		*tmp;
 	char		*aux;
+	int			*pid;
 }				t_shell;
 //STRUCT DE INPUT
 typedef struct s_input

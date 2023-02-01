@@ -55,9 +55,9 @@ LIBA = "libft/libft.a"
 LREADLINE = -lreadline
 
 
-RIBA = -I /Users/jeluiz4/.brew/Cellar/readline/8.2.1/include
+RIBA = -I /Users/dvargas/.brew/Cellar/readline/8.2.1/include
 
-HIBA = -L /Users/jeluiz4/.brew/Cellar/readline/8.2.1/lib
+HIBA = -L /Users/dvargas/.brew/Cellar/readline/8.2.1/lib
 
 CC = cc
 
