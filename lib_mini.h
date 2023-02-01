@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/30 10:05:12 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/01/31 22:23:08 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define SHIFT_DR  'C'
 # define SHIFT_DL  'D'
 
-extern long long int		g_return;
+extern long int		g_return;
 
 //STRUCT CORE DO MINISHELL
 typedef struct s_shell

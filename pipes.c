@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/31 22:06:31 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/01 00:15:54 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 	if (pid > 0)
 	{
 		close(pipes[1]);
+		close(blk->fd_in);
 		blk->fd_in = pipes[0];
-		wait((int *)g_return);
 	}
 }
 
@@ -76,7 +76,8 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
-			exit(0);
+			g_return = 50;
+			exit(50);
 		}
 		else
 		{
@@ -85,7 +86,9 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 		}
 	}
 	if (pid > 0)
-		wait((int *)g_return);
+	{
+		close(blk->fd_in);
+	}
 }
 
 void	ft_process_error(t_shell *blk)
@@ -129,7 +132,6 @@ void	ft_pipe_routine(t_shell *blk, t_input *inp, int i, int key)
 	}
 	if (key == 42)
 		free(inp->cmd);
-	//wait((int *)g_return);
 	ft_freeing(inp->temp);
 }
 
@@ -157,6 +159,9 @@ void	ft_pipe_handle(t_shell *blk, t_input *inp)
 		if (key == 42)
 			free(inp->cmd);
 	}
+	i = -1;
+	while (++i < inp->size)
+		wait(NULL);
 	ft_freeing(inp->temp);
 	ft_restore_fds(blk);
 }
