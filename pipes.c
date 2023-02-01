@@ -29,10 +29,7 @@ void	ft_process_do(t_shell *blk, t_input *inp, int i)
 		exit(0);
 	}
 	else
-	{
 		execve(inp->cmd, inp->temp, blk->envp);
-		exit(182);
-	}
 }
 
 void	ft_process(t_shell *blk, t_input *inp, int i)
@@ -78,8 +75,7 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 		if (ft_is_builtin(blk, inp->temp))
 		{
 			built_run(inp, blk, inp->temp);
-			g_return = 50;
-			exit(50);
+			exit(0);
 		}
 		else
 			execve(inp->cmd, inp->temp, blk->envp);

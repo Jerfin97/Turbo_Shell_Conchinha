@@ -42,7 +42,7 @@ void	ft_exit(t_input *inp, t_shell *blk, char **args)
 		{
 			free (pop);
 			printf("Conchinha: exit: %s: requer argumento numerico\n", args[1]);
-			exit(2);
+			exit(255);
 		}
 		g_return = pop[0];
 		free(pop);

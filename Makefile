@@ -42,7 +42,6 @@ SRCS =	main.c \
 
 FLAGS = -Wall -Wextra -Werror -g
 
-#Criei Essa Flags_Sa pra quando precisar usar o sanitize mudar so botando um _SA
 FLAGS_SA = -Wall -Wextra -Werror -g -fsanitize=address
 
 RM = rm -f
@@ -56,9 +55,9 @@ LIBA = "libft/libft.a"
 LREADLINE = -lreadline
 
 
-RIBA = -I /Users/jeluiz4/.brew/Cellar/readline/8.2.1/include
+RIBA = -I /Users/dvargas/.brew/Cellar/readline/8.2.1/include
 
-HIBA = -L /Users/jeluiz4/.brew/Cellar/readline/8.2.1/lib
+HIBA = -L /Users/dvargas/.brew/Cellar/readline/8.2.1/lib
 
 CC = cc
 

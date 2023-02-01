@@ -15,12 +15,20 @@
 void	ft_end_pipes(t_shell *blk, t_input *inp)
 {
 	int		i;
+	int		return_status;
 
+	return_status = 0;
 	i = -1;
 	close(blk->fd_in);
 	blk->fd_in = dup(0);
 	while (++i < inp->size)
-		waitpid(blk->pid[i], NULL, 0);
+	{
+		waitpid(blk->pid[i], &return_status, 0);
+		if (WIFEXITED(return_status))
+			g_return = WEXITSTATUS(return_status);
+		if (WIFSIGNALED(return_status))
+			g_return = 128 + WTERMSIG(return_status);
+	}
 	ft_freeing(inp->temp);
 	free(blk->pid);
 	ft_restore_fds(blk);
