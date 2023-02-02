@@ -6,7 +6,7 @@
 /*   By: dvargas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:21 by dvargas           #+#    #+#             */
-/*   Updated: 2023/02/01 15:27:29 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/02/02 09:54:34 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_process_error(t_shell *blk, t_input *inp)
 		close(pipes[0]);
 		dup2(blk->fd_in, 0);
 		dup2(pipes[1], 1);
-		printf("");
+		printf("%c", '\0');
 		exit(1);
 	}
 	if (pid > 0)
