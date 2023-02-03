@@ -32,12 +32,34 @@ int	ft_infile_open(t_shell *blk, char *str)
 	if (blk->fd_in < 0)
 	{
 		printf("%s : ", str);
-		perror("No such file or directory");
+		printf("No such file or directory\n");
 		return (0);
 	}
 	close(0);
 	dup2(blk->fd_in, 0);
 	return (1);
+}
+
+void	ft_open_func(t_shell *blk, char *aux, int flag)
+{
+	if (flag == 1)
+	{
+		blk->fd_in = open(aux, O_APPEND | O_CREAT | O_WRONLY, 0644);
+		if (blk->fd_in < 0)
+		{
+		printf("%s : ", aux);
+		printf("Permission denied\n");
+		}
+	}
+	else
+	{
+		blk->fd_in = open(aux, O_TRUNC | O_CREAT | O_WRONLY, 0644);
+		if (blk->fd_in < 0)
+		{
+		printf("%s : ", aux);
+		printf("Permission denied\n");
+		}
+	}
 }
 
 int	ft_outfile_open(char **str, int j, int flag, t_shell *blk)
@@ -49,9 +71,17 @@ int	ft_outfile_open(char **str, int j, int flag, t_shell *blk)
 	else
 		aux = ft_split(str[j + 1], ' ');
 	if (flag == 1)
-		blk->fd_in = open(aux[0], O_APPEND | O_CREAT | O_WRONLY, 0644);
+	{
+		ft_open_func(blk, aux[0], flag);
+		ft_freeing(aux);
+		return (0);
+	}
 	else
-		blk->fd_in = open(aux[0], O_TRUNC | O_CREAT | O_WRONLY, 0644);
+	{
+		ft_open_func(blk, aux[0], flag);
+		ft_freeing(aux);
+		return (0);
+	}
 	ft_freeing(aux);
 	dup2(blk->fd_in, 1);
 	return (1);
