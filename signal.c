@@ -60,4 +60,3 @@ void	ft_child_signal(void)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
-

@@ -60,6 +60,31 @@ void	ft_redirect_access(t_shell *blk, t_input *inp, char **redir)
 	inp->args = tmp;
 }
 
+int	ft_outfile_open(char **str, int j, int flag, t_shell *blk)
+{
+	char	**aux;
+
+	if (str[j + 1] == NULL)
+		aux = ft_split(str[j], ' ');
+	else
+		aux = ft_split(str[j + 1], ' ');
+	if (flag == 1)
+	{
+		ft_open_func(blk, aux[0], flag);
+		ft_freeing(aux);
+		return (0);
+	}
+	else
+	{
+		ft_open_func(blk, aux[0], flag);
+		ft_freeing(aux);
+		return (0);
+	}
+	ft_freeing(aux);
+	dup2(blk->fd_in, 1);
+	return (1);
+}
+
 void	ft_simple_redirect(t_shell *blk, t_input *inp, char **split, char *str)
 {
 	char	**tmp;
