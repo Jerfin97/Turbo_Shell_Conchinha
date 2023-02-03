@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:54:05 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/30 10:05:50 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:33:33 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ int	ft_abs_path_pipe(t_input *inp)
 int	ft_access_pipe(t_shell *blk, t_input *inp)
 {
 	inp->cmd = ft_search(blk->envp, "PATH=");
+	if (inp->temp[0] == NULL)
+	{
+		free(inp->cmd);
+		return (0);
+	}
 	if (!access(inp->temp[0], X_OK))
 		return (ft_abs_path_pipe(inp));
 	else if (inp->cmd != NULL)

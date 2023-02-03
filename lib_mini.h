@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/01 15:27:58 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/02/02 12:22:13 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_shell
 	char		*aux;
 	int			*pid;
 	char		*pwd;
+	char		*og;
 }				t_shell;
 //STRUCT DE INPUT
 typedef struct s_input
@@ -94,6 +95,7 @@ int			ft_find_str(char *str, char *sep);
 int			ft_split_count(char *str, char *sep);
 char		**ft_split_in_spaces(char *dirty, int i, int j, int quote);
 char		*ft_space_clean(char *str);
+int			ft_remove_quotes(char *str, t_shell *blk);
 
 //Redirect
 
