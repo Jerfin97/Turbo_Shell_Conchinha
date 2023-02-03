@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/02 18:11:59 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/03 17:02:05 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			ft_redir_path(inp, blk);
 		else if (ft_is_builtin(blk, inp->args))
 			built_run(inp, blk, inp->args);
-		else if (inp->args[0][0] == '\0' && ft_strrchr(blk->aux, '$'))
+		else if (inp->args[0] == NULL && ft_strrchr(blk->aux, '$'))
 			inp->size = 0;
 		else
 			ft_access(blk, inp);

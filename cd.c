@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:40 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/02 10:07:10 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/03 16:52:08 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,5 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 		return ;
 	}
 	else
-	{
-		free(old_path);
 		g_return = 1;
-	}
 }
