@@ -6,13 +6,12 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:50:58 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/29 08:36:13 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:05:16 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 
-// busco a variavel na nossa env e retorno o resultado da busca depois do =
 char	*ft_var_ret(t_shell *blk, char *str)
 {
 	int		i;
@@ -30,7 +29,6 @@ char	*ft_var_ret(t_shell *blk, char *str)
 	return (ret);
 }
 
-// vejo o tamanho da variavel
 int	ft_var_size(char *str)
 {
 	int		size;
@@ -60,7 +58,6 @@ void	ft_set_flag(int *flag, int set, int *update_flag)
 	*update_flag = 1;
 }
 
-// essa funcao da update nas aspas fechando e abrindo duplas e singulares
 int	ft_update_quote(int *flag, char c)
 {
 	int		update_flag;
@@ -83,8 +80,6 @@ int	ft_update_quote(int *flag, char c)
 	return (update_flag);
 }
 
-//parecida com a de cima, retorna algum numero
-//se chegar ao fim da string com alguma aspa aberta.
 int	ft_validate_quotes(char *str)
 {
 	int		i;
@@ -111,4 +106,45 @@ int	ft_validate_quotes(char *str)
 		i++;
 	}
 	return (mirror_flag);
+}
+
+void	uptick_str(int *mirror_flag, int *i, int val)
+{
+	if (*mirror_flag == 0)
+	{
+		*mirror_flag = val;
+		*i = *i + 1;
+	}
+	else if (*mirror_flag == val)
+	{
+		*mirror_flag = 0;
+		*i = *i + 1;
+	}
+}
+
+int	ft_remove_quotes(char *str, t_shell *blk)
+{
+	int		i;
+	int		mirror_flag;
+
+	i = -1;
+	mirror_flag = 0;
+	blk->og = ft_calloc(1, 1);
+	if (ft_validate_quotes(str))
+		return (1);
+	while (str[++i])
+	{
+		if (str[i] == '\'')
+		{
+			uptick_str(&mirror_flag, &i, 1);
+		}
+		if (str[i] == '"')
+		{
+			uptick_str(&mirror_flag, &i, 2);
+		}
+		if (str[i])
+			ft_swapjoinchar(&blk->og, str[i]);
+	}
+	ft_swapjoinchar(&blk->og, '\0');
+	return (0);
 }

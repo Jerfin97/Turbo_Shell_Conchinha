@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/01 11:52:00 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/02 18:11:59 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	built_run(t_input *inp, t_shell *blk, char **args)
 {
+	if (!args[0])
+		return ;
 	if (!ft_strcmp(args[0], "echo"))
 		ft_echo(inp, args);
 	else if (!ft_strcmp(args[0], "cd"))
@@ -32,6 +34,8 @@ void	built_run(t_input *inp, t_shell *blk, char **args)
 
 int	ft_is_builtin(t_shell *blk, char **args)
 {
+	if (!args[0])
+		return (0);
 	if (!ft_strcmp(args[0], "echo"))
 		return (1);
 	else if (!ft_strcmp(args[0], "cd"))
@@ -55,20 +59,20 @@ char	**ft_create_args(t_shell *blk)
 	char	*tmp;
 
 	tmp = NULL;
-	if (ft_validate_quotes(blk->buf))
+	if (ft_remove_quotes(blk->buf, blk))
 		return (perror("CANT FIND CLOSE QUOTES"), NULL);
-	else if (ft_find_str(blk->buf, "|") == -1)
+	else if (ft_find_str(blk->og, "|") == -1)
 		return (perror("Syntax error near unexpected token \"|\" "), NULL);
-	else if (ft_find_str(blk->buf, "|") > 0)
-		return (ret = ft_hand_split(blk->buf, "|"));
-	else if (ft_count_symbols(blk->buf) == -1)
+	else if (ft_find_str(blk->og, "|") > 0)
+		return (ret = ft_hand_split(blk->og, "|"));
+	else if (ft_count_symbols(blk->og) == -1)
 		return (perror("Syntax error near \
 			unexpected token \">\" or \"<\""), NULL);
-	else if (ft_count_symbols(blk->buf) > 0)
-		return (ret = ft_split_in_redirect(blk->buf));
+	else if (ft_count_symbols(blk->og) > 0)
+		return (ret = ft_split_in_redirect(blk->og));
 	else
 	{
-		tmp = ft_space_clean(blk->buf);
+		tmp = ft_space_clean(blk->og);
 		if (tmp == NULL)
 			return (NULL);
 		ret = ft_split_in_spaces(tmp, 0, 0, 0);
@@ -86,9 +90,9 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			return ;
 		blk->aux = ft_strdup(inp->args[0]);
 		ft_size_args(inp, blk);
-		if (ft_find_str(blk->buf, "|") > 0)
+		if (ft_find_str(blk->og, "|") > 0)
 			ft_pipe_handle(blk, inp);
-		else if (ft_count_symbols(blk->buf) > 0)
+		else if (ft_count_symbols(blk->og) > 0)
 			ft_redir_path(inp, blk);
 		else if (ft_is_builtin(blk, inp->args))
 			built_run(inp, blk, inp->args);
@@ -98,6 +102,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			ft_access(blk, inp);
 		ft_freeing(inp->args);
 		free(blk->aux);
+		free(blk->og);
 	}
 	inp->size = 0;
 	ft_exit_d(blk, inp);

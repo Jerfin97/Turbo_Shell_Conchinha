@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:40 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/01/24 14:02:33 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/02 10:07:10 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 		printf("TOO MANY ARGS\n");
 		return ;
 	}
-	old_path = getcwd(NULL, 0);
 	if (change_dir(blk, str) == 0)
 	{
 		old_path = getcwd(NULL, 0);
