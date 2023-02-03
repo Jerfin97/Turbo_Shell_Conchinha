@@ -21,17 +21,20 @@ int	change_dir(t_shell *blk, char *str)
 
 	buffer = ft_search(blk->envp, "HOME=");
 	tmp = buffer + 5;
-	if (!str || !tmp)
+	if (!str)
 	{
-		printf("HOME not defined\n");
-		g_return = 1;
-		return(g_return);
+		if (chdir(tmp) == -1)
+		{
+			printf("HOME not defined\n");
+			g_return = 1;
+			return (g_return);
+		}
 	}
 	else if (chdir(str) == -1)
 	{
 		printf("No Such File or Directory\n");
 		g_return = 1;
-		return(g_return);
+		return (g_return);
 	}
 	free(buffer);
 	return (0);
@@ -39,11 +42,11 @@ int	change_dir(t_shell *blk, char *str)
 
 void	ft_cd_end(t_shell *blk, char *old_path)
 {
-		ft_new_pwd(blk, "PWD=", old_path);
-		ft_export(blk, "OLDPWD=", old_path);
-		free(blk->pwd);
-		blk->pwd = getcwd(NULL, 0);
-		free(old_path);
+	ft_new_pwd(blk, "PWD=", old_path);
+	ft_export(blk, "OLDPWD=", old_path);
+	free(blk->pwd);
+	blk->pwd = getcwd(NULL, 0);
+	free(old_path);
 }
 
 // Aqui a magica acontece, pego o old_path se change dir funcionar com str
@@ -66,7 +69,7 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 	if (change_dir(blk, str) == 0)
 	{
 		old_path = getcwd(NULL, 0);
-		if(!old_path)
+		if (!old_path)
 		{
 			free(old_path);
 			printf("cd: error retrieving current directory: getcwd: cannot");
