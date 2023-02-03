@@ -21,18 +21,17 @@ int	change_dir(t_shell *blk, char *str)
 
 	buffer = ft_search(blk->envp, "HOME=");
 	tmp = buffer + 5;
-	if (!str || str[0] == '\0')
+	if (!str || !tmp)
 	{
-		if (chdir(tmp) == -1)
-		{
-			perror("HOME not defined");
-			g_return = 1;
-		}
+		printf("HOME not defined\n");
+		g_return = 1;
+		return(g_return);
 	}
 	else if (chdir(str) == -1)
 	{
 		printf("No Such File or Directory\n");
 		g_return = 1;
+		return(g_return);
 	}
 	free(buffer);
 	return (0);
@@ -60,7 +59,7 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 	if (size > 2)
 	{
 		g_return = 1;
-		perror("TOO MANY ARGS");
+		printf("TOO MANY ARGS\n");
 		return ;
 	}
 	old_path = getcwd(NULL, 0);
@@ -69,6 +68,7 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 		old_path = getcwd(NULL, 0);
 		if(!old_path)
 		{
+			free(old_path);
 			printf("cd: error retrieving current directory: getcwd: cannot");
 			printf("access parent directories: No such file or directory\n");
 			g_return = 1;
@@ -78,5 +78,8 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 		return ;
 	}
 	else
+	{
+		free(old_path);
 		g_return = 1;
+	}
 }
