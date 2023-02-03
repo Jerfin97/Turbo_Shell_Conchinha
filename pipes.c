@@ -42,6 +42,7 @@ void	ft_process(t_shell *blk, t_input *inp, int i)
 	pid = fork();
 	if (pid == 0)
 	{
+		ft_child_signal();
 		close(pipes[0]);
 		dup2(blk->fd_in, 0);
 		dup2(pipes[1], 1);
@@ -65,6 +66,7 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 	pid = fork();
 	if (pid == 0)
 	{
+		ft_child_signal();
 		dup2(blk->fd_in, 0);
 		if (ft_count_symbols(inp->args[i]) > 0)
 		{

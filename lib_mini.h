@@ -120,6 +120,7 @@ void		ft_heredoc(t_shell *blk, char *hereword);
 void		signal_handler(int signo);
 void		ft_suppress_output(void);
 void		ft_exit_d(t_shell *blk, t_input *inp);
+void		ft_child_signal(void);
 
 //EXECUTE
 int			ft_exec(t_input *inp, t_shell *blk);

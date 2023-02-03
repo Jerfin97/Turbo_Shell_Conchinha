@@ -97,6 +97,7 @@ int	ft_exec(t_input *inp, t_shell *blk)
 	pid = fork();
 	if (pid == 0)
 	{
+		ft_child_signal();
 		execve(inp->cmd, inp->args, blk->envp);
 	}
 	else if ((pid > 0) && (pid != -1))
