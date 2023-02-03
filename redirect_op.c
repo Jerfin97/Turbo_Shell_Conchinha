@@ -12,6 +12,14 @@
 
 #include "lib_mini.h"
 
+void	ft_redir_error(t_shell *blk, char *str)
+{
+	ft_restore_fds(blk);
+	printf("%s : ", str);
+	printf("%s\n", strerror(errno));
+	g_return = 1;
+}
+
 int	ft_heredoc_open(t_shell *blk, char *str)
 {
 	ft_heredoc(blk, str);
@@ -19,7 +27,8 @@ int	ft_heredoc_open(t_shell *blk, char *str)
 	if (blk->fd_in < 0)
 	{
 		printf("%s\n", strerror(errno));
-		return (0);
+		g_return = 1;
+		return (-1);
 	}
 	close(0);
 	dup2(blk->fd_in, 0);
@@ -31,24 +40,23 @@ int	ft_infile_open(t_shell *blk, char *str)
 	blk->fd_in = open(str, O_RDONLY);
 	if (blk->fd_in < 0)
 	{
-		printf("%s : ", str);
-		printf("%s\n", strerror(errno));
-		return (0);
+		ft_redir_error(blk, str);
+		return (-1);
 	}
 	close(0);
 	dup2(blk->fd_in, 0);
 	return (1);
 }
 
-void	ft_open_func(t_shell *blk, char *aux, int flag)
+int	ft_open_func(t_shell *blk, char *aux, int flag)
 {
 	if (flag == 1)
 	{
 		blk->fd_in = open(aux, O_APPEND | O_CREAT | O_WRONLY, 0644);
 		if (blk->fd_in < 0)
 		{
-			printf("%s : ", aux);
-			printf("%s\n", strerror(errno));
+			ft_redir_error(blk, aux);
+			return (-1);
 		}
 	}
 	else
@@ -56,10 +64,11 @@ void	ft_open_func(t_shell *blk, char *aux, int flag)
 		blk->fd_in = open(aux, O_TRUNC | O_CREAT | O_WRONLY, 0644);
 		if (blk->fd_in < 0)
 		{
-			printf("%s : ", aux);
-			printf("%s\n", strerror(errno));
+			ft_redir_error(blk, aux);
+			return (-1);
 		}
 	}
+	return (1);
 }
 
 int	ft_split_inf(t_shell *blk, char **tmp, int j)

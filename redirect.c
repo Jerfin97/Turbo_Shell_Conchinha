@@ -31,7 +31,8 @@ int	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 	int		out;
 
 	i = -1;
-	while (basestring[++i])
+	out = 0;
+	while (basestring[++i] && out >= 0)
 	{
 		if (basestring[i] == SHIFT_R)
 			out = ft_outfile_open(tmp, j, 42, blk);
@@ -63,26 +64,20 @@ void	ft_redirect_access(t_shell *blk, t_input *inp, char **redir)
 int	ft_outfile_open(char **str, int j, int flag, t_shell *blk)
 {
 	char	**aux;
+	int		out;
 
+	out = 1;
 	if (str[j + 1] == NULL)
 		aux = ft_split(str[j], ' ');
 	else
 		aux = ft_split(str[j + 1], ' ');
 	if (flag == 1)
-	{
-		ft_open_func(blk, aux[0], flag);
-		ft_freeing(aux);
-		return (0);
-	}
+		out = ft_open_func(blk, aux[0], flag);
 	else
-	{
-		ft_open_func(blk, aux[0], flag);
-		ft_freeing(aux);
-		return (0);
-	}
+		out = ft_open_func(blk, aux[0], flag);
 	ft_freeing(aux);
 	dup2(blk->fd_in, 1);
-	return (1);
+	return (out);
 }
 
 void	ft_simple_redirect(t_shell *blk, t_input *inp, char **split, char *str)
@@ -95,7 +90,7 @@ void	ft_simple_redirect(t_shell *blk, t_input *inp, char **split, char *str)
 	tmp = ft_compose_cmd(split);
 	flag = ft_redirect_do(blk, split, basestring, 0);
 	ft_freeing(split);
-	if (tmp[0] && flag)
+	if (tmp[0] && flag > 0)
 		ft_redirect_access(blk, inp, tmp);
 	ft_restore_fds(blk);
 	ft_freeing(tmp);

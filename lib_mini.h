@@ -114,7 +114,7 @@ int			ft_outfile_open(char **str, int j, int flag, t_shell *blk);
 int			ft_split_inf(t_shell *blk, char **tmp, int j);
 int			ft_split_hdoc(t_shell *blk, char **tmp, int j);
 char		*ft_redirect_clean(char *str);
-void		ft_open_func(t_shell *blk, char *aux, int flag);
+int			ft_open_func(t_shell *blk, char *aux, int flag);
 
 //Heredoc
 void		ft_heredoc(t_shell *blk, char *hereword);
