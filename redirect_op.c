@@ -18,7 +18,7 @@ int	ft_heredoc_open(t_shell *blk, char *str)
 	blk->fd_in = open(blk->tmpdoc, O_RDONLY);
 	if (blk->fd_in < 0)
 	{
-		perror("Heredoc error");
+		printf("%s\n", strerror(errno));
 		return (0);
 	}
 	close(0);
@@ -32,7 +32,7 @@ int	ft_infile_open(t_shell *blk, char *str)
 	if (blk->fd_in < 0)
 	{
 		printf("%s : ", str);
-		printf("No such file or directory\n");
+		printf("%s\n", strerror(errno));
 		return (0);
 	}
 	close(0);
@@ -48,7 +48,7 @@ void	ft_open_func(t_shell *blk, char *aux, int flag)
 		if (blk->fd_in < 0)
 		{
 		printf("%s : ", aux);
-		printf("Permission denied\n");
+		printf("%s\n", strerror(errno));
 		}
 	}
 	else
@@ -57,7 +57,7 @@ void	ft_open_func(t_shell *blk, char *aux, int flag)
 		if (blk->fd_in < 0)
 		{
 		printf("%s : ", aux);
-		printf("Permission denied\n");
+		printf("%s\n", strerror(errno));
 		}
 	}
 }
