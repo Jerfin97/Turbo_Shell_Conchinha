@@ -18,7 +18,7 @@ int	ft_heredoc_open(t_shell *blk, char *str)
 	blk->fd_in = open(blk->tmpdoc, O_RDONLY);
 	if (blk->fd_in < 0)
 	{
-		perror("Heredoc error");
+		printf("%s\n", strerror(errno));
 		return (0);
 	}
 	close(0);
@@ -32,7 +32,7 @@ int	ft_infile_open(t_shell *blk, char *str)
 	if (blk->fd_in < 0)
 	{
 		printf("%s : ", str);
-		perror("No such file or directory");
+		printf("%s\n", strerror(errno));
 		return (0);
 	}
 	close(0);
@@ -40,21 +40,26 @@ int	ft_infile_open(t_shell *blk, char *str)
 	return (1);
 }
 
-int	ft_outfile_open(char **str, int j, int flag, t_shell *blk)
+void	ft_open_func(t_shell *blk, char *aux, int flag)
 {
-	char	**aux;
-
-	if (str[j + 1] == NULL)
-		aux = ft_split(str[j], ' ');
-	else
-		aux = ft_split(str[j + 1], ' ');
 	if (flag == 1)
-		blk->fd_in = open(aux[0], O_APPEND | O_CREAT | O_WRONLY, 0644);
+	{
+		blk->fd_in = open(aux, O_APPEND | O_CREAT | O_WRONLY, 0644);
+		if (blk->fd_in < 0)
+		{
+			printf("%s : ", aux);
+			printf("%s\n", strerror(errno));
+		}
+	}
 	else
-		blk->fd_in = open(aux[0], O_TRUNC | O_CREAT | O_WRONLY, 0644);
-	ft_freeing(aux);
-	dup2(blk->fd_in, 1);
-	return (1);
+	{
+		blk->fd_in = open(aux, O_TRUNC | O_CREAT | O_WRONLY, 0644);
+		if (blk->fd_in < 0)
+		{
+			printf("%s : ", aux);
+			printf("%s\n", strerror(errno));
+		}
+	}
 }
 
 int	ft_split_inf(t_shell *blk, char **tmp, int j)

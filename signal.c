@@ -54,3 +54,9 @@ void	ft_suppress_output(void)
 	if (tcsetattr(0, 0, &new_settings))
 		perror("minishell: tcsetattr");
 }
+
+void	ft_child_signal(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
