@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/03 22:00:04 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 12:56:33 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ extern long int		g_return;
 typedef struct s_shell
 {
 	char		**cmd;
+	int			doc;
 	int			i;
 	int			fd_in;
 	int			append;
-	char		*heredoc_name;
+	char		**heredoc_list;
 	const char	*infilename;
 	char		*outfile_name;
 	char		*exp;
@@ -113,12 +114,13 @@ int			ft_heredoc_open(t_shell *blk, char *str);
 int			ft_infile_open(t_shell *blk, char *str);
 int			ft_outfile_open(char **str, int j, int flag, t_shell *blk);
 int			ft_split_inf(t_shell *blk, char **tmp, int j);
-int			ft_split_hdoc(t_shell *blk, char **tmp, int j);
+int			ft_split_hdoc(t_shell *blk, char **tmp, int j, int i);
 char		*ft_redirect_clean(char *str);
 int			ft_open_func(t_shell *blk, char *aux, int flag);
 
 //Heredoc
-void		ft_heredoc(t_shell *blk, char *hereword);
+void		ft_heredoc(t_shell *blk, char *hereword, int pos);
+void		ft_create_docs(t_input *inp, t_shell *blk);
 
 // Signal Handler
 void		signal_handler(int signo);

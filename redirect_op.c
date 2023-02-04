@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 08:41:06 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/29 08:42:41 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/02/04 12:01:54 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_redir_error(t_shell *blk, char *str)
 	g_return = 1;
 }
 
+/* ANTIGA FUNCAO DE ABRIR HEREDOC
 int	ft_heredoc_open(t_shell *blk, char *str)
 {
 	ft_heredoc(blk, str);
@@ -34,7 +35,7 @@ int	ft_heredoc_open(t_shell *blk, char *str)
 	dup2(blk->fd_in, 0);
 	return (1);
 }
-
+*/
 int	ft_infile_open(t_shell *blk, char *str)
 {
 	blk->fd_in = open(str, O_RDONLY);
@@ -82,13 +83,15 @@ int	ft_split_inf(t_shell *blk, char **tmp, int j)
 	return (out);
 }
 
-int	ft_split_hdoc(t_shell *blk, char **tmp, int j)
+int	ft_split_hdoc(t_shell *blk, char **tmp, int j, int i)
 {
-	char	**aux;
-	int		out;
+	char		**aux;
+	//int			out;
 
 	aux = ft_split(tmp [j + 1], ' ');
-	out = ft_heredoc_open(blk, aux[0]);
+	ft_heredoc(blk, aux[0], i);
+	//deve sair essa linha
+	//out = ft_infile_open(blk, blk->heredoc_list[i]);
 	ft_freeing(aux);
-	return (out);
+	return (0);
 }

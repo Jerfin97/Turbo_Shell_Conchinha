@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:58:35 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/01 15:26:56 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/02/04 18:26:57 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	ft_pipe_routine(t_shell *blk, t_input *inp, int i, int key)
 	if (key == 42)
 		free(inp->cmd);
 	ft_freeing(inp->temp);
+	blk->doc++;
 }
 
 void	ft_pipe_handle(t_shell *blk, t_input *inp)

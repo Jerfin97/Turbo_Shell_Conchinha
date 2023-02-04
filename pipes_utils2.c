@@ -6,7 +6,7 @@
 /*   By: dvargas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:21 by dvargas           #+#    #+#             */
-/*   Updated: 2023/02/02 13:29:59 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 12:23:34 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	ft_process_error(t_shell *blk, t_input *inp)
 	int		pid;
 	int		pipes[2];
 
-	if (((inp->temp[0] == NULL) && (ft_strrchr(blk->aux, '$'))))
+	if ((inp->temp[0][0] == '\0' && !ft_strrchr(blk->aux, '$'))
+		|| inp->temp[0][0])
 		printf("Command not found %s\n", inp->temp[0]);
 	if (pipe(pipes) == -1)
 		perror("PIPE CREATION ERROR");
