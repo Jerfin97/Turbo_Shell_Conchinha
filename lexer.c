@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/04 12:56:31 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 18:27:21 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			blk->heredoc_list = NULL;
 			blk->doc = 0;
 		}
+		else
+			blk->doc = 0;
 		free(blk->aux);
 		free(blk->og);
 	}
