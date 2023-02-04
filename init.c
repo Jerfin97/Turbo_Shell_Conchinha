@@ -23,7 +23,7 @@ t_shell	*ft_blk_init(void)
 	blk->cmd = NULL;
 	blk->buf = NULL;
 	blk->tmpdoc = ".TEMPFILEHEREDOC";
-	blk->heredoc_name = NULL;
+	blk->heredoc_list = ft_calloc(sizeof(char), 100);
 	blk->rs = 0;
 	blk->infilename = NULL;
 	blk->outfile_name = NULL;

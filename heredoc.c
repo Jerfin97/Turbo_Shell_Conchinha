@@ -11,6 +11,22 @@
 /* ************************************************************************** */
 
 #include "lib_mini.h"
+#include "libft/libft.h"
+
+char	*ft_heredoc_name_generator(void)
+{
+	static int	i;
+	char		*name;
+	char		*number;
+
+	number = ft_itoa(i);
+	if (!number)
+		return (NULL);
+	name = ft_strjoin("here_doc_name", number);
+	free(number);
+	i++;
+	return (name);
+}
 
 char	*ft_here_routine(char *hereword, char *aux)
 {
@@ -38,14 +54,30 @@ char	*ft_here_routine(char *hereword, char *aux)
 	return (free(buffer), aux);
 }
 
+void	ft_heredoc_list_add(t_shell *blk, char *heredoc_name)
+{
+	static int		i;
+
+	blk->heredoc_list[i] = ft_strdup(heredoc_name);
+	i++;
+}
+
 void	ft_heredoc(t_shell *blk, char *hereword)
 {
 	int		fd;
 	char	*buffer;
 	char	*tmp;
 	char	*aux;
+	char	*heredoc_name;
 
-	fd = open(blk->tmpdoc, O_TRUNC | O_CREAT | O_WRONLY, 0644);
+	heredoc_name = ft_heredoc_name_generator();
+	fd = open(heredoc_name, O_TRUNC | O_CREAT | O_WRONLY, 0644);
+	if (fd < 0)
+	{
+		printf("%s\n", strerror(errno));
+		g_return = 1;
+	}
+	ft_heredoc_list_add(blk, heredoc_name);
 	g_return = -42;
 	aux = NULL;
 	tmp = ft_here_routine(hereword, aux);

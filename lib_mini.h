@@ -45,7 +45,7 @@ typedef struct s_shell
 	int			i;
 	int			fd_in;
 	int			append;
-	char		*heredoc_name;
+	char		**heredoc_list;
 	const char	*infilename;
 	char		*outfile_name;
 	char		*exp;
@@ -113,7 +113,7 @@ int			ft_heredoc_open(t_shell *blk, char *str);
 int			ft_infile_open(t_shell *blk, char *str);
 int			ft_outfile_open(char **str, int j, int flag, t_shell *blk);
 int			ft_split_inf(t_shell *blk, char **tmp, int j);
-int			ft_split_hdoc(t_shell *blk, char **tmp, int j);
+int			ft_split_hdoc(t_shell *blk, char **tmp, int j, int i);
 char		*ft_redirect_clean(char *str);
 int			ft_open_func(t_shell *blk, char *aux, int flag);
 

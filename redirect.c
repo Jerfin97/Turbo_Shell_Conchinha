@@ -13,14 +13,14 @@
 #include "lib_mini.h"
 #include "libft/libft.h"
 
-int	ft_state(t_shell *blk, char **tmp, int j)
+int	ft_state(t_shell *blk, char **tmp, int j, int i)
 {
 	int	out;
 	int	fd_out;
 
 	fd_out = dup(1);
 	ft_restore_fds(blk);
-	out = ft_split_hdoc(blk, tmp, j);
+	out = ft_split_hdoc(blk, tmp, j, i);
 	dup2(fd_out, 1);
 	return (out);
 }
@@ -41,7 +41,7 @@ int	ft_redirect_do(t_shell *blk, char **tmp, char *basestring, int j)
 		else if (basestring[i] == SHIFT_DR)
 			out = ft_outfile_open(tmp, j, 1, blk);
 		else if (basestring[i] == SHIFT_DL)
-			ft_state(blk, tmp, j);
+			out = ft_state(blk, tmp, j, i);
 		if (!basestring[i + 1])
 			close(blk->fd_in);
 		j++;
