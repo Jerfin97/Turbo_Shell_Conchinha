@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 08:24:41 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/01 15:30:01 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/03 21:28:36 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_exit(t_input *inp, t_shell *blk, char **args)
 		{
 			free (pop);
 			printf("Conchinha: exit: %s: requer argumento numerico\n", args[1]);
-			exit(255);
+			exit(2);
 		}
 		g_return = pop[0];
 		free(pop);

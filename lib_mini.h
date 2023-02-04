@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/02 12:22:13 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/03 22:00:04 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "readline/history.h"
 # include <sys/types.h>
 # include <dirent.h>
+# include <limits.h>
 
 # define SHIFT_R   'A'
 # define SHIFT_L   'B'
@@ -147,7 +148,7 @@ int			ft_find_str(char *str, char *sep);
 void		ft_echo(t_input *inp, char **args);
 
 void		ft_exit(t_input *inp, t_shell *blk, char **args);
-long int	*ft_a_rlylong_int(char *str, int i, long int out);
+long int	*ft_a_rlylong_int(char *str, int i, unsigned long long out);
 
 void		ft_cd(t_shell *blk, char *str, char **args);
 void		ft_pwd(t_shell *blk, char **args);
