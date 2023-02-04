@@ -6,23 +6,22 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:05:37 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/29 11:24:29 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 12:31:05 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 #include "libft/libft.h"
 
-char	*ft_heredoc_name_generator(void)
+char	*ft_heredoc_name_generator(int i)
 {
-	static int	i;
 	char		*name;
 	char		*number;
 
 	number = ft_itoa(i);
 	if (!number)
 		return (NULL);
-	name = ft_strjoin("here_doc_name", number);
+	name = ft_strjoin(".here_doc_name", number);
 	free(number);
 	i++;
 	return (name);
@@ -54,15 +53,15 @@ char	*ft_here_routine(char *hereword, char *aux)
 	return (free(buffer), aux);
 }
 
-void	ft_heredoc_list_add(t_shell *blk, char *heredoc_name)
+void	ft_heredoc_list_add(t_shell *blk, char *heredoc_name, int i)
 {
-	static int		i;
+	//static int		i;
 
 	blk->heredoc_list[i] = ft_strdup(heredoc_name);
 	i++;
 }
 
-void	ft_heredoc(t_shell *blk, char *hereword)
+void	ft_heredoc(t_shell *blk, char *hereword, int pos)
 {
 	int		fd;
 	char	*buffer;
@@ -70,14 +69,14 @@ void	ft_heredoc(t_shell *blk, char *hereword)
 	char	*aux;
 	char	*heredoc_name;
 
-	heredoc_name = ft_heredoc_name_generator();
+	heredoc_name = ft_heredoc_name_generator(pos);
 	fd = open(heredoc_name, O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (fd < 0)
 	{
 		printf("%s\n", strerror(errno));
 		g_return = 1;
 	}
-	ft_heredoc_list_add(blk, heredoc_name);
+	ft_heredoc_list_add(blk, heredoc_name, pos);
 	g_return = -42;
 	aux = NULL;
 	tmp = ft_here_routine(hereword, aux);
@@ -90,5 +89,6 @@ void	ft_heredoc(t_shell *blk, char *hereword)
 	free(tmp);
 	write(fd, buffer, ft_strlen(buffer));
 	free(buffer);
+	free(heredoc_name);
 	close(fd);
 }

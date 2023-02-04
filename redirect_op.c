@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 08:41:06 by dvargas           #+#    #+#             */
-/*   Updated: 2023/01/29 08:42:41 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/02/04 12:01:54 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,13 @@ int	ft_split_inf(t_shell *blk, char **tmp, int j)
 
 int	ft_split_hdoc(t_shell *blk, char **tmp, int j, int i)
 {
-	char	**aux;
-	int		out;
+	char		**aux;
+	//int			out;
 
 	aux = ft_split(tmp [j + 1], ' ');
-	ft_heredoc(blk, aux[0]);
-	out = ft_infile_open(blk, blk->heredoc_list[i]);
+	ft_heredoc(blk, aux[0], i);
+	//deve sair essa linha
+	//out = ft_infile_open(blk, blk->heredoc_list[i]);
 	ft_freeing(aux);
-	return (out);
+	return (0);
 }

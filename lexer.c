@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/03 18:52:04 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 12:56:31 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ char	**ft_create_args(t_shell *blk)
 	tmp = NULL;
 	if (ft_remove_quotes(blk->buf, blk))
 		return (perror("CANT FIND CLOSE QUOTES"), NULL);
+	else if (ft_count_symbols(blk->buf) == -1)
+		return (perror("Syntax error near \
+			unexpected token \">\" or \"<\""), NULL);
 	else if (ft_find_str(blk->buf, "|") == -1)
 		return (perror("Syntax error near unexpected token \"|\" "), NULL);
 	else if (ft_find_str(blk->buf, "|") > 0)
 		return (ret = ft_hand_split(blk->buf, "|"));
-	else if (ft_count_symbols(blk->buf) == -1)
-		return (perror("Syntax error near \
-			unexpected token \">\" or \"<\""), NULL);
 	else if (ft_count_symbols(blk->buf) > 0)
 		return (ret = ft_split_in_redirect(blk->buf));
 	else
@@ -90,6 +90,8 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			return ;
 		blk->aux = ft_strdup(inp->args[0]);
 		ft_size_args(inp, blk);
+		if (ft_count_symbols(blk->buf) > 0)
+			ft_create_docs(inp, blk);
 		if (ft_find_str(blk->buf, "|") > 0)
 			ft_pipe_handle(blk, inp);
 		else if (ft_count_symbols(blk->buf) > 0)
@@ -101,6 +103,18 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		else
 			ft_access(blk, inp);
 		ft_freeing(inp->args);
+		inp->exit_error = 0;
+		if (blk->heredoc_list != NULL)
+		{
+			while (blk->heredoc_list[inp->exit_error])
+			{
+				unlink(blk->heredoc_list[inp->exit_error]);
+				inp->exit_error++;
+			}
+			ft_freeing(blk->heredoc_list);
+			blk->heredoc_list = NULL;
+			blk->doc = 0;
+		}
 		free(blk->aux);
 		free(blk->og);
 	}
