@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:50:58 by dvargas           #+#    #+#             */
-/*   Updated: 2023/02/04 20:54:02 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/05 10:27:26 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,15 +134,11 @@ char	*ft_remove_quotes(char *str)
 	while (str[i])
 	{
 		if (str[i] == '\'')
-		{
 			uptick_str(&mirror_flag, &i, 1);
-		}
 		if (str[i] == '"')
-		{
 			uptick_str(&mirror_flag, &i, 2);
-		}
 		if (!((str[i] == '"' && mirror_flag == 2)
-			|| (str[i] == '\''  && mirror_flag == 1)) && str[i])
+				|| (str[i] == '\'' && mirror_flag == 1)) && str[i])
 		{
 			ft_swapjoinchar(&tmp, str[i]);
 			i++;

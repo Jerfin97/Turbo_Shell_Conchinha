@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:05:37 by dvargas           #+#    #+#             */
-/*   Updated: 2023/02/04 12:31:05 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/05 10:21:55 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,17 @@ char	*ft_here_routine(char *hereword, char *aux)
 
 void	ft_heredoc_list_add(t_shell *blk, char *heredoc_name, int i)
 {
-	//static int		i;
-
 	blk->heredoc_list[i] = ft_strdup(heredoc_name);
+	g_return = -42;
 	i++;
+}
+
+void	ft_heredoc_end(char *buffer, char *heredoc_name, char *tmp, int fd)
+{
+	free(buffer);
+	free(heredoc_name);
+	free(tmp);
+	close(fd);
 }
 
 void	ft_heredoc(t_shell *blk, char *hereword, int pos)
@@ -77,7 +84,6 @@ void	ft_heredoc(t_shell *blk, char *hereword, int pos)
 		g_return = 1;
 	}
 	ft_heredoc_list_add(blk, heredoc_name, pos);
-	g_return = -42;
 	aux = NULL;
 	tmp = ft_here_routine(hereword, aux);
 	if (tmp == NULL && g_return == 130)
@@ -86,9 +92,6 @@ void	ft_heredoc(t_shell *blk, char *hereword, int pos)
 		return ;
 	}
 	buffer = ft_chase(blk, tmp, -1, 0);
-	free(tmp);
 	write(fd, buffer, ft_strlen(buffer));
-	free(buffer);
-	free(heredoc_name);
-	close(fd);
+	ft_heredoc_end(buffer, heredoc_name, tmp, fd);
 }

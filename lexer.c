@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/04 20:50:08 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/05 10:36:17 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,27 @@ char	**ft_create_args(t_shell *blk)
 	}
 }
 
+void	ft_free_lexer(t_input *inp, t_shell *blk)
+{
+	ft_freeing(inp->args);
+	inp->exit_error = 0;
+	if (blk->heredoc_list != NULL)
+	{
+		while (blk->heredoc_list[inp->exit_error])
+		{
+			unlink(blk->heredoc_list[inp->exit_error]);
+			inp->exit_error++;
+		}
+		ft_freeing(blk->heredoc_list);
+		blk->heredoc_list = NULL;
+		blk->doc = 0;
+	}
+	else
+		blk->doc = 0;
+	free(blk->aux);
+	free(blk->og);
+}
+
 void	ft_lexer(t_shell *blk, t_input *inp)
 {
 	if (blk->buf && *blk->buf)
@@ -89,7 +110,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		if (inp->args == NULL)
 			return ;
 		blk->aux = ft_strdup(inp->args[0]);
-		ft_size_args(inp, blk);
+		ft_size_args(inp, blk, 0, 0);
 		if (ft_count_symbols(blk->buf) > 0)
 			ft_create_docs(inp, blk);
 		if (ft_find_str(blk->buf, "|") > 0)
@@ -102,23 +123,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 			inp->size = 0;
 		else
 			ft_access(blk, inp);
-		ft_freeing(inp->args);
-		inp->exit_error = 0;
-		if (blk->heredoc_list != NULL)
-		{
-			while (blk->heredoc_list[inp->exit_error])
-			{
-				unlink(blk->heredoc_list[inp->exit_error]);
-				inp->exit_error++;
-			}
-			ft_freeing(blk->heredoc_list);
-			blk->heredoc_list = NULL;
-			blk->doc = 0;
-		}
-		else
-			blk->doc = 0;
-		free(blk->aux);
-		free(blk->og);
+		ft_free_lexer(inp, blk);
 	}
 	inp->size = 0;
 	ft_exit_d(blk, inp);

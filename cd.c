@@ -6,14 +6,12 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:40 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/03 16:52:08 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/05 10:15:24 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_mini.h"
 
-//Se str for nula, joga para Home
-//se o caminho de str for invalido, retorn deu ruim.
 int	change_dir(t_shell *blk, char *str)
 {
 	char	*buffer;
@@ -49,8 +47,13 @@ void	ft_cd_end(t_shell *blk, char *old_path)
 	free(old_path);
 }
 
-// Aqui a magica acontece, pego o old_path se change dir funcionar com str
-// atualizamos os paths nas variaveis de ambiente.
+void	ft_cd_error(void)
+{
+	printf("cd: error retrieving current directory: getcwd: cannot");
+	printf("access parent directories: No such file or directory\n");
+	g_return = 1;
+}
+
 void	ft_cd(t_shell *blk, char *str, char **args)
 {
 	char	*old_path;
@@ -71,14 +74,11 @@ void	ft_cd(t_shell *blk, char *str, char **args)
 		if (!old_path)
 		{
 			free(old_path);
-			printf("cd: error retrieving current directory: getcwd: cannot");
-			printf("access parent directories: No such file or directory\n");
-			g_return = 1;
+			ft_cd_error();
 			return ;
 		}
 		ft_cd_end(blk, old_path);
 		return ;
 	}
-	else
-		g_return = 1;
+	g_return = 1;
 }
