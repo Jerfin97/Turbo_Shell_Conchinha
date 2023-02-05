@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/04 12:56:33 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 20:54:15 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			ft_find_str(char *str, char *sep);
 int			ft_split_count(char *str, char *sep);
 char		**ft_split_in_spaces(char *dirty, int i, int j, int quote);
 char		*ft_space_clean(char *str);
-int			ft_remove_quotes(char *str, t_shell *blk);
+char		*ft_remove_quotes(char *str);
 
 //Redirect
 

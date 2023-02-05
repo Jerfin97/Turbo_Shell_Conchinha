@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:50:58 by dvargas           #+#    #+#             */
-/*   Updated: 2023/02/04 20:33:45 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 20:54:02 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,15 @@ void	uptick_str(int *mirror_flag, int *i, int val)
 	}
 }
 
-int	ft_remove_quotes(char *str, t_shell *blk)
+char	*ft_remove_quotes(char *str)
 {
 	int		i;
 	int		mirror_flag;
+	char	*tmp;
 
 	i = 0;
 	mirror_flag = 0;
-	blk->og = ft_calloc(1, 1);
-	if (ft_validate_quotes(str))
-		return (1);
+	tmp = ft_calloc(1, 1);
 	while (str[i])
 	{
 		if (str[i] == '\'')
@@ -145,10 +144,11 @@ int	ft_remove_quotes(char *str, t_shell *blk)
 		if (!((str[i] == '"' && mirror_flag == 2)
 			|| (str[i] == '\''  && mirror_flag == 1)) && str[i])
 		{
-			ft_swapjoinchar(&blk->og, str[i]);
+			ft_swapjoinchar(&tmp, str[i]);
 			i++;
 		}
 	}
-	ft_swapjoinchar(&blk->og, '\0');
-	return (0);
+	ft_swapjoinchar(&tmp, '\0');
+	free(str);
+	return (tmp);
 }

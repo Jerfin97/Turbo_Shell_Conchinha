@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 10:35:33 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/04 18:27:21 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 20:50:08 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**ft_create_args(t_shell *blk)
 	char	*tmp;
 
 	tmp = NULL;
-	if (ft_remove_quotes(blk->buf, blk))
+	if (ft_validate_quotes(blk->buf))
 		return (perror("CANT FIND CLOSE QUOTES"), NULL);
 	else if (ft_count_symbols(blk->buf) == -1)
 		return (perror("Syntax error near \

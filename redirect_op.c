@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 08:41:06 by dvargas           #+#    #+#             */
-/*   Updated: 2023/02/04 20:36:57 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 21:08:01 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,6 @@ void	ft_redir_error(t_shell *blk, char *str)
 	g_return = 1;
 }
 
-/* ANTIGA FUNCAO DE ABRIR HEREDOC
-int	ft_heredoc_open(t_shell *blk, char *str)
-{
-	ft_heredoc(blk, str);
-	blk->fd_in = open(blk->tmpdoc, O_RDONLY);
-	if (blk->fd_in < 0)
-	{
-		printf("%s\n", strerror(errno));
-		g_return = 1;
-		return (-1);
-	}
-	close(0);
-	dup2(blk->fd_in, 0);
-	return (1);
-}
-*/
 int	ft_infile_open(t_shell *blk, char *str)
 {
 	blk->fd_in = open(str, O_RDONLY);
@@ -86,15 +70,17 @@ int	ft_split_inf(t_shell *blk, char **tmp, int j)
 int	ft_split_hdoc(t_shell *blk, char **tmp, int j, int i)
 {
 	char		**aux;
-	//int			out;
+	char		*temp;
 
-	aux = ft_split(tmp [j + 1], ' ');
+	temp = ft_space_clean(tmp[j + 1]);
+	aux = ft_split_in_spaces(temp, 0, 0, 0);
+	if (aux[0] != NULL)
+		aux[0] = ft_remove_quotes(aux[0]);
+	free(temp);
 	if (aux[0] == NULL)
 		ft_heredoc(blk, "\0", i);
 	else
 		ft_heredoc(blk, aux[0], i);
-	//deve sair essa linha
-	//out = ft_infile_open(blk, blk->heredoc_list[i]);
 	ft_freeing(aux);
 	return (0);
 }

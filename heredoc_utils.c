@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 10:43:48 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/04 20:14:06 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/04 21:00:12 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ void	ft_create_docs(t_input *inp, t_shell *blk)
 	qtd = 0;
 	inp->exit_error = 0;
 	blk->heredoc_list = ft_calloc(sizeof(char *), 256);
-	redir = ft_split_in_redirect(blk->og);
+	redir = ft_split_in_redirect(blk->buf);
+	//while (redir[i])
+	//{
+//		redir[i] = ft_remove_quotes(redir[i]);
+//		i++;
+//	}
+	i = 0;
 	basestr = ft_red_stk(blk->buf);
 	while (basestr[i])
 	{
