@@ -25,8 +25,8 @@ void	ft_build_exec(t_shell *blk, t_input *inp)
 		inp->cmd = ft_strjoin(inp->paths[i], inp->tmp);
 		if (!access(inp->cmd, X_OK))
 		{
-			ft_exec(inp, blk);
-			g_return = 0;
+			g_return = ft_exec(inp, blk);
+			blk->ctrl = 0;
 			free(inp->cmd);
 			free(inp->tmp);
 			ft_freeing(inp->paths);
@@ -34,7 +34,7 @@ void	ft_build_exec(t_shell *blk, t_input *inp)
 		}
 		i++;
 	}
-	g_return = 1;
+	blk->ctrl = 1;
 	free(inp->tmp);
 	ft_freeing(inp->paths);
 }
@@ -79,10 +79,10 @@ void	ft_access(t_shell *blk, t_input *inp)
 		&& (inp->args[0][0] != '\0') && (inp->args[0][0] != ' '))
 	{
 		ft_build_exec(blk, inp);
-		if (g_return == 0)
+		if (blk->ctrl == 0)
 			return ;
 	}
-	if (g_return == 1 || (inp->args[0][0] != '\0') || (inp->args[0][0] != ' '))
+	if (blk->ctrl == 1 || (inp->args[0][0] != '\0') || (inp->args[0][0] != ' '))
 	{
 		free(inp->cmd);
 		perror("PATH NOT FOUND");
@@ -93,6 +93,7 @@ void	ft_access(t_shell *blk, t_input *inp)
 int	ft_exec(t_input *inp, t_shell *blk)
 {
 	int	pid;
+	int	return_status;
 
 	pid = fork();
 	if (pid == 0)
@@ -102,7 +103,11 @@ int	ft_exec(t_input *inp, t_shell *blk)
 	}
 	else if ((pid > 0) && (pid != -1))
 	{
-		waitpid(0, NULL, 0);
+		waitpid(0, &return_status, 0);
+		if (WIFEXITED(return_status))
+			g_return = WEXITSTATUS(return_status);
+		if (WIFSIGNALED(return_status))
+			g_return = 128 + WTERMSIG(return_status);
 		return (g_return);
 	}
 	perror("fork crash");

@@ -51,7 +51,7 @@ void	ft_process_error(t_shell *blk, t_input *inp)
 		dup2(blk->fd_in, 0);
 		dup2(pipes[1], 1);
 		printf("%s", "");
-		exit(1);
+		exit(127);
 	}
 	if (pid > 0)
 	{

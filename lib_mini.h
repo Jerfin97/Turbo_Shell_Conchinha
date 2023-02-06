@@ -51,6 +51,7 @@ typedef struct s_shell
 	char		*outfile_name;
 	char		*exp;
 	int			rs;
+	int			ctrl;
 	char		*buf;
 	char		**envp;
 	char		*tmpdoc;
