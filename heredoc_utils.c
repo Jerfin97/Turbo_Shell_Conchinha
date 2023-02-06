@@ -36,6 +36,7 @@ void	ft_create_docs(t_input *inp, t_shell *blk)
 		}
 		i++;
 	}
+	blk->qtd = qtd;
 	ft_freeing(redir);
 	free(basestr);
 }

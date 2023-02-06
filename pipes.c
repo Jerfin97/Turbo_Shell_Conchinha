@@ -66,6 +66,7 @@ void	ft_process_end(t_shell *blk, t_input *inp, int i)
 	pid = fork();
 	if (pid == 0)
 	{
+		blk->doc = blk->qtd - 1;
 		ft_child_signal();
 		dup2(blk->fd_in, 0);
 		if (ft_count_symbols(inp->args[i]) > 0)

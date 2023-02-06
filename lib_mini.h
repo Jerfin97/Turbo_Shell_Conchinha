@@ -52,6 +52,7 @@ typedef struct s_shell
 	char		*exp;
 	int			rs;
 	int			ctrl;
+	int			qtd;
 	char		*buf;
 	char		**envp;
 	char		*tmpdoc;
