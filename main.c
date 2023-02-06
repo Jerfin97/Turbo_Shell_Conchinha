@@ -22,11 +22,19 @@ void	ft_history(char *str)
 
 int	ft_prompt(t_shell *blk, t_input *inp)
 {
+	int		i;
+
 	while (42)
 	{
+		i = 0;
 		blk->buf = readline("\e[1;93mConchinha/> \e[0m");
 		ft_history(blk->buf);
-		ft_lexer(blk, inp);
+		if (!blk->buf)
+			ft_lexer(blk, inp);
+		while (ft_isspace(blk->buf[i]))
+			i++;
+		if (blk->buf[i] != '\0')
+			ft_lexer(blk, inp);
 		free(blk->buf);
 	}
 	rl_clear_history();
