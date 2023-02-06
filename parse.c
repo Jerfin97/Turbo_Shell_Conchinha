@@ -54,7 +54,7 @@ char	**ft_hand_split(char *str, char *sep)
 		if (!ft_strncmp(&str[i], sep, ft_strlen(sep)) && quote == 0)
 		{
 			ret[j] = ft_substr(str, k, i - k);
-			k = ft_i_next_input(&str[i]) + i + 2;
+			k = ft_i_next_input(&str[i]) + i + 1;
 			j++;
 		}
 		i++;
