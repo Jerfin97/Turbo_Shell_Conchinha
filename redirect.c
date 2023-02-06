@@ -95,6 +95,8 @@ void	ft_simple_redirect(t_shell *blk, t_input *inp, char **split, char *str)
 	ft_freeing(split);
 	if (tmp[0] && flag > 0)
 		ft_redirect_access(blk, inp, tmp);
+	close(blk->fd_in);
+	blk->fd_in = dup(0);
 	ft_restore_fds(blk);
 	ft_freeing(tmp);
 	free(basestring);
