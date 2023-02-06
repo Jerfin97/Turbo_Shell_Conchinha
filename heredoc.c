@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:05:37 by dvargas           #+#    #+#             */
-/*   Updated: 2023/02/05 10:21:55 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/06 18:15:21 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,15 @@ char	*ft_here_routine(char *hereword, char *aux)
 	return (free(buffer), aux);
 }
 
-void	ft_heredoc_list_add(t_shell *blk, char *heredoc_name, int i)
+int	ft_heredoc_list_add(t_shell *blk, char *heredoc_name, int i, int fd)
 {
 	blk->heredoc_list[i] = ft_strdup(heredoc_name);
-	g_return = -42;
-	i++;
+	if (g_return == 130)
+	{
+		close(fd);
+		return (0);
+	}
+	return (1);
 }
 
 void	ft_heredoc_end(char *buffer, char *heredoc_name, char *tmp, int fd)
@@ -73,7 +77,6 @@ void	ft_heredoc(t_shell *blk, char *hereword, int pos)
 	int		fd;
 	char	*buffer;
 	char	*tmp;
-	char	*aux;
 	char	*heredoc_name;
 
 	heredoc_name = ft_heredoc_name_generator(pos);
@@ -83,9 +86,9 @@ void	ft_heredoc(t_shell *blk, char *hereword, int pos)
 		printf("%s\n", strerror(errno));
 		g_return = 1;
 	}
-	ft_heredoc_list_add(blk, heredoc_name, pos);
-	aux = NULL;
-	tmp = ft_here_routine(hereword, aux);
+	if (!ft_heredoc_list_add(blk, heredoc_name, pos, fd))
+		return ;
+	tmp = ft_here_routine(hereword, NULL);
 	if (tmp == NULL && g_return == 130)
 	{
 		close(fd);

@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:54:43 by dvargas           #+#    #+#             */
-/*   Updated: 2023/02/04 12:56:09 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/06 18:06:39 by jeluiz4          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_simple_redirect(t_shell *blk, t_input *inp, char **split, char *str)
 	tmp = ft_compose_cmd(split);
 	flag = ft_redirect_do(blk, split, basestring, 0);
 	ft_freeing(split);
-	if (tmp[0] && flag > 0)
+	if ((tmp[0] && flag > 0) && (g_return != 130))
 		ft_redirect_access(blk, inp, tmp);
 	close(blk->fd_in);
 	blk->fd_in = dup(0);
