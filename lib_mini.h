@@ -93,7 +93,7 @@ void		ft_redir_path(t_input *inp, t_shell *blk);
 int			ft_has_input_next(char *str, char *sep);
 char		**ft_hand_split(char *str, char *sep);
 int			ft_i_next_input(char *str);
-int			ft_find_str(char *str, char *sep);
+int			ft_find_str(char *str, char *sep, int i, int p);
 int			ft_split_count(char *str, char *sep);
 char		**ft_split_in_spaces(char *dirty, int i, int j, int quote);
 char		*ft_space_clean(char *str);
@@ -146,7 +146,6 @@ int			ft_switch(t_shell *blk, t_input *inp, int i);
 void		built_run(t_input *inp, t_shell *blk, char **args);
 void		ft_cleanse(t_shell *blk, char **args);
 char		**ft_hand_split(char *str, char *sep);
-int			ft_find_str(char *str, char *sep);
 
 //BUILTINS
 void		ft_echo(t_input *inp, char **args);

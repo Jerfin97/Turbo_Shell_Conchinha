@@ -64,9 +64,9 @@ char	**ft_create_args(t_shell *blk)
 	else if (ft_count_symbols(blk->buf) == -1)
 		return (perror("Syntax error near \
 			unexpected token \">\" or \"<\""), NULL);
-	else if (ft_find_str(blk->buf, "|") == -1)
+	else if (ft_find_str(blk->buf, "|", 0, 0) == -1)
 		return (perror("Syntax error near unexpected token \"|\" "), NULL);
-	else if (ft_find_str(blk->buf, "|") > 0)
+	else if (ft_find_str(blk->buf, "|", 0, 0) > 0)
 		return (ret = ft_hand_split(blk->buf, "|"));
 	else if (ft_count_symbols(blk->buf) > 0)
 		return (ret = ft_split_in_redirect(blk->buf));
@@ -113,7 +113,7 @@ void	ft_lexer(t_shell *blk, t_input *inp)
 		ft_size_args(inp, blk, 0, 0);
 		if (ft_count_symbols(blk->buf) > 0)
 			ft_create_docs(inp, blk);
-		if (ft_find_str(blk->buf, "|") > 0)
+		if (ft_find_str(blk->buf, "|", 0, 0) > 0)
 			ft_pipe_handle(blk, inp);
 		else if (ft_count_symbols(blk->buf) > 0)
 			ft_redir_path(inp, blk);

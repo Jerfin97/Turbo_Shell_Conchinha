@@ -71,13 +71,11 @@ int	ft_has_input_next(char *str, char *sep)
 	return (0);
 }
 
-int	ft_find_str(char *str, char *sep)
+int	ft_find_str(char *str, char *sep, int i, int p)
 {
-	int		i;
 	int		quote;
 	int		ret;
 
-	i = 0;
 	quote = 0;
 	ret = 0;
 	while (str[i])
@@ -85,13 +83,20 @@ int	ft_find_str(char *str, char *sep)
 		ft_update_quote(&quote, str[i]);
 		if (!ft_strncmp(&str[i], sep, ft_strlen(sep)) && quote == 0)
 		{
+			if (p == i || p == i -1)
+				return (-1);
 			if (ft_has_input_next(&str[i + 1], sep) == 1)
 				ret++;
 			if (ft_has_input_next(&str[i + 1], sep) == 0)
 				return (-1);
+			p = i;
 		}
+		if (ft_isspace(str[i]))
+			p++;
 		i++;
-	}
+	}	
+	if (p == i - 1)
+		return (-1);
 	return (ret);
 }
 
