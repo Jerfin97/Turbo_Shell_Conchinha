@@ -64,8 +64,6 @@ void	ft_expand_var(char *end, char **ret)
 	}
 }
 
-// O -1 e importante pq ele faz a len com o = mas imprime sem ele, logo o
-// caractere depois de variavel esta sendo ignorado, com o -1 retornamos correto
 char	*ft_chase(t_shell *blk, char *str, int i, int flag)
 {
 	char	*tmp;

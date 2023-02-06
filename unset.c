@@ -55,12 +55,17 @@ void	ft_unset(t_shell *blk, char **args)
 	char	**new_env;
 	int		i;
 
-	i = 0;
+	i = 1;
 	while (args[i])
 	{
 		new_env = ft_build_unset(blk, ft_strjoin(args[i], "="));
 		ft_freeing(blk->envp);
 		blk->envp = new_env;
+		if (ft_var_isvalid(args[i]))
+		{
+			printf("unset: not an identifier: %s\n", args[i]);
+			g_return = 1;
+		}
 		i++;
 	}
 }

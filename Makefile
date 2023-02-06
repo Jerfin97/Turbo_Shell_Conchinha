@@ -26,6 +26,7 @@ SRCS =	main.c \
 		lexer_utils.c \
 		expand.c \
 		expand_utils.c \
+		expand_utils2.c \
 		pipes.c \
 		pipes_utils.c \
 		pipes_utils2.c \
@@ -42,8 +43,6 @@ SRCS =	main.c \
 		heredoc_utils.c 
 
 FLAGS = -Wall -Wextra -Werror -g
-
-FLAGS_SA = -Wall -Wextra -Werror -g -fsanitize=address
 
 RM = rm -f
 

@@ -12,8 +12,6 @@
 
 #include "lib_mini.h"
 
-//Pega o Path absoluto utilizando como base a Variavel de ambiente PWD
-
 void	ft_pwd(t_shell *blk, char **args)
 {
 	if (args[1] != NULL)

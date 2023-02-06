@@ -13,8 +13,6 @@
 #include "lib_mini.h"
 #include <unistd.h>
 
-//Inicializacao do MINISHELL
-
 t_shell	*ft_blk_init(void)
 {
 	t_shell	*blk;

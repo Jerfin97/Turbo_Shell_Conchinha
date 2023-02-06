@@ -29,6 +29,7 @@ void	ft_sum_up(unsigned long long *out, char *str, int *i)
 	unsigned long long	no;
 
 	index = *i;
+	no = 0;
 	while (ft_isdigit(str[index]))
 	{
 		*out = *out * 10 + str[index] - '0';
@@ -58,7 +59,6 @@ long int	*ft_a_rlylong_int(char *str, int i, unsigned long long out)
 		return (pop);
 	}
 	ft_sum_up(&out, str, &i);
-	out = out;
 	if ((out > 9223372036854775807LLU && sign == 1)
 		|| (out > 9223372036854775808LLU && sign == -1))
 		return (free(pop), NULL);

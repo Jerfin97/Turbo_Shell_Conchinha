@@ -12,8 +12,6 @@
 
 #include "lib_mini.h"
 
-//Tomar cuidado com o isalpha, pode bugar algumas coisas no futuro uma solucao
-//para um possivel problema com variavel seja ignorar o $ como faco com o space
 int	ft_symbol_control(int *i, char *str, char good)
 {
 	if (str[*i + 1] == good)

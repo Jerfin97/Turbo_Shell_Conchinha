@@ -12,7 +12,6 @@
 
 #include "lib_mini.h"
 
-//verifico se a variavel e valida? talvez seja util no export
 int	ft_var_isvalid(char *str)
 {
 	int	i;

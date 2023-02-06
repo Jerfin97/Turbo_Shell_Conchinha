@@ -12,9 +12,6 @@
 
 #include "lib_mini.h"
 
-//essa funcao recebe uma string e splita exatamente nos espacos
-//ela primeiro limpa chamando space clean e depois faz substrings
-//alimentando o char ** de retorno.
 char	**ft_split_in_spaces(char *clean, int i, int j, int quote)
 {
 	int		k;

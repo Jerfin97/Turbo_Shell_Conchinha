@@ -12,11 +12,6 @@
 
 #include "lib_mini.h"
 
-// Forma de lidar com o sinal recebido pela main.
-// SigINT me mostra uma nova linha
-// SigQUIT deve ser ignorado, eu fiz essa logica com sigaction,
-// precisa declarar uma estrutura sigaction para ignorar o sinal.
-
 void	signal_handler(int signo)
 {
 	int	i;
@@ -41,8 +36,6 @@ void	signal_handler(int signo)
 		rl_redisplay();
 	}
 }
-
-//Modifica as configurações do terminal para nao imprimir os comandos do teclado
 
 void	ft_suppress_output(void)
 {

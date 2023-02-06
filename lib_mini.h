@@ -6,7 +6,7 @@
 /*   By: jeluiz4 <jeffluiz97@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:26:18 by jeluiz4           #+#    #+#             */
-/*   Updated: 2023/02/05 10:32:13 by jeluiz4          ###   ########.fr       */
+/*   Updated: 2023/02/06 15:24:34 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int			ft_split_count(char *str, char *sep);
 char		**ft_split_in_spaces(char *dirty, int i, int j, int quote);
 char		*ft_space_clean(char *str);
 char		*ft_remove_quotes(char *str);
+void		uptick_str(int *mirror_flag, int *i, int val);
+char		*ft_remove_quotes(char *str);
 
 //Redirect
 
@@ -164,6 +166,7 @@ char		*ft_search(char **env, char *str);
 int			ft_new_pwd(t_shell *blk, char *str, char *str2);
 int			ft_freeing(char	**matriz);
 char		**ft_build_unset(t_shell *blk, char *str);
+int			ft_valid_name(char *str, int flag);
 
 //VAR EXPAND
 int			ft_var_exist(char **env, char *str);

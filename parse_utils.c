@@ -13,9 +13,6 @@
 #include "lib_mini.h"
 #include "libft/libft.h"
 
-// Essa funcao recebe uma string 'suja' e devolve ela com espacamento correto
-// menos tudo que esta entre quotes. se o ultimo char for espaco ela coloca como
-// \0
 char	*ft_space_clean(char *str)
 {
 	char	*ret;
@@ -74,10 +71,6 @@ int	ft_has_input_next(char *str, char *sep)
 	return (0);
 }
 
-// Retornando a quantidade de limitadores VALIDOS
-// se for 0 nao temos limitadores na string
-// se for -1 tem limitadores errados, formatacao de strin errada
-//
 int	ft_find_str(char *str, char *sep)
 {
 	int		i;

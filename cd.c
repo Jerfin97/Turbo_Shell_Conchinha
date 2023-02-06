@@ -31,6 +31,7 @@ int	change_dir(t_shell *blk, char *str)
 	else if (chdir(str) == -1)
 	{
 		printf("No Such File or Directory\n");
+		free(buffer);
 		g_return = 1;
 		return (g_return);
 	}
